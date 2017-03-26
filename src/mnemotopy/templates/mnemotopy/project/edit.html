@@ -1,0 +1,28 @@
+<form method="post" id="submit-form" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div id="main-information">
+        {{ form.slug }}
+        {{ form.position }}
+        {{ form.country }}
+        {{ form.city }}
+        {{ form.categories }}
+        {{ form.tags }}
+        {{ form.archived }}
+        {{ form.published }}
+    </div>
+
+    <div id="content-en">
+        {{ form.name_en }}
+        {{ form.subtitle_en }}
+        {{ form.description_en }}
+    </div>
+
+    <div id="content-fr">
+        {{ form.name_fr }}
+        {{ form.subtitle_fr }}
+        {{ form.description_fr }}
+    </div>
+
+    <input type="submit" value="Submit" />
+</form>

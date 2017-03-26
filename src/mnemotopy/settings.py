@@ -18,7 +18,7 @@ ugettext = lambda s: s  # dummy ugettext function, as django's docs say
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-PROJECT_PATH = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+PROJECT_PATH = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir, 'mnemotopy'))
 BASE_PATH = os.path.normpath(os.path.join(PROJECT_PATH, os.pardir))
 
 # Quick-start development settings - unsuitable for production
@@ -129,8 +129,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
-
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
@@ -150,3 +148,18 @@ MEDIA_URL = '/media/'
 LOCAL_MEDIA_URL = MEDIA_URL
 
 MEDIA_ROOT = os.path.join(BASE_PATH, MEDIA_URL.strip('/'))
+
+STATIC_ROOT = os.path.join(BASE_PATH, 'static')
+STATIC_URL = '/static/'
+STATIC_SECURE_URL = STATIC_URL
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_PATH, "static"),
+)
+
+LOGIN_URL = '/login/'
