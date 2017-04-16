@@ -46,6 +46,11 @@ class ProjectMediaView(FormView):
     def project(self):
         return get_object_or_404(Project, pk=self.kwargs.get('pk'))
 
+    def get_success_url(self):
+        return reverse('project_edit_media', kwargs={
+            'pk': self.project.pk
+        })
+
     def get_form(self, form_class=None):
         exists = Media.objects.filter(project=self.project).exists()
         extra = 1

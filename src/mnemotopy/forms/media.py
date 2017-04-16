@@ -17,19 +17,18 @@ def get_project_media_formset(project, extra=1):
     class MediaForm(forms.ModelForm):
         title_en = forms.CharField(label=_('Name'),
                                    max_length=255,
-                                   required=True)
+                                   required=False)
         title_fr = forms.CharField(label=_('Name'),
                                    max_length=255,
                                    required=False)
         languages = forms.MultipleChoiceField(choices=settings.LANGUAGES,
                                               widget=forms.CheckboxSelectMultiple(),
                                               required=False)
+        type = forms.ChoiceField(choices=Media.TYPE_CHOICES, widget=forms.RadioSelect())
 
         def __init__(self, *args, **kwargs):
             self.project = project
             super().__init__(*args, **kwargs)
-
-            self.fields['type'].widget = forms.RadioSelect()
 
         def save(self, *args, **kwargs):
             # TODO handle upload vimeo

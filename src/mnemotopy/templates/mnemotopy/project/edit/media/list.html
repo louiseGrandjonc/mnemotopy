@@ -26,6 +26,7 @@
             {% with formset=form %}
                 <div class="formset media-form-multiple item-formset">
                     {{ formset.management_form }}
+                    {{ form.errors }}
                     {% for form in formset %}
                         {% with form=form %}
                             {% include "mnemotopy/project/edit/media/_item.html" %}
@@ -39,6 +40,16 @@
             {% endwith %}
         </form>
     </main>
+    <footer id="backoffice-actions">
+        <ul class="main-actions">
+            <li id="save-button" class="save draft lock">
+                <a href="#" class="action-save-form update">
+                    <i class="icon icon-save"></i><span>{% trans "Save" %}</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+
 {% endblock %}
 
 {% block extend_js %}
@@ -59,6 +70,14 @@
                     var form = $('.formset'),
                         formset = new FormSet(form);
                     formset.remove($(e.target));
+                })
+                .on('click', '.action-save-form', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    form = $('#submit-form');
+                    if (form.length) {
+                        form.submit();
+                    }
                 });
      });
     </script>

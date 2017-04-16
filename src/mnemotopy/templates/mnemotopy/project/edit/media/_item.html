@@ -19,6 +19,34 @@
         </span>
     </header>
     <section class="shutter__content">
+        {% with field=form.title_en %}
+            <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.title_fr %}
+            <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
         {% with field=form.type %}
             <div class="mform__group{% if field.errors %} mform--error{% endif %}">
                 <label class="mform__label">
