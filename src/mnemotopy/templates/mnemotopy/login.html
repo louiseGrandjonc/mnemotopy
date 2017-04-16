@@ -1,0 +1,53 @@
+{% extends "mnemotopy/base.html" %}
+
+{% block title %}
+    Login - Mnemotopy
+{% endblock %}
+
+{% block main %}
+    <main class="login">
+        <div class="mform login__content">
+            {% with errors=form.non_field_errors %}
+                {% if errors %}
+                    <div class="login__flash login__flash--error">{{ errors }}</div>
+                {% endif %}
+            {% endwith %}
+            <div class="login__container">
+                <h1 class="login__title">Log in</h1>
+                <form method="post" id="submit-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% with field=form.username %}
+                        <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                            <label class="mform__label">
+                                {{ field.label }}
+                                {{ field }}
+                            </label>
+                            {% if field.errors %}
+                                <div class="mform__indication mform__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.password %}
+                        <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                            <label class="mform__label">
+                                {{ field.label }}
+                                {{ field }}
+                            </label>
+                            {% if field.errors %}
+                                <div class="mform__indication mform__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    <button type="submit" class="btn btn--block btn--primary" href="#">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
+{% endblock %}

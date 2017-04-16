@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% block meta %}
+        {% endblock %}
+
+        <title>
+            {% block title %}{% endblock %}
+        </title>
+
+        {% block extend_css %}
+        {% endblock %}
+
+        {% block head_js %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block header %}
+        {% endblock %}
+        <main>
+            {% block messages %}
+            {% endblock %}
+
+            {% block main %}
+            {% endblock %}
+        </main>
+
+        {% block extend_js %}
+        {% endblock %}
+
+    </body>
+</html>

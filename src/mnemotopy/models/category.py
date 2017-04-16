@@ -17,3 +17,6 @@ class Category(with_metaclass(LinguistMeta, models.Model)):
             'identifier': 'category',
             'fields': ('name', 'description')
         }
+
+    def __str__(self):
+        return self.slug or ''

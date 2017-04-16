@@ -54,47 +54,29 @@ tag_id integer NOT NULL REFERENCES mnemotopy_tag (id) DEFERRABLE INITIALLY DEFER
 UNIQUE (project_id, tag_id));
 
 
-CREATE TABLE IF NOT EXISTS mnemotopy_project_image (
+CREATE TABLE IF NOT EXISTS mnemotopy_project_media (
 id serial NOT NULL PRIMARY KEY,
+type integer NULL CHECK (position >= 0),
 title varchar(255) NULL,
 created_at timestamp with time zone NOT NULL,
 realized_at timestamp with time zone NULL,
 country varchar(2) NULL,
 position integer NULL CHECK (position >= 0),
 image varchar(100) NULL,
-city_id integer REFERENCES cities_city (id) DEFERRABLE INITIALLY DEFERRED,
-project_id integer REFERENCES mnemotopy_project (id) DEFERRABLE INITIALLY DEFERRED);
-
-CREATE TABLE IF NOT EXISTS mnemotopy_project_audio (
-id serial NOT NULL PRIMARY KEY,
-title varchar(255) NULL,
-created_at timestamp with time zone NOT NULL,
-realized_at timestamp with time zone NULL,
-country varchar(2) NULL,
-position integer NULL CHECK (position >= 0),
-url varchar(200) NULL,
-file varchar(100) NULL,
+video varchar(100) NULL,
+audio varchar(100) NULL,
 languages varchar(255) NULL,
-city_id integer REFERENCES cities_city (id) DEFERRABLE INITIALLY DEFERRED,
-project_id integer REFERENCES mnemotopy_project (id) DEFERRABLE INITIALLY DEFERRED);
-
-CREATE TABLE IF NOT EXISTS mnemotopy_project_video (
-id serial NOT NULL PRIMARY KEY,
-title varchar(255) NULL,
-created_at timestamp with time zone NOT NULL,
-realized_at timestamp with time zone NULL,
-country varchar(2) NULL,
-position integer NULL CHECK (position >= 0),
+thumbnail_file varchar(100) NULL,
 url varchar(200) NULL,
-file varchar(100) NULL,
-languages varchar(255) NULL,
 city_id integer REFERENCES cities_city (id) DEFERRABLE INITIALLY DEFERRED,
 project_id integer REFERENCES mnemotopy_project (id) DEFERRABLE INITIALLY DEFERRED);
 
+
+CREATE INDEX IF NOT EXISTS mnemotopy_project_media_c7141997 ON mnemotopy_project_media (city_id);
+
+CREATE INDEX IF NOT EXISTS mnemotopy_project_media_b098ad43 ON mnemotopy_project_media (project_id);
 
 CREATE INDEX IF NOT EXISTS cities_city_b068931c ON cities_city (name);
-
-CREATE INDEX IF NOT EXISTS mnemotopy_project_image_c7141997 ON mnemotopy_project_image (city_id);
 
 CREATE INDEX IF NOT EXISTS mnemotopy_project_c7141997 ON mnemotopy_project (city_id);
 
@@ -102,20 +84,9 @@ CREATE INDEX IF NOT EXISTS mnemotopy_project_categories_b098ad43 ON mnemotopy_pr
 
 CREATE INDEX IF NOT EXISTS mnemotopy_project_categories_b583a629 ON mnemotopy_project_categories (category_id);
 
- CREATE INDEX IF NOT EXISTS mnemotopy_project_video_c7141997 ON mnemotopy_project_video (city_id);
-
- CREATE INDEX IF NOT EXISTS mnemotopy_project_video_b098ad43 ON mnemotopy_project_video (project_id);
-
  CREATE INDEX IF NOT EXISTS mnemotopy_project_tags_b098ad43 ON mnemotopy_project_tags (project_id);
 
  CREATE INDEX IF NOT EXISTS mnemotopy_project_tags_76f094bc ON mnemotopy_project_tags (tag_id);
-
- CREATE INDEX IF NOT EXISTS mnemotopy_project_image_b098ad43 ON mnemotopy_project_image (project_id);
-
-CREATE INDEX IF NOT EXISTS mnemotopy_project_audio_c7141997 ON mnemotopy_project_audio (city_id);
-
-CREATE INDEX IF NOT EXISTS mnemotopy_project_audio_b098ad43 ON mnemotopy_project_audio (project_id);
-
 CREATE INDEX IF NOT EXISTS mnemotopy_category_2dbcba41 ON mnemotopy_category (slug);
 
 CREATE INDEX IF NOT EXISTS mnemotopy_category_slug_3083a450_like ON mnemotopy_category (slug varchar_pattern_ops);

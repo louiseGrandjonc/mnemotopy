@@ -1,0 +1,66 @@
+{% extends "mnemotopy/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% trans 'Project list' %}
+{% endblock %}
+
+
+{% block main %}
+    {% for project in object_list %}
+        <div class="project__item">
+            <a href="{% url 'project_edit' pk=project.pk %}">{{ project.name }}</a>
+        </div>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <nav id="project-pagination" class="footer-pagination">
+            <ul>
+                {% if page_obj.has_previous %}
+                    <li>
+                        <a href="?page={{ page_obj.previous_page_number }}" title="{% trans "previous page" %}">
+                            <i class="icon icon-chevron-left">&nbsp;</i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span class="a">
+                            <i class="icon icon-chevron-left">&nbsp;</i>
+                        </span>
+                    </li>
+                {% endif %}
+                {% for page in page_obj.pages %}
+                    {% if page %}
+                        {% if page == page_obj.number %}
+                            <li class="active">
+                                <span class="a">{{ page }}</span>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="?page={{ page }}" class="page">{{ page }}</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="disabled">
+                            <span class="a"><i class="icon icon-ellipsis-h"></i></span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li>
+                        <a href="?page=" {{ page_obj.next_page_number }}" title="{% trans "next page" %}">
+                            <i class="icon icon-chevron-right">&nbsp;</i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <span class="a">
+                            <i class="icon icon-chevron-right">&nbsp;</i>
+                        </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

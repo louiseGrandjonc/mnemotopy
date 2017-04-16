@@ -16,3 +16,6 @@ class Tag(with_metaclass(LinguistMeta, models.Model)):
             'identifier': 'tag',
             'fields': ('name',)
         }
+
+    def __str__(self):
+        return self.slug or ''

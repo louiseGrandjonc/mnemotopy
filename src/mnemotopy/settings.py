@@ -163,3 +163,15 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_URL = '/login/'
+
+
+FORBIDDEN_SLUGS = (
+    'login',
+    'logout',
+    'search',
+    'admin',
+    'i18n',
+    'tags',
+    'projects',
+    'categories',
+)

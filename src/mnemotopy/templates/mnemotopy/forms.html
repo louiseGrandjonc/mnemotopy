@@ -1,0 +1,64 @@
+{% macro field(field, select=False, checkbox=False, select_icon=None, radio=False, description=None, subtitle=None, hide_label=False, error_message=None) -%}
+    <div class="kform__group{% if radio %} kform__group--radio{% endif %}{% if field.errors or error_message %} kform--error{% endif %}">
+        {% if description %}
+            <span class="kform__description">{{ description }}</span>
+        {% endif %}
+        {% if radio %}
+            {{ field }}
+        {% elif select %}
+            <label class="kform__label">
+                <span class="kform__dropdown kform__dropdown--block">
+                    {{ field }}
+                    <i class="kform__dropdown-icon fa {% if select_icon %}{{ select_icon }}{% else %}fa-angle-down{% endif %}"></i>
+                </span>
+            </label>
+        {% elif checkbox %}
+            <label class="kform__label">
+                {{ field }}
+                <span class="kform__checkbox-label">{{ field.label }}</span>
+            </label>
+        {% else %}
+            <label class="kform__label">
+                {% if not hide_label %}
+                    {{ field.label }}
+                {% endif %}
+
+                {{ field }}
+            </label>
+        {% endif %}
+
+        {% if field.errors or error_message %}
+            <div class="kform__indication kform__indication--bulls">
+                {% if field.errors %}
+                    {{ field.errors }}
+                {% endif %}
+                {% if error_message %}
+                    <ul class="errorlist">
+                        <li>{{ error_message }}</li>
+                    </ul>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    {% if subtitle %}
+        <span class="small small--block text-right">{{ subtitle }}</span>
+    {% endif %}
+
+    {% if field.help_text %}
+        <p class="shutter__info">
+            {{ field.help_text|safe }}
+        </p>
+    {% endif %}
+{%- endmacro %}
+
+
+{% macro image(field) -%}
+    <div class="kform__group" id="wrapper-{{ field.name }}" {% if field.errors %} data-errors='["{{ field.errors|striptags }}"]'{% endif %}>
+        <span class="kform__description kform__description--br">
+            {{ field.label_tag() }}
+            <span class="small small--block">{{ field.help_text }}</span>
+        </span>
+        {{ field }}
+    </div>
+{%- endmacro %}
