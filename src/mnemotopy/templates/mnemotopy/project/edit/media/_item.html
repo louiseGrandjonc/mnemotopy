@@ -1,0 +1,120 @@
+{% load i18n %}
+
+
+<fieldset class="item {% if form.errors  %} shutter--error {% endif %} shutter--open">
+    {{ form.id }}
+
+    <div style="display:none;">
+        {{ form.DELETE }}
+    </div>
+
+    <header class="shutter__switch">
+        <h2 class="shutter__title">{% trans 'Media added to your project' %}</h2>
+        <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="" data-placement="left" data-original-title="{% trans 'Delete this media' %}">
+            <i class="icon icon-trash-o"></i>
+        </button>
+        <span class="shutter__indicator">
+            <span class="shutter__help">{% trans 'Click to edit' %}</span>
+            <i class="shutter__icon fa fa-street-view"></i>
+        </span>
+    </header>
+    <section class="shutter__content">
+        {% with field=form.type %}
+            <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.position %}
+            <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.languages %}
+            <div class="mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.image %}
+            <div class="image-field mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.video %}
+            <div class="video-field mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.audio %}
+            <div class="audio-field mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+
+        {% with field=form.thumbnail_file %}
+            <div class="thumbnail_file audio-field mform__group{% if field.errors %} mform--error{% endif %}">
+                <label class="mform__label">
+                    {{ field.label }}
+                    {{ field }}
+                </label>
+                {% if field.errors %}
+                    <div class="mform__indication mform__indication--bulls">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endwith %}
+    </section>
+</fieldset>

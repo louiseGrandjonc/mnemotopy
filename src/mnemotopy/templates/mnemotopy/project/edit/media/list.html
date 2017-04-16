@@ -1,0 +1,66 @@
+{% extends "mnemotopy/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% if form.instance.pk %}
+       {% trans 'Update Project' %}
+    {% else %}
+        {% trans 'Create Project' %}
+    {% endif %}
+{% endblock %}
+
+{% block head_js %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static "js/formset.js" %}"></script>
+{% endblock %}
+
+{% block main %}
+    <main class="project">
+        <h1 class="project__title">
+            {% trans 'Edit project slideshow' %}
+        </h1>
+        <form method="post" id="submit-form" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% with formset=form %}
+                <div class="formset media-form-multiple item-formset">
+                    {{ formset.management_form }}
+                    {% for form in formset %}
+                        {% with form=form %}
+                            {% include "mnemotopy/project/edit/media/_item.html" %}
+                        {% endwith %}
+                    {% endfor %}
+                </div>
+                {{ formset.non_form_errors }}
+                <div class="add-media">
+                    <a class="media-add-btn" href="#" ><i class="icon icon-plus"></i>{% trans "Add a media" %}</a>
+                </div>
+            {% endwith %}
+        </form>
+    </main>
+{% endblock %}
+
+{% block extend_js %}
+
+    <script type="text/javascript">
+     $(document).ready(function() {
+         $(document)
+                .on('click', '.media-add-btn', function(e) {
+                    e.preventDefault();
+                    var form = $('.formset');
+                    var formset = new FormSet(form),
+                        count = formset.count(),
+                        currentLast = form.find('.item').last();
+                    var newRow = formset.add();
+                })
+                .on('click', '.media-delete-btn', function(e) {
+                    e.preventDefault();
+                    var form = $('.formset'),
+                        formset = new FormSet(form);
+                    formset.remove($(e.target));
+                });
+     });
+    </script>
+
+{% endblock %}

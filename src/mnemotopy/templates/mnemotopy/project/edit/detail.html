@@ -77,17 +77,6 @@
                         </div>
                     {% endwith %}
 
-                    {% with field=form.city %}
-                        <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                            <label class="mform__label">
-                                <span class="mform__dropdown mform__dropdown--block">
-                                    {{ field }}
-                                    <i class="mform__dropdown-icon fa {% if select_icon %}{{ select_icon }}{% else %}fa-angle-down{% endif %}"></i>
-                                </span>
-                            </label>
-                        </div>
-                    {% endwith %}
-
                     {% with field=form.categories %}
                         <div class="mform__group{% if field.errors %} mform--error{% endif %}">
                             <label class="mform__label">
@@ -272,10 +261,24 @@
                     {% endwith %}
                 </section>
             </fieldset>
-
-            <input type="submit" value="Submit" />
         </form>
     </main>
+    <footer id="backoffice-actions">
+        <ul class="main-actions">
+            <li id="save-button" class="save draft lock">
+                <a href="#" class="action-save-form update">
+                    <i class="icon icon-save"></i><span>{% trans "Save" %}</span>
+                </a>
+            </li>
+            {% if project.pk %}
+                <li id="slideshow-button">
+                    <a href="{% url 'project_edit_media' project.pk %}" data-toggle="tooltip" class="action-slideshow-project" >
+                        <span>{% trans "Update slideshow" %}</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </footer>
 {% endblock %}
 
 {% block extend_js %}
@@ -286,6 +289,15 @@
              altFormat: "yyyy-mm-dd",
              changeMonth: true,
              changeYear: true
+         });
+
+         $('.action-save-form').click(function (e) {
+             e.preventDefault();
+             e.stopPropagation();
+             form = $('#submit-form');
+             if (form.length) {
+                 form.submit();
+             }
          });
      });
     </script>
