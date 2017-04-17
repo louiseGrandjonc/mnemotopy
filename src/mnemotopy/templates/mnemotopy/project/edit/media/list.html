@@ -26,7 +26,7 @@
             {% with formset=form %}
                 <div class="formset media-form-multiple item-formset">
                     {{ formset.management_form }}
-                    {{ form.errors }}
+
                     {% for form in formset %}
                         {% with form=form %}
                             {% include "mnemotopy/project/edit/media/_item.html" %}
@@ -56,6 +56,32 @@
 
     <script type="text/javascript">
      $(document).ready(function() {
+         function toggleFields(input) {
+             var current_form = $(input).parents('.shutter__content');
+             console.log($(input).val());
+             if ($(input).val() == 0) {
+                 current_form.find('.image-field').show();
+                 current_form.find('.video-field').hide();
+                 current_form.find('.audio-field').hide();
+                 current_form.find('.thumbnail-file-field').hide();
+             }
+
+             if ($(input).val() == 1) {
+                 current_form.find('.image-field').hide();
+                 current_form.find('.video-field').show();
+                 current_form.find('.audio-field').hide();
+                 current_form.find('.thumbnail-file-field').show();
+             }
+
+             if ($(input).val() == 2) {
+                 current_form.find('.image-field').hide();
+                 current_form.find('.video-field').hide();
+                 current_form.find('.audio-field').show();
+                 current_form.find('.thumbnail-file-field').show();
+             }
+
+         }
+
          $(document)
                 .on('click', '.media-add-btn', function(e) {
                     e.preventDefault();
@@ -78,7 +104,16 @@
                     if (form.length) {
                         form.submit();
                     }
+                })
+                .on('change', '.radio-type', function(e) {
+                    console.log($(this).val());
+                    toggleFields(this);
                 });
+
+         $('.radio-type:checked').each(function(){
+             toggleFields(this);
+         });
+
      });
     </script>
 

@@ -46,3 +46,11 @@ Home
 
 - Waiting for design
 - Enter in website by categories
+
+
+----------
+Media form
+----------
+
+TODO:
+- On click on add media, bug of type button

@@ -72,18 +72,19 @@ FormSet.prototype.remove = function(btn, callback) {
 
 FormSet.prototype.add = function () {
   var formCount = this.count(),
-      last = this.$form.find('.item:last'),
+       last = this.$form.find('.item:last'),
       row = last.clone(false).get(0),
       _this = this;
 
-  $(row).removeAttr('id').hide().insertAfter(last).slideDown(300);
+    $(row).removeAttr('id').hide().insertAfter(last).slideDown(300);
 
-  $('.errorlist', row).remove();
+    $('.errorlist', row).remove();
 
-
-  $(row).find('input,textarea,select,label,[data-component="tab"],div[id^="tab-content"],.js-contrib-tabs').each(function () {
-    _this.updateElementIndex($(this), formCount);
-    $(this).val('');
+    $(row).find('input,textarea,select,label').each(function () {
+        _this.updateElementIndex($(this), formCount);
+        if (!$(this).hasClass('radio-type')) {
+            $(this).val('');
+        }
   });
 
   $(row).find('.delete').click(function() {

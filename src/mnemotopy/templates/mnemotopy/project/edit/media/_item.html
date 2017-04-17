@@ -132,7 +132,7 @@
         {% endwith %}
 
         {% with field=form.thumbnail_file %}
-            <div class="thumbnail_file audio-field mform__group{% if field.errors %} mform--error{% endif %}">
+            <div class="thumbnail-file-field audio-field mform__group{% if field.errors %} mform--error{% endif %}">
                 <label class="mform__label">
                     {{ field.label }}
                     {{ field }}
@@ -145,4 +145,5 @@
             </div>
         {% endwith %}
     </section>
+
 </fieldset>

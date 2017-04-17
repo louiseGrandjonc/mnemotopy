@@ -20,7 +20,7 @@ from .geo import City
 def get_filename(filename):
     fname, ext = os.path.splitext(filename)
 
-    return unicode('%s.%s%s' % (slugify(truncatechars(fname, 50)), get_random_string(), escape(ext)))
+    return str('%s%s' % (slugify(truncatechars(fname, 50)), escape(ext)))
 
 
 def get_image_path(instance, filename):

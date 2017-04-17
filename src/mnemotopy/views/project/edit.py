@@ -51,13 +51,11 @@ class ProjectMediaView(FormView):
             'pk': self.project.pk
         })
 
-    def get_form(self, form_class=None):
-        exists = Media.objects.filter(project=self.project).exists()
-        extra = 1
-        if exists:
-            extra = 0
-        return get_project_media_formset(self.project,
-                                         extra=extra)(self.request.POST or None,
-                                                      self.request.FILES or None)
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def get_form_class(self):
+        return get_project_media_formset(self.project)
 
 media = login_required(ProjectMediaView.as_view())
