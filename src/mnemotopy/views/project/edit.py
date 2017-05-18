@@ -5,7 +5,7 @@ from django.utils.functional import cached_property
 from django.views.generic import CreateView, UpdateView, ListView, FormView
 
 from mnemotopy.forms import ProjectForm, get_project_media_formset
-from mnemotopy.models import Project, Media
+from mnemotopy.models import Project
 
 
 class ProjectViewMixin(object):
@@ -17,6 +17,12 @@ class ProjectViewMixin(object):
         return reverse('project_edit', kwargs={
             'pk': self.object.pk
         })
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectViewMixin, self).get_context_data(**kwargs)
+        context['is_editing'] = True
+
+        return context
 
 
 class ProjectCreateView(ProjectViewMixin, CreateView):
@@ -50,6 +56,13 @@ class ProjectMediaView(FormView):
         return reverse('project_edit_media', kwargs={
             'pk': self.project.pk
         })
+
+    def get_context_data(self, **kwargs):
+        context = super(ProjectMediaView, self).get_context_data(**kwargs)
+        context['project'] = self.project
+        context['is_editing'] = True
+
+        return context
 
     def form_valid(self, form):
         form.save()

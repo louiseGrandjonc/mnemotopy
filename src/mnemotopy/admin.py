@@ -1,23 +1,23 @@
 from django.contrib import admin
 
-from linguist.admin import TranslatableModelAdmin
+from modeltranslation.admin import TranslationAdmin
 
 from mnemotopy.models import Tag, Category, Project
 
 
-class TagAdmin(TranslatableModelAdmin):
+class TagAdmin(TranslationAdmin):
     list_display = ('slug', 'name_fr', 'name_en')
 
 admin.site.register(Tag, TagAdmin)
 
 
-class CategoryAdmin(TranslatableModelAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ('slug', 'name_fr', 'name_en')
 
 admin.site.register(Category, CategoryAdmin)
 
 
-class ProjectAdmin(TranslatableModelAdmin):
+class ProjectAdmin(TranslationAdmin):
     list_display = ('slug', 'name_fr', 'name_en')
 
 admin.site.register(Project, ProjectAdmin)

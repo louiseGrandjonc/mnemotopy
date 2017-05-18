@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
 
@@ -22,15 +24,70 @@
     </head>
 
     <body>
-        {% block header %}
+
+        {% block symbol %}
+            <svg class="b-icon__defs" width="0" height="0" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs>
+
+                    <symbol id="icon-arrow-left-o" viewbox="0 0 30 30">
+                        <title>Back</title>
+                        <path d="M15,2.6c-6.617,0-12,5.383-12,12s5.383,12,12,12s12-5.383,12-12S21.617,2.6,15,2.6z M15,25.31 c-5.905,0-10.71-4.805-10.71-10.71C4.29,8.693,9.095,3.89,15,3.89S25.71,8.693,25.71,14.6C25.71,20.505,20.905,25.31,15,25.31z"/>
+                        <path d="M21.036,14.35H10.371L13.49,10.9c0.231-0.256,0.211-0.651-0.045-0.883c-0.255-0.23-0.649-0.213-0.883,0.045 l-4.063,4.493c-0.021,0.024-0.03,0.054-0.048,0.08c-0.022,0.035-0.047,0.067-0.062,0.106c-0.016,0.037-0.021,0.076-0.029,0.116 c-0.007,0.039-0.017,0.076-0.017,0.116s0.01,0.077,0.017,0.116c0.008,0.04,0.014,0.079,0.029,0.116 c0.016,0.039,0.04,0.071,0.062,0.106c0.018,0.026,0.026,0.056,0.048,0.08l4.063,4.494c0.124,0.137,0.294,0.206,0.464,0.206 c0.149,0,0.3-0.054,0.419-0.161c0.256-0.231,0.276-0.627,0.045-0.883l-3.12-3.45h10.666c0.345,0,0.625-0.28,0.625-0.625 S21.381,14.35,21.036,14.35z"/>
+                    </symbol>
+                </defs>
+            </svg>
         {% endblock %}
-        <main>
+
+        {% block header %}
+            <header>
+                <nav class="header-nav">
+                    <ul class="nav-list">
+                        {% if return_url %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ return_url }}" data-tooltip="{% trans 'Return to project list' %}">
+                                    <svg class="nav-icon icon icon-arrow-left-o">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-left-o"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        {% endif %}
+
+                        <li>
+
+                            <div class="change-lang-menu">
+                                <form class="language-switcher-form" action="{% url 'user_change_language' %}" method="post" type="hidden" autocomplete="off">
+                                    {% with path_info=request.get_full_path() %}
+                                        <input type="hidden" value="{{ path_info }}" name="redirect_url" />
+                                    {% endwith %}
+                                    <select id="id_lang" name="lang" required>
+                                        {% for code, label in LANGUAGES %}
+                                            <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ label }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" name="submit" value="1" class="js-language-submit" hidden/>
+                                </form>
+                            </div>
+                        </li>
+
+                    </ul>
+                </nav>
+            </header>
+
+        {% endblock %}
+
+        {% block extend_header %}
+        {% endblock %}
+
+        <main {% block main_inner %}{% endblock %}>
             {% block messages %}
             {% endblock %}
 
             {% block main %}
             {% endblock %}
         </main>
+
+        {% block main_footer %}
+        {% endblock %}
 
         {% block extend_js %}
         {% endblock %}

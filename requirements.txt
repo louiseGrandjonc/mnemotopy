@@ -7,5 +7,4 @@ django-separatedvaluesfield==0.4.0
 django-sluggable==0.4.0
 django-extensions==1.7.5
 PyVimeo
-
--e git://github.com/ulule/django-linguist.git@0bab9dd45b62f649180abe5b097dd9e67ec29039#egg=django-linguist
+django-modeltranslation

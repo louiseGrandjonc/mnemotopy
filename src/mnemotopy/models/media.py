@@ -9,8 +9,6 @@ from django.utils.six import with_metaclass
 
 from django_countries.fields import CountryField
 
-from linguist.metaclasses import ModelMeta as LinguistMeta
-
 from separatedvaluesfield.models import SeparatedValuesField
 
 from .project import Project
@@ -41,7 +39,7 @@ def get_audio_path(instance, filename):
     return os.path.join('other', 'audios', get_filename(filename))
 
 
-class Media(with_metaclass(LinguistMeta, models.Model)):
+class Media( models.Model):
     IMAGE = 0
     VIDEO = 1
     AUDIO = 2
@@ -79,7 +77,3 @@ class Media(with_metaclass(LinguistMeta, models.Model)):
     class Meta:
         abstract = False
         db_table = 'mnemotopy_project_media'
-        linguist = {
-            'identifier': 'image',
-            'fields': ('title',)
-        }

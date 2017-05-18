@@ -5,8 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from django_countries.fields import CountryField
 
-from linguist.metaclasses import ModelMeta as LinguistMeta
-
 from sluggable.fields import SluggableField
 
 from .geo import City
@@ -15,7 +13,7 @@ from .tag import Tag
 from .slug import ProjectSlug
 
 
-class Project(with_metaclass(LinguistMeta, models.Model)):
+class Project(models.Model):
     slug = SluggableField(decider=ProjectSlug, null=False)
     name = models.CharField(max_length=255, null=True)
     subtitle = models.CharField(max_length=255, null=True)
@@ -44,7 +42,3 @@ class Project(with_metaclass(LinguistMeta, models.Model)):
 
     class Meta:
         db_table = 'mnemotopy_project'
-        linguist = {
-            'identifier': 'project',
-            'fields': ('name', 'subtitle', 'description')
-        }

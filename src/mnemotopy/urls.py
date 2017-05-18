@@ -3,10 +3,13 @@ from django.contrib import admin
 
 from mnemotopy.views.project import edit
 from mnemotopy.views.login import login
+from mnemotopy.views.user import change_language
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', login),
+    url(r'^language/$', change_language,
+        name='user_change_language'),
     url(r'^edit/projects/$',
         edit.index,
         name='project_edit_list'),

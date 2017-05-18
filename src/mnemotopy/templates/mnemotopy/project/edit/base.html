@@ -1,0 +1,32 @@
+{% extends "mnemotopy/project/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block main_footer %}
+    <footer id="backoffice-actions">
+        <ul class="main-actions">
+            <li id="save-button" class="save draft lock">
+                <a href="#" class="action-save-form update">
+                    <i class="icon icon-save"></i><span>{% trans "Save" %}</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+{% endblock %}
+
+{% block extend_js %}
+    {{ block.super }}
+    <script type="text/javascript">
+     $(document).ready(function() {
+         $('.action-save-form').click(function (e) {
+             e.preventDefault();
+             e.stopPropagation();
+             form = $('#submit-form');
+             if (form.length) {
+                 form.submit();
+             }
+         });
+     });
+    </script>
+
+{% endblock %}

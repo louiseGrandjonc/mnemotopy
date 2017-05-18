@@ -1,4 +1,4 @@
-{% extends "mnemotopy/base.html" %}
+{% extends "mnemotopy/project/edit/base.html" %}
 {% load i18n %}
 {% load static %}
 
@@ -16,43 +16,32 @@
 {% endblock %}
 
 {% block main %}
-    <main class="project">
-        <h1 class="project__title">
-            {% trans 'Edit project slideshow' %}
-        </h1>
-        <form method="post" id="submit-form" enctype="multipart/form-data">
-            {% csrf_token %}
+    <h1 class="project__title">
+        {% trans 'Edit project slideshow' %}
+    </h1>
+    <form method="post" id="submit-form" enctype="multipart/form-data">
+        {% csrf_token %}
 
-            {% with formset=form %}
-                <div class="formset media-form-multiple item-formset">
-                    {{ formset.management_form }}
+        {% with formset=form %}
+            <div class="formset media-form-multiple item-formset">
+                {{ formset.management_form }}
 
-                    {% for form in formset %}
-                        {% with form=form %}
-                            {% include "mnemotopy/project/edit/media/_item.html" %}
-                        {% endwith %}
-                    {% endfor %}
-                </div>
-                {{ formset.non_form_errors }}
-                <div class="add-media">
-                    <a class="media-add-btn" href="#" ><i class="icon icon-plus"></i>{% trans "Add a media" %}</a>
-                </div>
-            {% endwith %}
-        </form>
-    </main>
-    <footer id="backoffice-actions">
-        <ul class="main-actions">
-            <li id="save-button" class="save draft lock">
-                <a href="#" class="action-save-form update">
-                    <i class="icon icon-save"></i><span>{% trans "Save" %}</span>
-                </a>
-            </li>
-        </ul>
-    </footer>
-
+                {% for form in formset %}
+                    {% with form=form %}
+                        {% include "mnemotopy/project/edit/media/_item.html" %}
+                    {% endwith %}
+                {% endfor %}
+            </div>
+            {{ formset.non_form_errors }}
+            <div class="add-media">
+                <a class="media-add-btn" href="#" ><i class="icon icon-plus"></i>{% trans "Add a media" %}</a>
+            </div>
+        {% endwith %}
+    </form>
 {% endblock %}
 
 {% block extend_js %}
+    {{ block.super }}
 
     <script type="text/javascript">
      $(document).ready(function() {
@@ -96,14 +85,6 @@
                     var form = $('.formset'),
                         formset = new FormSet(form);
                     formset.remove($(e.target));
-                })
-                .on('click', '.action-save-form', function (e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    form = $('#submit-form');
-                    if (form.length) {
-                        form.submit();
-                    }
                 })
                 .on('change', '.radio-type', function(e) {
                     console.log($(this).val());

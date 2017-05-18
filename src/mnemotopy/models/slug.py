@@ -16,7 +16,7 @@ class ProjectSlugManager(SlugManager):
             if max_length and len(slug) + 4 > max_length:
                 slug = slug[0:max_length-4]
             slug = '%s-%d' % (slug, random.randint(1, 500))
-            available = self.is_slug_available(slug, obj=instance) and slug not in settings.FORBIDDEN_SLUG
+            available = self.is_slug_available(slug, obj=instance) and slug not in settings.FORBIDDEN_SLUGS
 
         return slug
 
