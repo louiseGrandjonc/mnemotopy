@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
-from django.views.generic import CreateView, UpdateView, ListView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 
 from mnemotopy.forms import ProjectForm, MediaForm
 from mnemotopy.models import Project, Media
@@ -102,3 +102,15 @@ class MediaUpdateView(MediaViewMixin, UpdateView):
 
 
 update_media = login_required(MediaUpdateView.as_view())
+
+
+class MediaDeleteView(MediaViewMixin, DeleteView):
+    model = Media
+    pk_url_kwarg = 'media_pk'
+
+    def get_success_url(self):
+        return reverse('project_edit_media', kwargs={
+            'pk': self.project.pk,
+        })
+
+delete_media = MediaDeleteView.as_view()

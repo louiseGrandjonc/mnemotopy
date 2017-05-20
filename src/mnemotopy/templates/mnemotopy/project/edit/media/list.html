@@ -26,9 +26,14 @@
         <fieldset class="shutter" data-edit="{% url 'project_edit_update_media' pk=project.pk media_pk=media.pk %}">
             <header class="shutter__switch">
                 <h2 class="shutter__title">{{ media.title }}</h2>
-                <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="" data-placement="left" data-original-title="{% trans 'Delete this media' %}">
-                    <i class="icon icon-trash-o"></i>
-                </button>
+
+                <form action="{% url "project_edit_delete_media" pk=project.pk media_pk=media.pk %}" class="shortcuts delete-form" method="post">
+                    {% csrf_token %}
+                    <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="{% trans "Delete this media" %}" data-placement="left">
+                        <i class="icon icon-trash-o"></i>
+                    </button>
+                </form>
+
                 <span class="shutter__indicator">
                     <span class="shutter__help">{% trans 'Click to edit' %}</span>
                     <i class="shutter__icon fa fa-street-view"></i>
@@ -92,10 +97,26 @@
                         mediaDiv.before(data);
                         toggleFields($('.radio-type:checked:last'));
                     });
+               })
+               .on('click', '.media-delete-btn', function(e) {
+                   e.preventDefault();
+                   e.stopPropagation();
+                   var form = $(this).parents('.delete-form:first'),
+                        currentMedia = $(this).parents('.shutter:first');
+
+                    form.ajaxSubmit({
+                        url: form.attr('action'),
+                        type: 'post',
+                        success: function(responseText, statusText, xhr) {
+                            currentMedia.remove();
+                        }.bind(form)
+
+                    });
                 })
                .on('click', '.shutter__switch', function(e) {
                    e.preventDefault();
                    e.stopPropagation();
+                   console.log('shutter');
                    var mediaDiv = $(this).parent();
                    if (!$(this).hasClass('shutter--open')){
                        $.get(mediaDiv.data('edit'), function(data) {
@@ -106,18 +127,16 @@
                        $(this).removeClass('shutter--open');
                    }
                 })
-                .on('click', '.media-delete-btn', function(e) {
-                    e.preventDefault();
-                    console.log('send request delete, delete row');
-                })
                 .on('change', '.radio-type', function(e) {
                     toggleFields(this);
                 })
                 .on('change', 'input:file', function(e) {
                     var form = $(this).parents('.media-form:first');
 
+                    $('#saving').show();
                     if (form.find('.radio-type:checked').val() != 2 || (form.find('input[name=audio]').val() != '' && form.find('input[name=thumbnail_file]').val() != '')) {
-                        submitMedia(form)
+                        submitMedia(form);
+                        $('#saving').hide();
                     }
                 })
                 .on('click', '.action-save-form', function(e) {
@@ -127,7 +146,7 @@
                     var count = $('.media-form').length;
 
                     $('.media-form').each(function(){
-                        submitMedia(this);
+                        submitMedia($(this));
                         if (!--count) {
                             $(document).trigger('submit:done');
                             $('#saving').hide();

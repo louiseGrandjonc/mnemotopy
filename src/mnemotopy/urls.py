@@ -20,6 +20,7 @@ urlpatterns = [
     url(r'^edit/projects/(?P<pk>[\d]+)/$',
         edit.update,
         name='project_edit'),
+
     url(r'^edit/projects/(?P<pk>[\d]+)/media/$',
         edit.media_index,
         name='project_edit_media'),
@@ -29,9 +30,9 @@ urlpatterns = [
     url(r'^edit/projects/(?P<pk>[\d]+)/media/(?P<media_pk>[\d]+)/$',
         edit.update_media,
         name='project_edit_update_media'),
-    # url(r'^edit/projects/(?P<pk>[\d]+)/media/(?P<pk>[\d]+)/delete/$',
-    #     edit.delete_media,
-    #     name='project_edit_delete_media'),
+    url(r'^edit/projects/(?P<pk>[\d]+)/media/(?P<media_pk>[\d]+)/delete/$',
+        edit.delete_media,
+        name='project_edit_delete_media'),
 
     url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
         public.project_detail,

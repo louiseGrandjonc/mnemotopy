@@ -7,11 +7,16 @@
         {% else %}
             <h2 class="shutter__title">{% trans "Add a new media" %}</h2>
         {% endif %}
+
         {% if media.pk %}
-            <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="" data-placement="left" data-original-title="{% trans 'Delete this media' %}">
-                <i class="icon icon-trash-o"></i>
-            </button>
+            <form action="{% url "project_edit_delete_media" pk=project.pk media_pk=media.pk %}" class="shortcuts delete-form" method="post">
+                {% csrf_token %}
+                <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="{% trans "Delete this media" %}" data-placement="left">
+                    <i class="icon icon-trash-o"></i>
+                </button>
+            </form>
         {% endif %}
+
         <span class="shutter__indicator">
             <span class="shutter__help">{% trans 'Click to edit' %}</span>
             <i class="shutter__icon fa fa-street-view"></i>
