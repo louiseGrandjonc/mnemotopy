@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -19,6 +20,8 @@
         {% block extend_css %}
         {% endblock %}
 
+        <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/base.js' %}"></script>
         {% block head_js %}
         {% endblock %}
     </head>
@@ -55,16 +58,15 @@
                         <li>
 
                             <div class="change-lang-menu">
-                                <form class="language-switcher-form" action="{% url 'user_change_language' %}" method="post" type="hidden" autocomplete="off">
-                                    {% with path_info=request.get_full_path() %}
+                                <form class="language-switcher-form" action="{% url 'user_change_language' %}" method="post">
+                                    {% with path_info=request.get_full_path %}
                                         <input type="hidden" value="{{ path_info }}" name="redirect_url" />
                                     {% endwith %}
-                                    <select id="id_lang" name="lang" required>
+                                    <select id="id_mp_lang" name="mp_lang" required>
                                         {% for code, label in LANGUAGES %}
                                             <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ label }}</option>
                                         {% endfor %}
                                     </select>
-                                    <input type="submit" name="submit" value="1" class="js-language-submit" hidden/>
                                 </form>
                             </div>
                         </li>

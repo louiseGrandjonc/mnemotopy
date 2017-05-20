@@ -4,33 +4,33 @@
 
 {% block extend_header %}
 
-    {% if user.is_staff and project.pk %}
-        <div class="b-bo__menu">
-            <nav class="b-nav b-nav--sub">
-                <ul class="b-nav__list">
+    {% if request.user and request.user.is_staff and project.pk %}
+        <div class="edit-menu">
+            <nav class="edit-nav">
+                <ul class="edit-nav__list">
                     {% if is_editing %}
-                        <li class="b-nav__item b-nav__item--icon">
-                            <a class="b-nav__link b-tooltip b-tooltip--bottom" href="" data-tooltip="{% trans 'Back to your project page' %}">
-                                <svg class="b-nav__icon b-icon b-icon--arrow-left-o">
+                        <li class="edit-nav__item edit-nav__item--icon">
+                            <a class="edit-nav__link" href="" data-tooltip="{% trans 'Back to your project page' %}">
+                                <svg class="edit-nav__icon icon-arrow-left-o">
                                     <use xlink:href="#icon-arrow-left-o"/>
                                 </svg>
                             </a>
                         </li>
                     {% endif %}
-                    <li class="b-nav__item ">
-                        <a class="b-nav__link" href="{% url 'project_edit' pk=project.pk %}">
-                            <span class="b-nav__label">{%  trans "Edit this project" %}</span>
+                    <li class="edit-nav__item ">
+                        <a class="edit-nav__link" href="{% url 'project_edit' pk=project.pk %}">
+                            <span class="edit-nav__label">{%  trans "Edit this project" %}</span>
                         </a>
                     </li>
 
-                    <li class="b-nav__item ">
-                        <a class="b-nav__link" href="{% url 'project_edit_media' pk=project.pk %}">
-                            <span class="b-nav__label">{%  trans "Edit slideshow" %}</span>
+                    <li class="edit-nav__item ">
+                        <a class="edit-nav__link" href="{% url 'project_edit_media' pk=project.pk %}">
+                            <span class="edit-nav__label">{%  trans "Edit slideshow" %}</span>
                         </a>
                     </li>
 
-                    <li class="b-nav__item b-nav__item--icon">
-                        <a class="b-nav__link b-tooltip b-tooltip--bottom b-tooltip--right" href="{% url 'admin:mnemotopy_project_change' project.id %}" data-tooltip="{% trans 'Admin' %}">
+                    <li class="edit-nav__item edit-nav__item--icon">
+                        <a class="edit-nav__link b-tooltip b-tooltip--bottom b-tooltip--right" href="{% url 'admin:mnemotopy_project_change' project.id %}" data-tooltip="{% trans 'Admin' %}">
                             <span style="font-size:2em"></span>
                         </a>
                     </li>

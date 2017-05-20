@@ -11,7 +11,6 @@
 {% endblock %}
 
 {% block head_js %}
-    <script src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static "js/formset.js" %}"></script>
 {% endblock %}
 
@@ -47,7 +46,6 @@
      $(document).ready(function() {
          function toggleFields(input) {
              var current_form = $(input).parents('.shutter__content');
-             console.log($(input).val());
              if ($(input).val() == 0) {
                  current_form.find('.image-field').show();
                  current_form.find('.video-field').hide();
@@ -87,7 +85,6 @@
                     formset.remove($(e.target));
                 })
                 .on('change', '.radio-type', function(e) {
-                    console.log($(this).val());
                     toggleFields(this);
                 });
 

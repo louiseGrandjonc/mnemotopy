@@ -72,10 +72,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'mnemotopy.wsgi.application'
 
@@ -166,3 +168,4 @@ MODELTRANSLATION_TRANSLATION_FILES = (
 )
 
 LANGUAGE_COOKIE_NAME = 'mp_lang'
+

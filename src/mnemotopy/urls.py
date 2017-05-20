@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 
-from mnemotopy.views.project import edit
+from mnemotopy.views.project import edit, public
 from mnemotopy.views.login import login
 from mnemotopy.views.user import change_language
 
@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^login/$', login),
     url(r'^language/$', change_language,
         name='user_change_language'),
+
     url(r'^edit/projects/$',
         edit.index,
         name='project_edit_list'),
@@ -23,6 +24,7 @@ urlpatterns = [
         edit.media,
         name='project_edit_media'),
 
-    # url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
-    #     name='project_detail'),
+    url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
+        public.project_detail,
+        name='project_detail'),
 ]

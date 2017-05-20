@@ -31,7 +31,8 @@ class Project(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = ProjectSlug.objects.unique_slugify(self.name, max_length=50)
+            self.slug = ProjectSlug.objects.unique_slugify(self.name_en,
+                                                           max_length=50)
         return super().save(*args, **kwargs)
 
     def get_media_path(self):
