@@ -2,10 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
-from django.views.generic import CreateView, UpdateView, ListView, FormView
+from django.views.generic import CreateView, UpdateView, ListView
 
-from mnemotopy.forms import ProjectForm, get_project_media_formset
-from mnemotopy.models import Project
+from mnemotopy.forms import ProjectForm, MediaForm
+from mnemotopy.models import Project, Media
 
 
 class ProjectViewMixin(object):
@@ -45,30 +45,60 @@ class ProjectIndexView(ListView):
 index = login_required(ProjectIndexView.as_view())
 
 
-class ProjectMediaView(FormView):
-    template_name = 'mnemotopy/project/edit/media/list.html'
-
+class MediaViewMixin(object):
     @cached_property
     def project(self):
         return get_object_or_404(Project, pk=self.kwargs.get('pk'))
 
+    def get_queryset(self, *args, **kwargs):
+        return self.project.medias.all()
+
     def get_success_url(self):
-        return reverse('project_edit_media', kwargs={
-            'pk': self.project.pk
+        return reverse('project_edit_update_media', kwargs={
+            'pk': self.project.pk,
+            'media_pk': self.object.pk
         })
 
     def get_context_data(self, **kwargs):
-        context = super(ProjectMediaView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['project'] = self.project
+        context['medias'] = self.project.medias.all()
         context['is_editing'] = True
 
         return context
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
 
-    def get_form_class(self):
-        return get_project_media_formset(self.project)
+        kwargs['project'] = self.project
+        return kwargs
 
-media = login_required(ProjectMediaView.as_view())
+
+class ProjectMediaView(MediaViewMixin, ListView):
+    model = Media
+    template_name = 'mnemotopy/project/edit/media/list.html'
+
+media_index = login_required(ProjectMediaView.as_view())
+
+
+class MediaCreateView(MediaViewMixin, CreateView):
+    model = Media
+    form_class = MediaForm
+    template_name = 'mnemotopy/project/edit/media/detail.html'
+
+create_media = login_required(MediaCreateView.as_view())
+
+
+class MediaUpdateView(MediaViewMixin, UpdateView):
+    model = Media
+    form_class = MediaForm
+    template_name = 'mnemotopy/project/edit/media/detail.html'
+    pk_url_kwarg = 'media_pk'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['media'] = self.object
+        return context
+
+
+update_media = login_required(MediaUpdateView.as_view())

@@ -13,20 +13,3 @@
         </ul>
     </footer>
 {% endblock %}
-
-{% block extend_js %}
-    {{ block.super }}
-    <script type="text/javascript">
-     $(document).ready(function() {
-         $('.action-save-form').click(function (e) {
-             e.preventDefault();
-             e.stopPropagation();
-             form = $('#submit-form');
-             if (form.length) {
-                 form.submit();
-             }
-         });
-     });
-    </script>
-
-{% endblock %}

@@ -18,32 +18,34 @@
     <h1 class="project__title">
         {% trans 'Edit project slideshow' %}
     </h1>
-    <form method="post" id="submit-form" enctype="multipart/form-data">
-        {% csrf_token %}
 
-        {% with formset=form %}
-            <div class="formset media-form-multiple item-formset">
-                {{ formset.management_form }}
-
-                {% for form in formset %}
-                    {% with form=form %}
-                        {% include "mnemotopy/project/edit/media/_item.html" %}
-                    {% endwith %}
-                {% endfor %}
-            </div>
-            {{ formset.non_form_errors }}
-            <div class="add-media">
-                <a class="media-add-btn" href="#" ><i class="icon icon-plus"></i>{% trans "Add a media" %}</a>
-            </div>
-        {% endwith %}
-    </form>
+    <div id="saving" style="display:none;">
+        {% trans "Medias are being sent to servor, be patient... If it's a video, go grab a coffee" %}
+    </div>
+    {% for media in medias %}
+        <fieldset class="shutter" data-edit="{% url 'project_edit_update_media' pk=project.pk media_pk=media.pk %}">
+            <header class="shutter__switch">
+                <h2 class="shutter__title">{{ media.title }}</h2>
+                <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="" data-placement="left" data-original-title="{% trans 'Delete this media' %}">
+                    <i class="icon icon-trash-o"></i>
+                </button>
+                <span class="shutter__indicator">
+                    <span class="shutter__help">{% trans 'Click to edit' %}</span>
+                    <i class="shutter__icon fa fa-street-view"></i>
+                </span>
+            </header>
+        </fieldset>
+    {% endfor %}
+    <div class="add-media">
+        <a class="media-add-btn" href="{% url 'project_edit_create_media' pk=project.pk %}" ><i class="icon icon-plus"></i>{% trans "Add a media" %}</a>
+    </div>
 {% endblock %}
 
 {% block extend_js %}
     {{ block.super }}
-
+    <script src="http://malsup.github.com/jquery.form.js"></script>
     <script type="text/javascript">
-     $(document).ready(function() {
+       $(document).ready(function() {
          function toggleFields(input) {
              var current_form = $(input).parents('.shutter__content');
              if ($(input).val() == 0) {
@@ -69,30 +71,75 @@
 
          }
 
+         function submitMedia(form) {
+             form.ajaxSubmit({
+                 url: form.attr('action'),
+                 type: 'post',
+                 success: function(responseText, statusText, xhr) {
+                     var current = form.parents('.shutter:first');
+                     current.replaceWith(responseText);
+
+                 }.bind(form)
+             });
+         }
+
          $(document)
-                .on('click', '.media-add-btn', function(e) {
+              .on('click', '.media-add-btn', function(e) {
                     e.preventDefault();
-                    var form = $('.formset');
-                    var formset = new FormSet(form),
-                        count = formset.count(),
-                        currentLast = form.find('.item').last();
-                    var newRow = formset.add();
+                    e.stopPropagation();
+                    var mediaDiv = $(this).parent();
+                    $.get($(this).attr('href'), function(data) {
+                        mediaDiv.before(data);
+                        toggleFields($('.radio-type:checked:last'));
+                    });
+                })
+               .on('click', '.shutter__switch', function(e) {
+                   e.preventDefault();
+                   e.stopPropagation();
+                   var mediaDiv = $(this).parent();
+                   if (!$(this).hasClass('shutter--open')){
+                       $.get(mediaDiv.data('edit'), function(data) {
+                           mediaDiv.replaceWith(data);
+                           toggleFields($('.radio-type:checked:last'));
+                       });
+                   } else {
+                       $(this).removeClass('shutter--open');
+                   }
                 })
                 .on('click', '.media-delete-btn', function(e) {
                     e.preventDefault();
-                    var form = $('.formset'),
-                        formset = new FormSet(form);
-                    formset.remove($(e.target));
+                    console.log('send request delete, delete row');
                 })
                 .on('change', '.radio-type', function(e) {
                     toggleFields(this);
+                })
+                .on('change', 'input:file', function(e) {
+                    var form = $(this).parents('.media-form:first');
+
+                    if (form.find('.radio-type:checked').val() != 2 || (form.find('input[name=audio]').val() != '' && form.find('input[name=thumbnail_file]').val() != '')) {
+                        submitMedia(form)
+                    }
+                })
+                .on('click', '.action-save-form', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $('#saving').show();
+                    var count = $('.media-form').length;
+
+                    $('.media-form').each(function(){
+                        submitMedia(this);
+                        if (!--count) {
+                            $(document).trigger('submit:done');
+                            $('#saving').hide();
+                        }
+                    });
+                })
+                .on('submit:done', function(e) {
+                    $('.radio-type:checked').each(function(){
+                        toggleFields(this);
+                    });
                 });
-
-         $('.radio-type:checked').each(function(){
-             toggleFields(this);
          });
-
-     });
     </script>
 
 {% endblock %}

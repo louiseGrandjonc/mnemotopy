@@ -50,7 +50,7 @@ class Media( models.Model):
     )
     type = models.IntegerField(choices=TYPE_CHOICES)
     title = models.CharField(max_length=255, null=True)
-    project = models.ForeignKey(Project, null=True)
+    project = models.ForeignKey(Project, null=True, related_name='medias')
     created_at = models.DateTimeField(default=datetime.now)
     realized_at = models.DateTimeField(null=True)
     country = CountryField(null=True)
