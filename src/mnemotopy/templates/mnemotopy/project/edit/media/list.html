@@ -10,10 +10,6 @@
     {% endif %}
 {% endblock %}
 
-{% block head_js %}
-    <script type="text/javascript" src="{% static "js/formset.js" %}"></script>
-{% endblock %}
-
 {% block main %}
     <h1 class="project__title">
         {% trans 'Edit project slideshow' %}
@@ -36,7 +32,7 @@
 
                 <span class="shutter__indicator">
                     <span class="shutter__help">{% trans 'Click to edit' %}</span>
-                    <i class="shutter__icon fa fa-street-view"></i>
+                    <i class="shutter__icon fa fa-image"></i>
                 </span>
             </header>
         </fieldset>
@@ -50,7 +46,9 @@
     {{ block.super }}
     <script src="http://malsup.github.com/jquery.form.js"></script>
     <script type="text/javascript">
-       $(document).ready(function() {
+     $(document).ready(function() {
+         var toSubmit = 0;
+
          function toggleFields(input) {
              var current_form = $(input).parents('.shutter__content');
              if ($(input).val() == 0) {
@@ -83,10 +81,19 @@
                  success: function(responseText, statusText, xhr) {
                      var current = form.parents('.shutter:first');
                      current.replaceWith(responseText);
-
+                     toSubmit -= 1;
                  }.bind(form)
              });
          }
+
+         $(document).ajaxComplete(function(e) {
+             $('.radio-type:checked').each(function(){
+                 toggleFields(this);
+             });
+             if (toSubmit == 0) {
+                 $('#saving').hide()
+             }
+         });
 
          $(document)
               .on('click', '.media-add-btn', function(e) {
@@ -95,7 +102,6 @@
                     var mediaDiv = $(this).parent();
                     $.get($(this).attr('href'), function(data) {
                         mediaDiv.before(data);
-                        toggleFields($('.radio-type:checked:last'));
                     });
                })
                .on('click', '.media-delete-btn', function(e) {
@@ -116,12 +122,10 @@
                .on('click', '.shutter__switch', function(e) {
                    e.preventDefault();
                    e.stopPropagation();
-                   console.log('shutter');
                    var mediaDiv = $(this).parent();
                    if (!$(this).hasClass('shutter--open')){
                        $.get(mediaDiv.data('edit'), function(data) {
                            mediaDiv.replaceWith(data);
-                           toggleFields($('.radio-type:checked:last'));
                        });
                    } else {
                        $(this).removeClass('shutter--open');
@@ -132,33 +136,25 @@
                 })
                 .on('change', 'input:file', function(e) {
                     var form = $(this).parents('.media-form:first');
+                    toSubmit = 1;
 
                     $('#saving').show();
+
                     if (form.find('.radio-type:checked').val() != 2 || (form.find('input[name=audio]').val() != '' && form.find('input[name=thumbnail_file]').val() != '')) {
                         submitMedia(form);
-                        $('#saving').hide();
                     }
                 })
                 .on('click', '.action-save-form', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     $('#saving').show();
-                    var count = $('.media-form').length;
+                    toSubmit = $('.media-form').length;
 
-                    $('.media-form').each(function(){
+                    $('.media-form').each(function(i){
                         submitMedia($(this));
-                        if (!--count) {
-                            $(document).trigger('submit:done');
-                            $('#saving').hide();
-                        }
-                    });
-                })
-                .on('submit:done', function(e) {
-                    $('.radio-type:checked').each(function(){
-                        toggleFields(this);
                     });
                 });
-         });
+     });
     </script>
 
 {% endblock %}

@@ -10,10 +10,8 @@
                 <ul class="edit-nav__list">
                     {% if is_editing %}
                         <li class="edit-nav__item edit-nav__item--icon">
-                            <a class="edit-nav__link" href="" data-tooltip="{% trans 'Back to your project page' %}">
-                                <svg class="edit-nav__icon icon-arrow-left-o">
-                                    <use xlink:href="#icon-arrow-left-o"/>
-                                </svg>
+                            <a class="edit-nav__link" href="{% url 'project_detail' project.slug %}" data-tooltip="{% trans 'Back to your project page' %}">
+                                <i class="icon fa fa-arrow-circle-o-left"></i>
                             </a>
                         </li>
                     {% endif %}
@@ -30,8 +28,8 @@
                     </li>
 
                     <li class="edit-nav__item edit-nav__item--icon">
-                        <a class="edit-nav__link b-tooltip b-tooltip--bottom b-tooltip--right" href="{% url 'admin:mnemotopy_project_change' project.id %}" data-tooltip="{% trans 'Admin' %}">
-                            <span style="font-size:2em"></span>
+                        <a class="edit-nav__link" href="{% url 'admin:mnemotopy_project_change' project.id %}" data-tooltip="{% trans 'Admin' %}">
+                            <i class="icon fa fa-gavel"></i>
                         </a>
                     </li>
 
