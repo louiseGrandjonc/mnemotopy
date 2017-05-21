@@ -34,6 +34,20 @@ class ProjectFormTests(TestCase):
         form = ProjectForm(data=data)
         self.assertTrue(form.is_valid())
 
+    def test_create_project_same_slug_category(self):
+        data = {
+            'name_en': 'architecture',
+            'subtitle_en': 'history of violence',
+            'description_en': 'video clip',
+            'categories': [self.category]
+        }
+
+        form = ProjectForm(data=data)
+        self.assertTrue(form.is_valid())
+
+        project = form.save()
+        self.assertNotEqual(project.slug, 'architecture')
+
     def test_update_project(self):
         data = {
             'name_en': 'moriarty',

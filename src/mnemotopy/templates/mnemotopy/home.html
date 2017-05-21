@@ -1,0 +1,19 @@
+{% extends "mnemotopy/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% load mnemotopy_tags %}
+
+{% block main %}
+    {% for categories in combinations %}
+        <div class="categories-sublist">
+            <a href="{% categories_url categories=categories %}">
+                <label>
+                    {% for category in categories %}
+                        {{ category.name }}
+                    {% endfor %}
+                </label>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

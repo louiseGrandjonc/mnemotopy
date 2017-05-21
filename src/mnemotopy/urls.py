@@ -11,6 +11,20 @@ urlpatterns = [
     url(r'^language/$', change_language,
         name='user_change_language'),
 
+    url(r'^$',
+        public.home,
+        name='home'),
+    url(r'^projects/(?P<category_slug>[\/\-a-zA-Z]+)/$',
+        public.project_index,
+        name='project_index'),
+    url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
+        public.project_detail,
+        name='project_detail'),
+
+    # url(r'^archive/$',
+    #     public.archive,
+    #     name='archive_index'),
+
     url(r'^edit/projects/$',
         edit.index,
         name='project_edit_list'),
@@ -33,12 +47,4 @@ urlpatterns = [
     url(r'^edit/projects/(?P<pk>[\d]+)/media/(?P<media_pk>[\d]+)/delete/$',
         edit.delete_media,
         name='project_edit_delete_media'),
-
-    url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
-        public.project_detail,
-        name='project_detail'),
-
-    # url(r'^archive/$',
-    #     public.archive,
-    #     name='archive_index'),
 ]
