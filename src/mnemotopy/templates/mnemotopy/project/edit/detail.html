@@ -4,7 +4,7 @@
 
 {% block title %}
     {% if form.instance.pk %}
-       {% trans 'Update Project' %}
+       {% trans 'Update ' %} - {{ project.name }}
     {% else %}
         {% trans 'Create Project' %}
     {% endif %}
@@ -19,253 +19,292 @@
 
 
 {% block main_inner %}
-    class="project"
+    class="edit-project"
 {% endblock %}
 
 {% block main %}
-    <h1 class="project__title">
-        {% if form.instance.pk %}
-            {% trans 'Update Project' %}
-        {% else %}
-            {% trans 'Create Project' %}
-        {% endif %}
-    </h1>
-    <form method="post" id="submit-form" enctype="multipart/form-data">
-        {% csrf_token %}
+    <header class ="edit-project__header">
+        <div class="edit-project__title">
+            <h2>
+                {% if form.instance.pk %}
+                    {% trans 'Update Project' %} - {{ project.name }}
+                {% else %}
+                    {% trans 'Create Project' %}
+                {% endif %}
+            </h2>
+            <span class="subtitle">{% trans 'Enter all information about your project except medias.' %}
+            </span>
+        </div>
+    </header>
 
-        <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
-            <header class="shutter__switch">
-                <h2 class="shutter__title">{% trans 'Main information about project' %}</h2>
-                <span class="shutter__indicator">
-                    <span class="shutter__help">{% trans 'Click to edit' %}</span>
-                    <i class="shutter__icon fa fa-pencil-square-o"></i>
-                </span>
-            </header>
-            <section class="shutter__content">
-                {% with field=form.slug %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
+    <div id="main">
+        <form method="post" id="submit-form" enctype="multipart/form-data">
+            {% csrf_token %}
 
-                {% with field=form.position %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
+            <fieldset class="shutter {% if form.errors  %} shutter__error shutter__open{% endif %}">
+                <header class="shutter__switch">
+                    <h3 class="shutter__title">{% trans 'Main information about project' %}</h3>
+                    <span class="shutter__indicator">
+                        <span class="shutter__help">{% trans 'Edit country, categories, tags, etc.' %}</span>
+                        <i class="shutter__icon fa fa-pencil-square-o"></i>
+                    </span>
+                </header>
+                <section class="shutter__content test">
+                    {% with field=form.position %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
 
-                {% with field=form.country %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            <span class="mform__dropdown mform__dropdown--block">
+                            <div class="edit-form__input">
                                 {{ field }}
-                                <i class="mform__dropdown-icon fa {% if select_icon %}{{ select_icon }}{% else %}fa-angle-down{% endif %}"></i>
-                            </span>
-                        </label>
-                    </div>
-                {% endwith %}
-
-                {% with field=form.categories %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
 
-                {% with field=form.tags %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.country %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
+                        </div>
+                    {% endwith %}
 
-                {% with field=form.started_at %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                    {% with field=form.categories %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
 
-                {% with field=form.ended_at %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.tags %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
 
+                    {% with field=form.started_at %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
 
-                {% with field=form.archived %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field }}
-                            <span class="mform__checkbox-label">{{ field.label }}</span>
-                        </label>
-                    </div>
-                {% endwith %}
-
-                {% with field=form.published %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field }}
-                            <span class="mform__checkbox-label">{{ field.label }}</span>
-                        </label>
-                    </div>
-                {% endwith %}
-            </section>
-        </fieldset>
-
-        <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
-            <header class="shutter__switch">
-                <h2 class="shutter__title">{% trans 'English content' %}</h2>
-                <span class="shutter__indicator">
-                    <span class="shutter__help">{% trans 'Click to edit' %}</span>
-                    <i class="shutter__icon fa fa-flag-o"></i>
-                </span>
-            </header>
-            <section class="shutter__content">
-
-                {% with field=form.name_en %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
 
-                {% with field=form.subtitle_en %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.ended_at %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
 
-                {% with field=form.description_en %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+
+                    {% with field=form.archived %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                <span class="edit-form__checkbox-label">{{ field.label }}</span>
+                            </label>
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
-            </section>
-        </fieldset>
 
-        <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
-            <header class="shutter__switch">
-                <h2 class="shutter__title">{% trans 'French content' %}</h2>
-                <span class="shutter__indicator">
-                    <span class="shutter__help">{% trans 'Click to edit' %}</span>
-                    <i class="shutter__icon fa fa-flag-o"></i>
-                </span>
-            </header>
-            <section class="shutter__content">
+                        </div>
+                    {% endwith %}
 
-                {% with field=form.name_fr %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+                    {% with field=form.published %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                <span class="edit-form__checkbox-label">{{ field.label }}</span>
+                            </label>
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
 
-                {% with field=form.subtitle_fr %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
-                            </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
+                        </div>
+                    {% endwith %}
+                </section>
+            </fieldset>
 
-                {% with field=form.description_fr %}
-                    <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                        <label class="mform__label">
-                            {{ field.label }}
-                            {{ field }}
-                        </label>
-                        {% if field.errors %}
-                            <div class="mform__indication mform__indication--bulls">
-                                {{ field.errors }}
+            <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
+                <header class="shutter__switch">
+                    <h3 class="shutter__title">{% trans 'English content' %}</h3>
+                    <span class="shutter__indicator">
+                        <span class="shutter__help">{% trans 'Edit english description and title' %}</span>
+                        <i class="shutter__icon fa fa-flag-o"></i>
+                    </span>
+                </header>
+                <section class="shutter__content">
+
+                    {% with field=form.name_en %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+
+                            <div class="edit-form__input">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                    </div>
-                {% endwith %}
-            </section>
-        </fieldset>
-    </form>
+
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.subtitle_en %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+                            <div class="edit-form__input">
+                                {{ field }}
+                            </div>
+
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.description_en %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+                            <div class="edit-form__input edit-form__text">
+                                {{ field }}
+                            </div>
+
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                </section>
+            </fieldset>
+
+            <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
+                <header class="shutter__switch">
+                    <h3 class="shutter__title">{% trans 'French content' %}</h3>
+                    <span class="shutter__indicator">
+                        <span class="shutter__help">{% trans 'Edit french description and title' %}</span>
+                        <i class="shutter__icon fa fa-flag-o"></i>
+                    </span>
+                </header>
+                <section class="shutter__content">
+
+                    {% with field=form.name_fr %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+                            <div class="edit-form__input">
+                                {{ field }}
+                            </div>
+
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.subtitle_fr %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+                            <div class="edit-form__input">
+                                {{ field }}
+                            </div>
+
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+
+                    {% with field=form.description_fr %}
+                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                            <label class="edit-form__label">
+                                {{ field.label }}
+                            </label>
+                            <div class="edit-form__input edit-form__text">
+                                {{ field }}
+                            </div>
+
+                            {% if field.errors %}
+                                <div class="edit-form__indication edit-form__indication--bulls">
+                                    {{ field.errors }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                </section>
+            </fieldset>
+        </form>
+    </div>
 {% endblock %}
 
 {% block extend_js %}
@@ -287,6 +326,13 @@
                  form.submit();
              }
          });
+
+         $('.shutter__switch').click(function(e) {
+             e.preventDefault();
+             e.stopPropagation();
+             $(this).parent().toggleClass('shutter__open');
+         })
+
      });
     </script>
 

@@ -3,12 +3,10 @@
 {% load static %}
 
 {% block main_footer %}
-    <footer id="backoffice-actions">
-        <ul class="main-actions">
-            <li id="save-button" class="save draft lock">
-                <a href="#" class="action-save-form update">
-                    <i class="icon icon-save"></i><span>{% trans "Save" %}</span>
-                </a>
+    <footer class="edit-footer">
+        <ul class="edit-footer__actions">
+            <li class="edit-footer__btn">
+                <a href="" class="action-save-form edit-footer__link">{% trans "Save" %}</a>
             </li>
         </ul>
     </footer>

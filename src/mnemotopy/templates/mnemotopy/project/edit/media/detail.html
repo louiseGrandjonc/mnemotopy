@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<fieldset class="shutter {% if form.errors  %} shutter--error {% endif %} shutter--open" {% if media.pk %}data-edit="{% url 'project_edit_update_media' pk=project.pk media_pk=media.pk %}"{% else %}data-edit="{% url 'project_edit_create_media' pk=project.pk %}"{% endif %}>
+<fieldset class="shutter {% if form.errors  %} shutter--error {% endif %} shutter__open" {% if media.pk %}data-edit="{% url 'project_edit_update_media' pk=project.pk media_pk=media.pk %}"{% else %}data-edit="{% url 'project_edit_create_media' pk=project.pk %}"{% endif %}>
     <header class="shutter__switch">
         {% if media.pk %}
             <h2 class="shutter__title">{{ media.title }}</h2>
@@ -26,13 +26,16 @@
         <form {% if media.pk %}action="{% url 'project_edit_update_media' pk=project.pk media_pk=media.pk %}" {% else %}action="{% url 'project_edit_create_media' pk=project.pk %}"{% endif %} method="post" class="media-form" enctype="multipart/form-data">
             {% csrf_token %}
             {% with field=form.title_en %}
-                <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -40,13 +43,16 @@
             {% endwith %}
 
             {% with field=form.title_fr %}
-                <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -54,13 +60,16 @@
             {% endwith %}
 
             {% with field=form.type %}
-                <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -68,13 +77,16 @@
             {% endwith %}
 
             {% with field=form.position %}
-                <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -82,13 +94,16 @@
             {% endwith %}
 
             {% with field=form.languages %}
-                <div class="mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -96,13 +111,16 @@
             {% endwith %}
 
             {% with field=form.image %}
-                <div class="image-field mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="image-field edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -110,13 +128,16 @@
             {% endwith %}
 
             {% with field=form.video %}
-                <div class="video-field mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="video-field edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -124,13 +145,16 @@
             {% endwith %}
 
             {% with field=form.audio %}
-                <div class="audio-field mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="audio-field edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}
@@ -138,13 +162,16 @@
             {% endwith %}
 
             {% with field=form.thumbnail_file %}
-                <div class="thumbnail-file-field audio-field mform__group{% if field.errors %} mform--error{% endif %}">
-                    <label class="mform__label">
+                <div class="thumbnail-file-field audio-field edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                    <label class="edit-form__label">
                         {{ field.label }}
-                        {{ field }}
                     </label>
+                    <div class="edit-form__input">
+                        {{ field }}
+                    </div>
+
                     {% if field.errors %}
-                        <div class="mform__indication mform__indication--bulls">
+                        <div class="edit-form__indication edit-form__indication--bulls">
                             {{ field.errors }}
                         </div>
                     {% endif %}

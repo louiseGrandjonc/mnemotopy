@@ -2,16 +2,27 @@
 {% load i18n %}
 {% load static %}
 
+{% block extend_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/backoffice.css' %}">
+{% endblock %}
+
 {% block extend_header %}
 
     {% if request.user and request.user.is_staff and project.pk %}
-        <div class="edit-menu">
+        <div class="edit-menu__menu">
             <nav class="edit-nav">
                 <ul class="edit-nav__list">
                     {% if is_editing %}
-                        <li class="edit-nav__item edit-nav__item--icon">
-                            <a class="edit-nav__link" href="{% url 'project_detail' project.slug %}" data-tooltip="{% trans 'Back to your project page' %}">
-                                <i class="icon fa fa-arrow-circle-o-left"></i>
+                        <li class="edit-nav__item">
+                            <a class="edit-nav__link" href="{% url 'project_detail' project.slug %}">
+                                <span class="edit-nav__icon-span">
+                                    <i class="edit-nav__icon icon fa fa-arrow-circle-o-left"></i>
+                                </span>
+
+                                <span class="edit-nav__label">
+                                    {% trans 'Back to your project page' %}
+                                </span>
                             </a>
                         </li>
                     {% endif %}
@@ -28,8 +39,11 @@
                     </li>
 
                     <li class="edit-nav__item edit-nav__item--icon">
-                        <a class="edit-nav__link" href="{% url 'admin:mnemotopy_project_change' project.id %}" data-tooltip="{% trans 'Admin' %}">
-                            <i class="icon fa fa-gavel"></i>
+                        <a class="edit-nav__link" href="{% url 'admin:mnemotopy_project_change' project.id %}" >
+                            <span class="edit-nav__icon-span">
+                                <i class="icon edit-nav__icon fa fa-gavel"></i>
+                            </span>
+                            <span class="edit-nav__label">{%  trans "Admin" %}</span>
                         </a>
                     </li>
 

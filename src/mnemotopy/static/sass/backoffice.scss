@@ -1,0 +1,281 @@
+/*------------------------------------*\
+    #BACK-OFFICE
+\*------------------------------------*/
+
+
+$block: '.edit-menu';
+$nav: '.edit-nav';
+$form: '.project';
+$mainblock: '.edit-project';
+$shutter: '.shutter';
+$editfooter: '.edit-footer';
+$editform: '.edit-form';
+
+html {
+    height: 100%;
+    margin: 0;
+    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-size: 13px;
+}
+
+body {
+    padding-top: 0 !important;
+    background: #DADADA;
+    margin: 0px;
+}
+
+#{$block} {
+
+    /**
+     * E: menu
+     * Navbar of the backoffice
+     */
+
+    &__menu {
+        background-color: #FFF;
+        position: relative;
+
+        #{$nav} {
+            min-height: 50px;
+
+            &__list {
+                height: 50px;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+                white-space: nowrap;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                overflow:hidden;
+            }
+
+            &__item {
+                width: 25%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+                position: relative;
+                text-align: center;
+                font-size: 15px;
+
+                &.is-active {
+                    #{$nav}__label, #{$nav}__icon {
+                        color: #111;
+                    }
+                }
+            }
+
+            &__link {
+                text-align: center;
+                text-decoration: none;
+                height: 100%;
+                width: 100%;
+                display: block;
+                position: relative;
+                padding: 0 2em;
+                margin-left: -1px;
+                line-height: 50px;
+
+                &:hover {
+                    background-color: #f5f6f9;
+                }
+            }
+
+            &__icon-span {
+                display: inline-block;
+                position: relative;
+                margin-right: 6px;
+                color: #bdbdbd;
+            }
+
+            &__label {
+                display: inline-block;
+                color: #bdbdbd;
+                position: relative
+            }
+
+        }
+    }
+}
+
+#{$mainblock} {
+    /**
+     * E: content
+     * Content of form
+     */
+
+    display: inline-block;
+    width: 100%;
+
+    #main {
+        max-width: 800px;
+        margin: auto;
+        position: relative;
+        padding-bottom: 75px;
+    }
+
+    &__header {
+        padding: 25px;
+        position: relative;
+        color: #525252;
+        text-align: center;
+    }
+
+    &__title {
+        margin: auto;
+        position: relative;
+    }
+
+    #{$shutter} {
+        width: auto;
+        border-bottom: 1px solid silver;
+        border-color: #fafafa transparent;
+        background: #FAFAFA;
+        position: relative;
+
+        &__open {
+            background: #E9E9E9;
+            #{$shutter} {
+                &__content {
+                    display: block;
+                    padding-top: 1em;
+                }
+            }
+        }
+
+        &__switch {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: margin-right 0.2s;
+        }
+
+        &__content {
+            display: none;
+        }
+
+        &__title {
+            color: #525252;
+        }
+
+        &__icon {
+            font-weight: normal;
+            font-size: 32px;
+            position: absolute;
+            top: 0;
+            line-height: 84px;
+            right: 42px;
+            width: 42px;
+            text-align: center;
+            opacity: 0.25;
+        }
+
+        &__help {
+            color: silver;
+            font-weight: normal;
+            margin-top: 5px;
+        }
+    }
+}
+
+#{$editfooter} {
+    position: fixed;
+    bottom: 0;
+    z-index: 10;
+    width: 100%;
+    box-sizing: border-box;
+    background: #E9E9E9;
+    box-shadow: 0 0 1px silver;
+
+    &__actions {
+        text-align: center;
+        max-width: 800px;
+        margin: auto;
+        list-style: none;
+    }
+
+    &__btn {
+        width: 61.8%;
+        display: inline-block;
+        vertical-align: middle;
+        padding: 10px 0;
+        box-sizing: border-box;
+        font-size: 1.154em;
+    }
+
+    &__link {
+        color: white;
+        font-weight: bold;
+        background: #58C167;
+        opacity: 0.95;
+        border-radius: 3px;
+        display: block;
+        position: relative;
+        box-sizing: border-box;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+}
+
+#{$editform} {
+    &__group {
+        margin-bottom: 15px;
+    }
+
+    &__label {
+        width: 35%;
+        line-height: 40px;
+        vertical-align: top;
+        box-sizing: border-box;
+        padding-left: 20px;
+        display: inline-block;
+        margin-bottom: 0;
+    }
+
+    &__input {
+        width: 61.8%;
+        position: relative;
+        box-sizing: border-box;
+        padding-right: 20px;
+        display: inline-block;
+
+        input {
+            display: inline-block;
+            background-color: #fff;
+            vertical-align: middle;
+            border: 1px solid #c6c6c6;
+            padding: 6px 8px;
+            font-size: 1em;
+            line-height: 14px;
+            border-radius: 2px;
+            box-sizing: border-box;
+            box-shadow: none;
+            background-image: linear-gradient(#f2f2f2 1%, #fff 4%);
+            transition: box-shadow .15s ease-in-out;
+        }
+        input[type=text] {
+            width: 100%;
+            min-height: 36px;
+        }
+
+        input[type=number] {
+            height: 36px;
+            width: 105px;
+            text-align: right;
+        }
+        input[type=checkbox] {
+            height: 36px;
+        }
+    }
+    &__text {
+        display: block;
+        width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+}
