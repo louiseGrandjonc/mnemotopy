@@ -1,4 +1,4 @@
-{% extends "mnemotopy/base.html" %}
+{% extends "mnemotopy/project/edit/base.html" %}
 {% load i18n %}
 {% load static %}
 
@@ -7,13 +7,47 @@
 {% endblock %}
 
 
-{% block main %}
-    {% for project in object_list %}
-        <div class="project__item">
-            <a href="{% url 'project_edit' pk=project.pk %}">{{ project.name }}</a>
-        </div>
-    {% endfor %}
+{% block main_inner %}
+    class="edit-project edit-project-list"
+{% endblock %}
 
+{% block main %}
+    <header class ="edit-project__header">
+        <div class="edit-project__title">
+            <h2> {% trans 'Edit your projects' %}
+            </h2>
+            <span class="subtitle">{% trans 'Here are all your projects, select the one you want to edit.' %}
+            </span>
+        </div>
+    </header>
+
+    <div id="main">
+
+        {% for project in object_list %}
+            <fieldset class="shutter">
+                <header class="shutter__switch">
+                    <h3 class="shutter__title">
+                        {{ project.name }}
+
+                        <span class="shutter__shortcuts_2">
+                            <a class="shutter__shortlink" href="{% url 'project_edit' pk=project.pk %}" title="{% trans 'Edit content/publish/archive' %}">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
+                            <a class="shutter__shortlink" href="{% url 'project_edit_media' pk=project.pk %}" title="{% trans 'Edit medias' %}">
+                                <i class="fa fa-image"></i>
+                            </a>
+                        </span>
+
+                    </h3>
+
+                    <span class="shutter__indicator">
+                        <span class="shutter__help">{% trans 'Edit this project' %}</span>
+                    </span>
+                </header>
+            </fieldset>
+        {% endfor %}
+
+    </div>
     {% if is_paginated %}
         <nav id="project-pagination" class="footer-pagination">
             <ul>

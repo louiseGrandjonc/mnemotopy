@@ -4,16 +4,16 @@
 
 {% block extend_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/backoffice.css' %}">
+    <link rel="stylesheet" href="{% static 'css/project.css' %}">
 {% endblock %}
 
 {% block extend_header %}
 
-    {% if request.user and request.user.is_staff and project.pk %}
+    {% if request.user and request.user.is_staff %}
         <div class="edit-menu__menu">
             <nav class="edit-nav">
                 <ul class="edit-nav__list">
-                    {% if is_editing %}
+                    {% if project %}
                         <li class="edit-nav__item">
                             <a class="edit-nav__link" href="{% url 'project_detail' project.slug %}">
                                 <span class="edit-nav__icon-span">
@@ -25,25 +25,41 @@
                                 </span>
                             </a>
                         </li>
+
+                        <li class="edit-nav__item ">
+                            <a class="edit-nav__link" href="{% url 'project_edit' pk=project.pk %}">
+                                <span class="edit-nav__label">{%  trans "Edit this project" %}</span>
+                            </a>
+                        </li>
+
+                        <li class="edit-nav__item ">
+                            <a class="edit-nav__link" href="{% url 'project_edit_media' pk=project.pk %}">
+                                <span class="edit-nav__label">{%  trans "Edit slideshow" %}</span>
+                            </a>
+                        </li>
                     {% endif %}
-                    <li class="edit-nav__item ">
-                        <a class="edit-nav__link" href="{% url 'project_edit' pk=project.pk %}">
-                            <span class="edit-nav__label">{%  trans "Edit this project" %}</span>
+
+                    <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right">
+                        <a class="edit-nav__link" href="{% url 'project_add' %}"  title="{% trans 'Create project' %}">
+                            <span class="edit-nav__icon-span">
+                                <i class="icon edit-nav__icon fa fa-plus-circle" ></i>
+                            </span>
                         </a>
                     </li>
 
-                    <li class="edit-nav__item ">
-                        <a class="edit-nav__link" href="{% url 'project_edit_media' pk=project.pk %}">
-                            <span class="edit-nav__label">{%  trans "Edit slideshow" %}</span>
+                    <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right">
+                        <a class="edit-nav__link" href="{% url 'project_edit_list' %}" title="{% trans 'Edit project list' %}">
+                            <span class="edit-nav__icon-span">
+                                <i class="icon edit-nav__icon fa fa-list"></i>
+                            </span>
                         </a>
                     </li>
 
-                    <li class="edit-nav__item edit-nav__item--icon">
-                        <a class="edit-nav__link" href="{% url 'admin:mnemotopy_project_change' project.id %}" >
+                    <li class="edit-nav__item edit-nav__item--icon  edit-nav__item--right">
+                        <a class="edit-nav__link" href="{% if project %}{% url 'admin:mnemotopy_project_change' project.id %}{% else %}{% url 'admin:index' %}{% endif %}"  title="{% trans 'Admin' %}" >
                             <span class="edit-nav__icon-span">
                                 <i class="icon edit-nav__icon fa fa-gavel"></i>
                             </span>
-                            <span class="edit-nav__label">{%  trans "Admin" %}</span>
                         </a>
                     </li>
 

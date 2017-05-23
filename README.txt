@@ -5,9 +5,9 @@ Website for Mnemotopy project
 TODOs
 =====
 
-Switch from french to english easily
+Switch from french to english easily - done
 
-Login view
+Login view - ok
 
 Admin to create categories, tags, users
 
@@ -53,4 +53,84 @@ Media form
 ----------
 
 TODO:
-- On click on add media, bug of type button
+- On media video upload, celery task to send to vimeo
+
+
+----------
+Backoffice
+----------
+
+- Css
+- Menu with "back to list" and "see my project"
+
+
+
+----
+URLS
+----
+
+Edit
+- edit/projects : list of projects to edit - paginated
+- edit/projects/add: create project
+- edit/projects/id: edit main information on project
+- edit/projects/id/medias: edit medias on project
+- edit/projects/id/medias/add: add media to project (get -> html form)
+- edit/projects/id/medias/id/: edit media of a project (get -> html form)
+- edit/projects/id/medias/id/delete: delete media
+- /admin
+- /login
+
+
+Public views
+- / : home - choose between categories (?)
+- /category1/category2: list project matching category-ies chosen, archived not in list (all must be an option)
+- /projects/slug : detail project
+- /projects/slug/medias/id: slideshow, paginated, called with ajax to avoid changing url, if no id, redirect to first
+- /change_language: change language post view
+- /archive: list of all projects
+
+
+
+TODO:
+- Faire page tri par categorie
+- Faire le slideshow avec la gestion ajax du next/previous
+
+
+- Design front - later
+- SEO
+- URLs
+- Tests
+- Vimeo
+- Pagination
+
+-----------------
+Design Backoffice
+-----------------
+- fieldset closed and fieldset open - ok
+- Save button -ok
+- nav bar - ok
+- nav bar only for projects - ok
+
+project page
+- design input text - ok
+- add ckeditor - ok
+- design country list - prio 2 (if there is some time)
+
+
+media page
+- Button Add an other media - prio 1
+- Drag drop file - prio 3 (nice to have)
+- design input language choice - prio 1
+- design input type - prio 1
+- design delete button - prio 1
+- Saving overlay design - prio 1
+
+design list:
+- pagination
+- design item in list icon photo/pen to edit
+
+----
+Bugs
+----
+
+- display empty instead of default english when no french - fixed

@@ -1,0 +1,92 @@
+$block: '.edit-menu';
+$nav: '.edit-nav';
+
+#{$block} {
+
+    /**
+     * E: menu
+     * Navbar of the backoffice
+     */
+
+    &__menu {
+        background-color: #FFF;
+        position: relative;
+
+        #{$nav} {
+            min-height: 50px;
+
+            &__list {
+                height: 50px;
+                justify-content: center;
+                margin-left: auto;
+                margin-right: auto;
+                white-space: nowrap;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                overflow:hidden;
+            }
+
+            &__item {
+                width: 25%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+                position: relative;
+                text-align: center;
+                font-size: 15px;
+
+                &.is-active {
+                    #{$nav}__label, #{$nav}__icon {
+                        color: #111;
+                    }
+                }
+            }
+
+            &__item--icon {
+                width: 8%;
+                #{$nav} {
+                    &__link {
+                        width: auto;
+                    }
+                }
+
+            }
+
+            &__item--right {
+                float: right;
+            }
+
+            &__link {
+                text-align: center;
+                text-decoration: none;
+                height: 100%;
+                width: 100%;
+                display: block;
+                position: relative;
+                padding: 0 2em;
+                margin-left: -1px;
+                line-height: 50px;
+
+                &:hover {
+                    background-color: #f5f6f9;
+                }
+            }
+
+            &__icon-span {
+                display: inline-block;
+                position: relative;
+                margin-right: 6px;
+                color: #bdbdbd;
+            }
+
+            &__label {
+                display: inline-block;
+                color: #bdbdbd;
+                position: relative
+            }
+
+        }
+    }
+}

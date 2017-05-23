@@ -6,25 +6,29 @@ from .project import Project
 from .media import Media
 
 
-class TagTranslationOptions(TranslationOptions):
+class BaseTranslationOptions(TranslationOptions):
+    fallback_undefined = ''
+
+
+class TagTranslationOptions(BaseTranslationOptions):
     fields = ('name',)
 
 translator.register(Tag, TagTranslationOptions)
 
 
-class CategoryTranslationOptions(TranslationOptions):
+class CategoryTranslationOptions(BaseTranslationOptions):
     fields = ('name', 'description')
 
 translator.register(Category, CategoryTranslationOptions)
 
 
-class ProjectTranslationOptions(TranslationOptions):
+class ProjectTranslationOptions(BaseTranslationOptions):
     fields = ('name', 'subtitle', 'description')
 
 translator.register(Project, ProjectTranslationOptions)
 
 
-class MediaTranslationOptions(TranslationOptions):
+class MediaTranslationOptions(BaseTranslationOptions):
     fields = ('title',)
 
 translator.register(Media, MediaTranslationOptions)

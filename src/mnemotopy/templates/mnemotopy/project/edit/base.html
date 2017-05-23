@@ -2,12 +2,20 @@
 {% load i18n %}
 {% load static %}
 
+{% block extend_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/backoffice.css' %}">
+{% endblock %}
+
+
 {% block main_footer %}
-    <footer class="edit-footer">
-        <ul class="edit-footer__actions">
-            <li class="edit-footer__btn">
-                <a href="" class="action-save-form edit-footer__link">{% trans "Save" %}</a>
-            </li>
-        </ul>
-    </footer>
+    {% if is_editing %}
+        <footer class="edit-footer">
+            <ul class="edit-footer__actions">
+                <li class="edit-footer__btn">
+                    <a href="" class="action-save-form edit-footer__link">{% trans "Save" %}</a>
+                </li>
+            </ul>
+        </footer>
+    {% endif %}
 {% endblock %}

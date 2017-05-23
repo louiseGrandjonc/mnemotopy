@@ -135,12 +135,12 @@
                    e.preventDefault();
                    e.stopPropagation();
                    var mediaDiv = $(this).parent();
-                   if (!mediaDiv.hasClass('shutter__open')){
+                   if (mediaDiv.find('.shutter__content').length) {
+                       mediaDiv.toggleClass('shutter__open');
+                   } else {
                        $.get(mediaDiv.data('edit'), function(data) {
                            mediaDiv.replaceWith(data);
                        });
-                   } else {
-                       mediaDiv.removeClass('shutter__open');
                    }
                 })
                 .on('change', '.radio-type', function(e) {

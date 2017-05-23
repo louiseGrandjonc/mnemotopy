@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^$',
         public.home,
         name='home'),
-    url(r'^projects/(?P<category_slug>[\/\-a-zA-Z]+)/$',
+    url(r'^categories/(?P<category_slug>[\/\-a-zA-Z]+)/$',
         public.project_index,
         name='project_index'),
     url(r'^projects/(?P<slug>[\w.:@+-]+)/$',

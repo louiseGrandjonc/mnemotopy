@@ -21,6 +21,8 @@ class ProjectViewMixin(object):
     def get_context_data(self, **kwargs):
         context = super(ProjectViewMixin, self).get_context_data(**kwargs)
         context['is_editing'] = True
+        if self.object:
+            context['project'] = self.object
 
         return context
 

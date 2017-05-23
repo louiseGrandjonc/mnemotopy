@@ -2,14 +2,14 @@
     #BACK-OFFICE
 \*------------------------------------*/
 
+@import 'edit_nav';
 
-$block: '.edit-menu';
-$nav: '.edit-nav';
 $form: '.project';
 $mainblock: '.edit-project';
 $shutter: '.shutter';
 $editfooter: '.edit-footer';
 $editform: '.edit-form';
+$mainlistblock: '.edit-project-list';
 
 html {
     height: 100%;
@@ -22,82 +22,6 @@ body {
     padding-top: 0 !important;
     background: #DADADA;
     margin: 0px;
-}
-
-#{$block} {
-
-    /**
-     * E: menu
-     * Navbar of the backoffice
-     */
-
-    &__menu {
-        background-color: #FFF;
-        position: relative;
-
-        #{$nav} {
-            min-height: 50px;
-
-            &__list {
-                height: 50px;
-                justify-content: center;
-                margin-left: auto;
-                margin-right: auto;
-                white-space: nowrap;
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                overflow:hidden;
-            }
-
-            &__item {
-                width: 25%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                display: inline-block;
-                position: relative;
-                text-align: center;
-                font-size: 15px;
-
-                &.is-active {
-                    #{$nav}__label, #{$nav}__icon {
-                        color: #111;
-                    }
-                }
-            }
-
-            &__link {
-                text-align: center;
-                text-decoration: none;
-                height: 100%;
-                width: 100%;
-                display: block;
-                position: relative;
-                padding: 0 2em;
-                margin-left: -1px;
-                line-height: 50px;
-
-                &:hover {
-                    background-color: #f5f6f9;
-                }
-            }
-
-            &__icon-span {
-                display: inline-block;
-                position: relative;
-                margin-right: 6px;
-                color: #bdbdbd;
-            }
-
-            &__label {
-                display: inline-block;
-                color: #bdbdbd;
-                position: relative
-            }
-
-        }
-    }
 }
 
 #{$mainblock} {
@@ -170,6 +94,23 @@ body {
             width: 42px;
             text-align: center;
             opacity: 0.25;
+        }
+
+        &__shortcuts_2 {
+            width: 120px;
+            float: right;
+        }
+        &__shortlink {
+            font-weight: normal;
+            font-size: 32px;
+            width: 50%;
+            text-decoration: none;
+            color: white;
+            background: silver;
+            margin-left: 5px;
+            margin-right: 5px;
+            padding: 5px;
+            border-radius: 3px;
         }
 
         &__help {
@@ -277,5 +218,19 @@ body {
         width: 100%;
         padding-right: 20px;
         padding-left: 20px;
+    }
+}
+
+
+#{$mainlistblock} {
+    /**
+     * E: content
+     * Project list
+     */
+
+    #{$shutter} {
+        &__switch {
+            cursor: default;
+        }
     }
 }
