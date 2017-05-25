@@ -3,11 +3,7 @@
 {% load static %}
 
 {% block title %}
-    {% if form.instance.pk %}
-       {% trans 'Update Project' %}
-    {% else %}
-        {% trans 'Create Project' %}
-    {% endif %}
+    {% trans 'Update Project Medias' %} -- {{ project.name }}
 {% endblock %}
 
 {% block main_inner %}
@@ -25,25 +21,37 @@
         </div>
     </header>
 
-    <div id="saving" style="display:none;">
-        {% trans "Medias are being sent to servor, be patient... If it's a video, go grab a coffee" %}
+    <div class="edit-project__popup-overlay" id="saving" style="display:none;">
+        <section class="final">
+            <h2>
+                <i class="icon fa fa-spin fa-spinner"></i>
+                {% trans "Medias are being sent to servor." %}
+            </h2>
+
+            <p class="information">
+                {% trans "Be patient... If it's a video, go grab a coffee" %}
+            </p>
+        </section>
     </div>
+
     <div id="main">
         {% for media in medias %}
             <fieldset class="shutter" data-edit="{% url 'project_edit_update_media' pk=project.pk media_pk=media.pk %}">
                 <header class="shutter__switch">
-                    <h2 class="shutter__title">{{ media.title }}</h2>
-
-                    <form action="{% url "project_edit_delete_media" pk=project.pk media_pk=media.pk %}" class="shortcuts delete-form" method="post">
+                    <h3 class="shutter__title">{{ media.title }}
+                        <span class="shutter__shortcuts_2">
+                            <form action="{% url "project_edit_delete_media" pk=project.pk media_pk=media.pk %}" class="shortcuts delete-form" method="post">
                         {% csrf_token %}
-                        <button class="media-delete-btn" type="submit" data-toggle="tooltip" title="{% trans "Delete this media" %}" data-placement="left">
-                            <i class="icon icon-trash-o"></i>
-                        </button>
-                    </form>
+                                <button class="media-delete-btn shutter__shortlink" type="submit" data-toggle="tooltip" title="{% trans "Delete this media" %}" data-placement="left">
+                                    <i class="icon fa fa-trash-o"></i>
+                                </button>
+                            </form>
+                        </span>
+
+                    </h3>
 
                     <span class="shutter__indicator">
                         <span class="shutter__help">{% trans 'Edit media (title, file)' %}</span>
-                        <i class="shutter__icon fa fa-image"></i>
                     </span>
                 </header>
             </fieldset>
@@ -159,12 +167,14 @@
                 .on('click', '.action-save-form', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    $('#saving').show();
                     toSubmit = $('.media-form').length;
 
-                    $('.media-form').each(function(i){
-                        submitMedia($(this));
-                    });
+                    if (toSubmit > 0) {
+                        $('#saving').show();
+                        $('.media-form').each(function(i){
+                            submitMedia($(this));
+                        });
+                    }
                 });
      });
     </script>

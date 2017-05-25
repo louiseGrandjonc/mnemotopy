@@ -90,47 +90,51 @@ Public views
 - /archive: list of all projects
 
 
-
-TODO:
-- Faire page tri par categorie
-- Faire le slideshow avec la gestion ajax du next/previous
-
-
-- Design front - later
-- SEO
-- URLs
-- Tests
-- Vimeo
-- Pagination
-
------------------
-Design Backoffice
------------------
+---------------------------------
+Design Backoffice - prio 1 - DONE
+---------------------------------
 - fieldset closed and fieldset open - ok
 - Save button -ok
 - nav bar - ok
 - nav bar only for projects - ok
+- design error list - done
 
 project page
 - design input text - ok
 - add ckeditor - ok
-- design country list - prio 2 (if there is some time)
-
 
 media page
-- Button Add an other media - prio 1
-- Drag drop file - prio 3 (nice to have)
-- design input language choice - prio 1
-- design input type - prio 1
-- design delete button - prio 1
-- Saving overlay design - prio 1
+- design input type - prio 1 - done
+- design delete button - prio 1 - done
+- Button Add an other media - prio 1 - done
+- design input language choice - prio 1 - done
+- Saving overlay design - prio 1 - done
 
 design list:
-- pagination
-- design item in list icon photo/pen to edit
+- pagination - done
+- design item in list icon photo/pen to edit - done
+
+
+design login - done
+add is-active to current edit section - done
+
+
+------------------
+Design BO - prio 2
+------------------
+- design country list - prio 2 (if there is some time)
+- Drag drop file - prio 2 (nice to have)
 
 ----
 Bugs
 ----
 
-- display empty instead of default english when no french - fixed
+- display empty instead of default english when no french... FIXED
+
+
+TODO:
+- logout
+- Upload to Vimeo
+- Faire page tri par categorie + Paginated
+- Faire le slideshow avec la gestion ajax du next/previous
+- SEO

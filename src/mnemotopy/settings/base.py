@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_countries',
     'django_extensions',
+    'pure_pagination',
 ]
 
 MIDDLEWARE = [

@@ -49,7 +49,7 @@ class Media( models.Model):
         (AUDIO, 'Audio'),
     )
     type = models.IntegerField(choices=TYPE_CHOICES)
-    title = models.CharField(max_length=255, null=True)
+    title = models.CharField(max_length=255, null=True, blank=True)
     project = models.ForeignKey(Project, null=True, related_name='medias')
     created_at = models.DateTimeField(default=datetime.now)
     realized_at = models.DateTimeField(null=True)

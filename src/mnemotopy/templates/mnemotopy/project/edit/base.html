@@ -9,7 +9,7 @@
 
 
 {% block main_footer %}
-    {% if is_editing %}
+    {% if is_editing and is_editing != 'index' %}
         <footer class="edit-footer">
             <ul class="edit-footer__actions">
                 <li class="edit-footer__btn">

@@ -47,54 +47,61 @@
             </fieldset>
         {% endfor %}
 
-    </div>
-    {% if is_paginated %}
-        <nav id="project-pagination" class="footer-pagination">
-            <ul>
-                {% if page_obj.has_previous %}
-                    <li>
-                        <a href="?page={{ page_obj.previous_page_number }}" title="{% trans "previous page" %}">
-                            <i class="icon icon-chevron-left">&nbsp;</i>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="disabled">
-                        <span class="a">
-                            <i class="icon icon-chevron-left">&nbsp;</i>
-                        </span>
-                    </li>
-                {% endif %}
-                {% for page in page_obj.pages %}
-                    {% if page %}
-                        {% if page == page_obj.number %}
-                            <li class="active">
-                                <span class="a">{{ page }}</span>
-                            </li>
-                        {% else %}
-                            <li>
-                                <a href="?page={{ page }}" class="page">{{ page }}</a>
-                            </li>
-                        {% endif %}
+        {% if is_paginated %}
+            <nav class="footer-pagination">
+                <ul class="footer-pagination__list">
+                    {% if page_obj.has_previous %}
+                        <li class="footer-pagination__item">
+                            <a class="footer-pagination__link" href="?page={{ page_obj.previous_page_number }}" title="{% trans "previous page" %}">
+                                <span class="footer-pagination__description">
+                                    <i class="icon fa fa-chevron-left">&nbsp;</i>
+                                </span>
+                            </a>
+                        </li>
                     {% else %}
-                        <li class="disabled">
-                            <span class="a"><i class="icon icon-ellipsis-h"></i></span>
+                        <li class="footer-pagination__item">
+                            <span class="footer-pagination__description disabled">
+                                <i class="icon fa fa-chevron-left">&nbsp;</i>
+                            </span>
                         </li>
                     {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <li>
-                        <a href="?page=" {{ page_obj.next_page_number }}" title="{% trans "next page" %}">
-                            <i class="icon icon-chevron-right">&nbsp;</i>
-                        </a>
-                    </li>
-                {% else %}
-                    <li class="disabled">
-                        <span class="a">
-                            <i class="icon icon-chevron-right">&nbsp;</i>
-                        </span>
-                    </li>
-                {% endif %}
-            </ul>
-        </nav>
-    {% endif %}
+                    {% for page in page_obj.pages %}
+                        {% if page %}
+                            {% if page == page_obj.number %}
+                                <li class="footer-pagination__item">
+                                    <span class="footer-pagination__description active">{{ page }}</span>
+                                </li>
+                            {% else %}
+                                <li class="footer-pagination__item">
+                                    <a class="footer-pagination__link" href="?page={{ page }}" class="page">
+                                        <span class="footer-pagination__description">{{ page }}</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <li class="footer-pagination__item">
+                                <span class="footer-pagination__description disabled"><i class="icon icon-ellipsis-h"></i></span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="footer-pagination__item" >
+                            <a class="footer-pagination__link" href="?page={{ page_obj.next_page_number }}" title="{% trans "next page" %}">
+                                <span class="footer-pagination__description">
+                                    <i class="icon fa fa-chevron-right">&nbsp;</i>
+                                </span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="footer-pagination__item">
+                            <span class="footer-pagination__description">
+                                <i class="icon fa fa-chevron-right">&nbsp;</i>
+                            </span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+
+    </div>
 {% endblock %}

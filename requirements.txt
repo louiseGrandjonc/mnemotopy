@@ -6,5 +6,6 @@ six==1.10.0
 django-separatedvaluesfield==0.4.0
 django-sluggable==0.4.0
 django-extensions==1.7.5
-PyVimeo
-django-modeltranslation
+PyVimeo==0.3.9
+django-modeltranslation==0.12.1
+django-pure-pagination==0.3.0

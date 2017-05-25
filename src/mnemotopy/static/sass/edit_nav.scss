@@ -46,12 +46,6 @@ $nav: '.edit-nav';
 
             &__item--icon {
                 width: 8%;
-                #{$nav} {
-                    &__link {
-                        width: auto;
-                    }
-                }
-
             }
 
             &__item--right {
@@ -62,7 +56,7 @@ $nav: '.edit-nav';
                 text-align: center;
                 text-decoration: none;
                 height: 100%;
-                width: 100%;
+                width: auto;
                 display: block;
                 position: relative;
                 padding: 0 2em;

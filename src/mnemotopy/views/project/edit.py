@@ -7,8 +7,20 @@ from django.views.generic import CreateView, UpdateView, ListView, DeleteView
 from mnemotopy.forms import ProjectForm, MediaForm
 from mnemotopy.models import Project, Media
 
+from pure_pagination.paginator import Paginator
+
 
 class ProjectViewMixin(object):
+    section = None
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_editing'] = self.section
+
+        return context
+
+
+class ProjectFormViewMixin(ProjectViewMixin):
     model = Project
     form_class = ProjectForm
     template_name = 'mnemotopy/project/edit/detail.html'
@@ -19,35 +31,37 @@ class ProjectViewMixin(object):
         })
 
     def get_context_data(self, **kwargs):
-        context = super(ProjectViewMixin, self).get_context_data(**kwargs)
-        context['is_editing'] = True
+        context = super().get_context_data(**kwargs)
         if self.object:
             context['project'] = self.object
 
         return context
 
 
-class ProjectCreateView(ProjectViewMixin, CreateView):
-    pass
+class ProjectCreateView(ProjectFormViewMixin, CreateView):
+    section = 'create'
 
 create = login_required(ProjectCreateView.as_view())
 
 
-class ProjectUpdateView(ProjectViewMixin, UpdateView):
+class ProjectUpdateView(ProjectFormViewMixin, UpdateView):
     pk_url_kwarg = 'pk'
+    section = 'update'
 
 update = login_required(ProjectUpdateView.as_view())
 
 
-class ProjectIndexView(ListView):
+class ProjectIndexView(ProjectViewMixin, ListView):
     model = Project
-    paginate_by = 15
+    paginate_by = 2
+    paginator_class = Paginator
     template_name = 'mnemotopy/project/edit/index.html'
+    section = 'index'
 
 index = login_required(ProjectIndexView.as_view())
 
 
-class MediaViewMixin(object):
+class MediaViewMixin(ProjectViewMixin):
     @cached_property
     def project(self):
         return get_object_or_404(Project, pk=self.kwargs.get('pk'))
@@ -65,7 +79,6 @@ class MediaViewMixin(object):
         context = super().get_context_data(**kwargs)
         context['project'] = self.project
         context['medias'] = self.project.medias.all()
-        context['is_editing'] = True
 
         return context
 
@@ -77,6 +90,7 @@ class MediaViewMixin(object):
 
 
 class ProjectMediaView(MediaViewMixin, ListView):
+    section = 'media'
     model = Media
     template_name = 'mnemotopy/project/edit/media/list.html'
 

@@ -14,7 +14,7 @@
             <nav class="edit-nav">
                 <ul class="edit-nav__list">
                     {% if project %}
-                        <li class="edit-nav__item">
+                        <li class="edit-nav__item {% if not is_editing %}is-active{% endif %}">
                             <a class="edit-nav__link" href="{% url 'project_detail' project.slug %}">
                                 <span class="edit-nav__icon-span">
                                     <i class="edit-nav__icon icon fa fa-arrow-circle-o-left"></i>
@@ -26,20 +26,20 @@
                             </a>
                         </li>
 
-                        <li class="edit-nav__item ">
+                        <li class="edit-nav__item {% if is_editing and is_editing == 'update' %}is-active{% endif %}">
                             <a class="edit-nav__link" href="{% url 'project_edit' pk=project.pk %}">
                                 <span class="edit-nav__label">{%  trans "Edit this project" %}</span>
                             </a>
                         </li>
 
-                        <li class="edit-nav__item ">
+                        <li class="edit-nav__item  {% if is_editing and is_editing == 'media' %}is-active{% endif %}">
                             <a class="edit-nav__link" href="{% url 'project_edit_media' pk=project.pk %}">
                                 <span class="edit-nav__label">{%  trans "Edit slideshow" %}</span>
                             </a>
                         </li>
                     {% endif %}
 
-                    <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right">
+                    <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right {% if is_editing and is_editing == 'create' %}is-active{% endif %}">
                         <a class="edit-nav__link" href="{% url 'project_add' %}"  title="{% trans 'Create project' %}">
                             <span class="edit-nav__icon-span">
                                 <i class="icon edit-nav__icon fa fa-plus-circle" ></i>
@@ -47,7 +47,7 @@
                         </a>
                     </li>
 
-                    <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right">
+                    <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right {% if is_editing and is_editing == 'index' %}is-active{% endif %}">
                         <a class="edit-nav__link" href="{% url 'project_edit_list' %}" title="{% trans 'Edit project list' %}">
                             <span class="edit-nav__icon-span">
                                 <i class="icon edit-nav__icon fa fa-list"></i>

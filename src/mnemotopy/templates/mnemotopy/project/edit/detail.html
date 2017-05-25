@@ -41,7 +41,7 @@
         <form method="post" id="submit-form" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <fieldset class="shutter {% if form.errors  %} shutter__error shutter__open{% endif %}">
+            <fieldset class="shutter {% if form.position.errors or form.country.error or form.categories.errors or form.tags.errors or form.started_at.errors or form.ended_at.errors or form.published.errors or form.archived.errors %} shutter__error shutter__open{% endif %}">
                 <header class="shutter__switch">
                     <h3 class="shutter__title">{% trans 'Main information about project' %}</h3>
                     <span class="shutter__indicator">
@@ -51,112 +51,112 @@
                 </header>
                 <section class="shutter__content test">
                     {% with field=form.position %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
 
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
-                            </div>
 
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
                         </div>
                     {% endwith %}
 
                     {% with field=form.country %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
                             </div>
                         </div>
                     {% endwith %}
 
                     {% with field=form.categories %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
 
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
-                            </div>
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
 
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
+                            </div>
                         </div>
                     {% endwith %}
 
                     {% with field=form.tags %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
 
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
+
                             </div>
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
                     {% with field=form.started_at %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
 
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
                     {% with field=form.ended_at %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
 
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
 
                     {% with field=form.archived %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 <span class="edit-form__checkbox-label">{{ field.label }}</span>
                             </label>
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
                             </div>
 
@@ -164,11 +164,11 @@
                     {% endwith %}
 
                     {% with field=form.published %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 <span class="edit-form__checkbox-label">{{ field.label }}</span>
                             </label>
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
                             </div>
 
@@ -177,7 +177,7 @@
                 </section>
             </fieldset>
 
-            <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
+            <fieldset class="shutter {% if form.name_en.errors or form.subtitle_en.errors or form.description_en.errors %} shutter__error shutter__open{% endif %}">
                 <header class="shutter__switch">
                     <h3 class="shutter__title">{% trans 'English content' %}</h3>
                     <span class="shutter__indicator">
@@ -188,60 +188,59 @@
                 <section class="shutter__content">
 
                     {% with field=form.name_en %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
 
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
 
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
                     {% with field=form.subtitle_en %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
 
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
                     {% with field=form.description_en %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
-                            <div class="edit-form__input edit-form__text">
+                            <div class="edit-form__input edit-form__text {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
                 </section>
             </fieldset>
 
-            <fieldset class="shutter {% if form.errors  %} shutter--error shutter--open{% endif %}">
+            <fieldset class="shutter {% if form.name_fr.errors or form.subtitle_fr.errors or form.description_fr.errors %} shutter__error shutter__open{% endif %}">
                 <header class="shutter__switch">
                     <h3 class="shutter__title">{% trans 'French content' %}</h3>
                     <span class="shutter__indicator">
@@ -252,53 +251,51 @@
                 <section class="shutter__content">
 
                     {% with field=form.name_fr %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
                     {% with field=form.subtitle_fr %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
-                            <div class="edit-form__input">
+                            <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
-
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
 
                     {% with field=form.description_fr %}
-                        <div class="edit-form__group{% if field.errors %} edit-form--error{% endif %}">
+                        <div class="edit-form__group">
                             <label class="edit-form__label">
                                 {{ field.label }}
                             </label>
-                            <div class="edit-form__input edit-form__text">
+                            <div class="edit-form__input edit-form__text {% if field.errors %}edit-form__input--errors{% endif %}">
                                 {{ field }}
+                                {% if field.errors %}
+                                    <div class="edit-form__errors">
+                                        {{ field.errors }}
+                                    </div>
+                                {% endif %}
                             </div>
 
-                            {% if field.errors %}
-                                <div class="edit-form__indication edit-form__indication--bulls">
-                                    {{ field.errors }}
-                                </div>
-                            {% endif %}
                         </div>
                     {% endwith %}
                 </section>
