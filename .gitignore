@@ -33,5 +33,6 @@ tests/.cache/*
 .cache
 celerybeat-schedule
 src/media/*
+src/mnemotopy/media/*
 django-*
 python-*

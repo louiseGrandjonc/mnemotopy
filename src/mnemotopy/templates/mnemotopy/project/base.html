@@ -39,6 +39,23 @@
                         </li>
                     {% endif %}
 
+                    <li class="edit-nav__item edit-nav__item--icon  edit-nav__item--right">
+                        <a class="edit-nav__link" href="{% url 'logout' %}{% if project %}?next={% url 'project_detail' project.slug %}{% endif %}"  title="{% trans 'Sign out' %}" >
+                            <span class="edit-nav__icon-span">
+                                <i class="icon edit-nav__icon fa fa-sign-out"></i>
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="edit-nav__item edit-nav__item--icon  edit-nav__item--right">
+                        <a class="edit-nav__link" href="{% if project %}{% url 'admin:mnemotopy_project_change' project.id %}{% else %}{% url 'admin:index' %}{% endif %}"  title="{% trans 'Admin' %}" >
+                            <span class="edit-nav__icon-span">
+                                <i class="icon edit-nav__icon fa fa-gavel"></i>
+                            </span>
+                        </a>
+                    </li>
+
+
                     <li class="edit-nav__item edit-nav__item--icon edit-nav__item--right {% if is_editing and is_editing == 'create' %}is-active{% endif %}">
                         <a class="edit-nav__link" href="{% url 'project_add' %}"  title="{% trans 'Create project' %}">
                             <span class="edit-nav__icon-span">
@@ -51,14 +68,6 @@
                         <a class="edit-nav__link" href="{% url 'project_edit_list' %}" title="{% trans 'Edit project list' %}">
                             <span class="edit-nav__icon-span">
                                 <i class="icon edit-nav__icon fa fa-list"></i>
-                            </span>
-                        </a>
-                    </li>
-
-                    <li class="edit-nav__item edit-nav__item--icon  edit-nav__item--right">
-                        <a class="edit-nav__link" href="{% if project %}{% url 'admin:mnemotopy_project_change' project.id %}{% else %}{% url 'admin:index' %}{% endif %}"  title="{% trans 'Admin' %}" >
-                            <span class="edit-nav__icon-span">
-                                <i class="icon edit-nav__icon fa fa-gavel"></i>
                             </span>
                         </a>
                     </li>

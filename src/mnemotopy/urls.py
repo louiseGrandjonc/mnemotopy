@@ -2,12 +2,14 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from mnemotopy.views.project import edit, public
-from mnemotopy.views.login import login
+from mnemotopy.views.login import login, logout
 from mnemotopy.views.user import change_language
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', login),
+    url(r'^logout/$', logout,
+        name='logout'),
     url(r'^language/$', change_language,
         name='user_change_language'),
 

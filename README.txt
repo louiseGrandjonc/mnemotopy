@@ -79,6 +79,7 @@ Edit
 - edit/projects/id/medias/id/delete: delete media
 - /admin
 - /login
+- /logout
 
 
 Public views
@@ -88,35 +89,6 @@ Public views
 - /projects/slug/medias/id: slideshow, paginated, called with ajax to avoid changing url, if no id, redirect to first
 - /change_language: change language post view
 - /archive: list of all projects
-
-
----------------------------------
-Design Backoffice - prio 1 - DONE
----------------------------------
-- fieldset closed and fieldset open - ok
-- Save button -ok
-- nav bar - ok
-- nav bar only for projects - ok
-- design error list - done
-
-project page
-- design input text - ok
-- add ckeditor - ok
-
-media page
-- design input type - prio 1 - done
-- design delete button - prio 1 - done
-- Button Add an other media - prio 1 - done
-- design input language choice - prio 1 - done
-- Saving overlay design - prio 1 - done
-
-design list:
-- pagination - done
-- design item in list icon photo/pen to edit - done
-
-
-design login - done
-add is-active to current edit section - done
 
 
 ------------------
@@ -133,7 +105,6 @@ Bugs
 
 
 TODO:
-- logout
 - Upload to Vimeo
 - Faire page tri par categorie + Paginated
 - Faire le slideshow avec la gestion ajax du next/previous
