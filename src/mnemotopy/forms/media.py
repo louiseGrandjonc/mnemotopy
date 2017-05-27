@@ -2,11 +2,13 @@ from django.conf import settings
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-
 from mnemotopy.models import Media
+from mnemotopy.tasks import upload_to_vimeo, edit_vimeo_information
+
+from .base import TagsModelForm
 
 
-class MediaForm(forms.ModelForm):
+class MediaForm(TagsModelForm):
     title_en = forms.CharField(label=_('Title (english)'),
                                max_length=255,
                                required=False)
@@ -44,12 +46,19 @@ class MediaForm(forms.ModelForm):
             return cleaned_data
 
     def save(self, *args, **kwargs):
-        # TODO handle upload vimeo
         self.instance.project = self.project
-        return super().save(*args, **kwargs)
+        self.instance = super().save(*args, **kwargs)
+
+        if self.instance.type == self.instance.VIDEO:
+            if 'video' in self.changed_data or not self.instance.url:
+                upload_to_vimeo.delay(self.instance.pk)
+            else:
+                edit_vimeo_information.delay(self.instance.pk, change_thumbnail='thumbnail_file' in self.changed_data)
+
+        return self.instance
 
     class Meta:
         model = Media
         fields = ('type', 'position', 'image', 'video',
                   'audio', 'thumbnail_file', 'languages',
-                  'title_en', 'title_fr')
+                  'title_en', 'title_fr', 'url',)

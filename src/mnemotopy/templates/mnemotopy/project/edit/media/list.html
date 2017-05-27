@@ -1,6 +1,6 @@
 {% extends "mnemotopy/project/edit/base.html" %}
 {% load i18n %}
-{% load static %}
+{% load static from staticfiles %}
 
 {% block title %}
     {% trans 'Update Project Medias' %} -- {{ project.name }}
@@ -75,12 +75,14 @@
                  current_form.find('.image-field').show();
                  current_form.find('.video-field').hide();
                  current_form.find('.audio-field').hide();
+                 current_form.find('.url-field').hide();
                  current_form.find('.thumbnail-file-field').hide();
              }
 
              if ($(input).val() == 1) {
                  current_form.find('.image-field').hide();
                  current_form.find('.video-field').show();
+                 current_form.find('.url-field').show();
                  current_form.find('.audio-field').hide();
                  current_form.find('.thumbnail-file-field').show();
              }
@@ -89,6 +91,7 @@
                  current_form.find('.image-field').hide();
                  current_form.find('.video-field').hide();
                  current_form.find('.audio-field').show();
+                 current_form.find('.url-field').hide();
                  current_form.find('.thumbnail-file-field').show();
              }
 

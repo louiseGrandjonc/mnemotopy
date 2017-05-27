@@ -279,6 +279,11 @@ body {
             min-height: 36px;
         }
 
+        input[type=url] {
+            width: 100%;
+            min-height: 36px;
+        }
+
         input[type=number] {
             height: 36px;
             width: 105px;

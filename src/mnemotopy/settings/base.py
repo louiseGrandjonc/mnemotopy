@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+from kombu import Queue, Exchange
 
 ugettext = lambda s: s  # dummy ugettext function, as django's docs say
 
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'django_countries',
     'django_extensions',
     'pure_pagination',
+    'djcelery',
 ]
 
 MIDDLEWARE = [
@@ -135,9 +137,9 @@ USE_L10N = True
 MEDIA_URL = '/media/'
 LOCAL_MEDIA_URL = MEDIA_URL
 
-MEDIA_ROOT = os.path.join(BASE_PATH, MEDIA_URL.strip('/'))
+MEDIA_ROOT = os.path.join(BASE_PATH, '..', '..', MEDIA_URL.strip('/'))
 
-STATIC_ROOT = os.path.join(BASE_PATH, 'static')
+STATIC_ROOT = os.path.join(BASE_PATH, '..', '..', 'static')
 STATIC_URL = '/static/'
 STATIC_SECURE_URL = STATIC_URL
 
@@ -147,7 +149,7 @@ STATICFILES_FINDERS = (
 )
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, "static"),
+    os.path.join(PROJECT_PATH, '..', 'static'),
 )
 
 LOGIN_URL = '/login/'
@@ -174,3 +176,21 @@ LANGUAGE_COOKIE_NAME = 'mp_lang'
 MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 LOGIN_REDIRECT_URL = '/'
+
+
+BROKER_URL = "amqp://mnemotopy:mnemotopy@localhost:5672/mnemotopy"
+
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json', 'application/json', 'pickle']
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+CELERY_QUEUES = (
+    Queue('media', Exchange('media'), routing_key='media'),
+)
+CELERY_ROUTES = {
+    'mnemotopy_media.tasks.upload_to_vimeo': {
+        'queue': 'media'
+    },
+}
