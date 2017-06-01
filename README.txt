@@ -105,7 +105,43 @@ Bugs
 
 
 TODO:
-- Upload to Vimeo
 - Faire page tri par categorie + Paginated
 - Faire le slideshow avec la gestion ajax du next/previous
 - SEO
+- Google analytics
+
+- Prendre un vps pour le serveur
+
+
+-----
+VIMEO
+-----
+
+- On video upload, if file type in indead video media.upload_to_vimeo()
+- media.upload_to_vimeo -> if settings vimeo are set, upload to vimeo in celery task
+- upload_vimeo: check if space left, if no space left, sends mail to stephan and I "the video link on project link has not been uploaded to vimeo due to lack of space", else upload to vimeo
+
+
+
+------
+SERVOR
+------
+
+- Install postgres
+- Create db + user
+- migrate
+
+- Install rabbitmq
+- Create user + vhost
+
+- Clone code and install requirements
+
+- Create vimeo pro account for stephan
+
+- edit prod settings
+
+- launch servor http://techstream.org/Web-Development/Deploy-Django-Project
+
+- start queues
+
+- DNS configuration

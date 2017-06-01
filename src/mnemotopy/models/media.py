@@ -132,7 +132,7 @@ class Media( models.Model):
             return
 
         with tempfile.NamedTemporaryFile() as temp:
-            temp.write(self.video.file.file.read())
+            temp.write(self.video.file.read())
             video_uri = v.upload(temp.name)
             self.url = 'https://vimeo.com/%s' % video_uri.split('/')[2]
 
@@ -158,7 +158,7 @@ class Media( models.Model):
 
         if self.thumbnail_file and change_thumbnail:
             with tempfile.NamedTemporaryFile() as temp:
-                temp.write(self.thumbnail_file.file.file.read())
+                temp.write(self.thumbnail_file.file.read())
                 v.upload_picture(video_uri, temp.name, activate=True)
 
     class Meta:

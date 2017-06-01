@@ -34,7 +34,7 @@ class MediaForm(TagsModelForm):
         if int(cleaned_data['type']) == Media.IMAGE and not cleaned_data.get('image', None):
             self.add_error('image', _('The image field is required for a media of type image'))
 
-        if int(cleaned_data['type']) == Media.VIDEO and not cleaned_data.get('video', None):
+        if int(cleaned_data['type']) == Media.VIDEO and not (cleaned_data.get('video', None) or cleaned_data.get('url', None)):
             self.add_error('video', _('The video field is required for a media of type video'))
 
         if int(cleaned_data['type']) == Media.AUDIO:
@@ -50,7 +50,7 @@ class MediaForm(TagsModelForm):
         self.instance = super().save(*args, **kwargs)
 
         if self.instance.type == self.instance.VIDEO:
-            if 'video' in self.changed_data or not self.instance.url:
+            if 'video' in self.changed_data and not self.instance.url:
                 upload_to_vimeo.delay(self.instance.pk)
             else:
                 edit_vimeo_information.delay(self.instance.pk, change_thumbnail='thumbnail_file' in self.changed_data)

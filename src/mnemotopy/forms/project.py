@@ -31,15 +31,22 @@ class ProjectForm(TagsModelForm):
                                          'class': 'rte'}),
                                      required=False)
 
+    started_at = forms.DateField(widget=forms.widgets.DateInput(
+        format="%d/%m/%Y",
+        attrs={
+            'placeholder': _('Format DD/MM/YYYY')
+        }))
+    ended_at = forms.DateField(widget=forms.widgets.DateInput(
+        format="%d/%m/%Y",
+        attrs={
+            'placeholder': _('Format DD/MM/YYYY')
+        }))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         for field in ['country', 'position', 'started_at', 'ended_at']:
             self.fields[field].required = False
-
-        self.fields['started_at'].widget.attrs = {'class': 'hasDatepicker'}
-        self.fields['ended_at'].widget.attrs = {'class': 'hasDatepicker'}
 
     class Meta:
         model = Project
