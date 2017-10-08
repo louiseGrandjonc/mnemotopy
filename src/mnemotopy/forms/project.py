@@ -3,9 +3,10 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.utils.text import slugify
 
-from mnemotopy.models import Project
+from mnemotopy.models import Project, Category
 
 from .base import TagsModelForm
+from .widgets import MultiSelectWidget
 
 
 class ProjectForm(TagsModelForm):
@@ -56,6 +57,8 @@ class ProjectForm(TagsModelForm):
 
         for field in ['position', 'started_at', 'ended_at']:
             self.fields[field].required = False
+
+        self.fields['categories'].widget = MultiSelectWidget(choices=[(category.pk, category.name) for category in Category.objects.all()])
 
     class Meta:
         model = Project

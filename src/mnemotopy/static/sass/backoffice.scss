@@ -4,6 +4,7 @@
 
 @import 'edit_nav';
 @import 'edit_pagination';
+@import 'widgets';
 
 $form: '.project';
 $mainblock: '.edit-project';
@@ -61,6 +62,11 @@ body {
         .active {
             background: #f5f6f9;
         }
+    }
+
+    &__content {
+        width: 70%;
+        margin: auto;
     }
 
     &__popup-overlay {
@@ -347,7 +353,14 @@ body {
                 background-color: transparent;
                 outline: none;
             }
+        }
 
+        &--center {
+            width: 100%;
+
+            input {
+                text-align: center;
+            }
         }
 
         #{$editform} {

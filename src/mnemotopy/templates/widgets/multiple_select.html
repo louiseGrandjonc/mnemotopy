@@ -1,0 +1,22 @@
+<ul class="tags-container">
+    {% for group_name, choices, _ in widget.optgroups %}
+        {% for choice in choices %}
+            <li class="tag {% if choice.selected %}active{% endif %}">
+                <input {% if choice.selected %}checked="checked" {% endif %}type="checkbox" id="{{ choice.attrs.id }}" name="{{ choice.name }}" value="{{ choice.value }}">
+                <label for="{{ choice.attrs.id }}">
+                    {{ choice.label }}
+                </label>
+            </li>
+        {% endfor %}
+    {% endfor %}
+</ul>
+
+<script type="text/javascript">
+ $('.tag').click(function(e) {
+     e.preventDefault();
+     var checkbox = $(this).children('input');
+     checkbox.prop('checked', !checkbox.attr("checked"));
+     console.log($(this));
+     $(this).toggleClass('active');
+ });
+</script>

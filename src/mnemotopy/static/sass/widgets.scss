@@ -1,0 +1,38 @@
+.tags-container {
+
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    white-space: nowrap;
+    list-style: none;
+
+    .tag {
+        display: inline-block;
+        position: relative;
+        text-align: center;
+
+        input {
+            visibility: hidden;
+            display: none !important;
+            width: 0px;
+            height: 0px;
+            margin: 0;
+            padding: 0;
+
+        }
+
+        label {
+            height: 100%;
+            margin-right: 10px;
+            padding: 10px;
+            cursor: pointer;
+            background: #f5f6f9;
+        }
+    }
+
+    .tag.active {
+        label {
+            background: #bdbdbd;
+        }
+    }
+}
