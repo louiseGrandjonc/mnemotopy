@@ -188,6 +188,25 @@
                 </div>
             {% endwith %}
 
+            {% with field=form.new_tags %}
+                <div class="edit-form__group">
+                    <label class="edit-form__label">
+                        {{ field.label }}
+                    </label>
+
+                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% endwith %}
+
+
             {% with field=form.position %}
                 <div class="edit-form__group">
                     <label class="edit-form__label">

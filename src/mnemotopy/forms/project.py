@@ -63,6 +63,6 @@ class ProjectForm(TagsModelForm):
     class Meta:
         model = Project
         fields = ('categories', 'archived', 'published', 'position',
-                  'started_at', 'ended_at',
+                  'started_at', 'ended_at', 'tags',
                   'name_en', 'name_fr', 'subtitle_en', 'subtitle_fr',
                   'description_en', 'description_fr')
