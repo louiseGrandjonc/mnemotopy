@@ -54,13 +54,12 @@ class ProjectForm(TagsModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        for field in ['country', 'position', 'started_at', 'ended_at']:
+        for field in ['position', 'started_at', 'ended_at']:
             self.fields[field].required = False
 
     class Meta:
         model = Project
-        fields = ('country', 'categories',
-                  'archived', 'published', 'position',
+        fields = ('categories', 'archived', 'published', 'position',
                   'started_at', 'ended_at',
                   'name_en', 'name_fr', 'subtitle_en', 'subtitle_fr',
                   'description_en', 'description_fr')

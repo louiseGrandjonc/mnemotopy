@@ -262,14 +262,19 @@ body {
         margin-bottom: 15px;
     }
 
+    &__tab-lang {
+        margin-bottom: 30px;
+    }
+
+
     &__label {
-        width: 35%;
         line-height: 40px;
         vertical-align: top;
         box-sizing: border-box;
         padding-left: 20px;
         display: inline-block;
         margin-bottom: 0;
+        margin-right: 20px;
     }
 
     &__input {
@@ -291,13 +296,6 @@ body {
             box-sizing: border-box;
             box-shadow: none;
             transition: box-shadow .15s ease-in-out;
-        }
-        input[type=text] {
-            width: 100%;
-            min-height: 36px;
-            border: 0px solid;
-            background-color: transparent;
-            outline: none;
         }
 
         input[type=url] {
@@ -339,6 +337,17 @@ body {
             input, select {
                 border-color: #cb2027;
             }
+        }
+
+        &--transparent {
+            input {
+                width: 100%;
+                min-height: 36px;
+                border: 0px solid;
+                background-color: transparent;
+                outline: none;
+            }
+
         }
 
         #{$editform} {

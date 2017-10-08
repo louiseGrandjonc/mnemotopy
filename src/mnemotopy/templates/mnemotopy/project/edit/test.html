@@ -37,10 +37,64 @@
     <form method="post" id="submit-form" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <div class="tab-lang" id="edit-form__en">
+
+        {% with field=form.categories %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    {{ field.label }}
+                </label>
+
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="edit-form__errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endwith %}
+
+        {% with field=form.started_at %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    {{ field.label }}
+                </label>
+
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="edit-form__errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endwith %}
+
+        {% with field=form.ended_at %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    {{ field.label }}
+                </label>
+
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="edit-form__errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endwith %}
+
+
+        <div class="edit-form__tab-lang" id="edit-form__en">
             {% with field=form.name_en %}
                 <div class="project__title">
-                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    <div class="edit-form__input edit-form__input--transparent {% if field.errors %}edit-form__input--errors{% endif %}">
                         <h1>
                             {{ field }}
                         </h1>
@@ -56,7 +110,7 @@
 
             {% with field=form.subtitle_en %}
                 <div class="project__subtitle">
-                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    <div class="edit-form__input edit-form__input--transparent {% if field.errors %}edit-form__input--errors{% endif %}">
                         <h2>
                             {{ field }}
                         </h2>
@@ -87,10 +141,10 @@
 
         </div>
 
-        <div class="tab-lang" style="display:none;" id="edit-form__fr">
+        <div class="edit-form__tab-lang" style="display:none;" id="edit-form__fr">
             {% with field=form.name_fr %}
                 <div class="project__title">
-                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    <div class="edit-form__input edit-form__input--transparent {% if field.errors %}edit-form__input--errors{% endif %}">
                         <h1>
                             {{ field }}
                         </h1>
@@ -105,7 +159,7 @@
 
             {% with field=form.subtitle_fr %}
                 <div class="project__subtitle">
-                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    <div class="edit-form__input edit-form__input--transparent {% if field.errors %}edit-form__input--errors{% endif %}">
                         <h2>
                             {{ field }}
                         </h2>
@@ -134,7 +188,68 @@
                     </div>
                 </div>
             {% endwith %}
+        </div>
 
+        {% with field=form.tags %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    {{ field.label }}
+                </label>
+
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="edit-form__errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endwith %}
+
+        {% with field=form.position %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    {{ field.label }}
+                </label>
+
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+
+                    {% if field.errors %}
+                        <div class="edit-form__errors">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+        {% endwith %}
+
+        {% with field=form.published %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    <span class="edit-form__checkbox-label">{{ field.label }}</span>
+                </label>
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+                </div>
+
+            </div>
+        {% endwith %}
+
+        {% with field=form.archived %}
+            <div class="edit-form__group">
+                <label class="edit-form__label">
+                    <span class="edit-form__checkbox-label">{{ field.label }}</span>
+                </label>
+                <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                    {{ field }}
+                </div>
+
+            </div>
+        {% endwith %}
 
     </form>
 
@@ -159,10 +274,20 @@
              e.stopPropagation();
              $(this).parents('ul:first').find('.active').toggleClass('active');
              $(this).parent().addClass('active');
-             $('.tab-lang').hide();
+             $('.edit-form__tab-lang').hide();
              console.log($(this).data('form-div'));
              $($(this).data('form-div')).show();
-         })
+         });
+
+         $('.action-save-form').click(function (e) {
+             e.preventDefault();
+             e.stopPropagation();
+             form = $('#submit-form');
+             if (form.length) {
+                 form.submit();
+             }
+         });
+
      });
     </script>
 {% endblock %}
