@@ -145,3 +145,7 @@ SERVOR
 - start queues
 
 - DNS configuration
+
+- google analytics
+
+- Creative Commons

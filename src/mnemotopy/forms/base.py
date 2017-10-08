@@ -36,12 +36,12 @@ class TagsModelForm(forms.ModelForm):
             self.initial['tags'] = ', '.join([tag.name for tag in tags])
 
     def clean_tags(self):
-        tag_values = self.cleaned_data.get('tags')
+        tag_slugs = [slugify(tag) for tag in self.cleaned_data.get('tags')]
         tags = []
-        if tag_values:
-            existing_tags = queryset_to_dict(Tag.objects.filter(name_en__in=tag_values), key='name_en')
+        if tag_slugs:
+            existing_tags = queryset_to_dict(Tag.objects.filter(slug__in=tag_slugs), key='slug')
             tags = [Tag(name_en=tag, slug=slugify(tag))
-                    for tag in [tag for tag in tag_values if tag not in existing_tags.keys()]] + list(existing_tags.values())
+                    for tag in [tag for tag in tag_slugs if tag not in existing_tags.keys()]] + list(existing_tags.values())
 
         return tags
 

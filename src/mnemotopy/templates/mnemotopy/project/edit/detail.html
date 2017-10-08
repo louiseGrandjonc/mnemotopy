@@ -310,11 +310,13 @@
     <script type="text/javascript">
      $(document).ready(function() {
          $( '.rte' ).ckeditor();
+
          $( '.hasDatepicker' ).datepicker({
              altFormat: "yyyy-mm-dd",
              changeMonth: true,
              changeYear: true
          });
+
          $('.action-save-form').click(function (e) {
              e.preventDefault();
              e.stopPropagation();

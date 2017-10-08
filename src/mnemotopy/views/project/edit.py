@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
@@ -16,6 +17,7 @@ class ProjectViewMixin(object):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_editing'] = self.section
+        context['creators'] = User.objects.filter(is_staff=True)
 
         return context
 
@@ -23,7 +25,7 @@ class ProjectViewMixin(object):
 class ProjectFormViewMixin(ProjectViewMixin):
     model = Project
     form_class = ProjectForm
-    template_name = 'mnemotopy/project/edit/detail.html'
+    template_name = 'mnemotopy/project/edit/test.html'
 
     def get_success_url(self):
         return reverse('project_edit', kwargs={
@@ -53,10 +55,14 @@ update = login_required(ProjectUpdateView.as_view())
 
 class ProjectIndexView(ProjectViewMixin, ListView):
     model = Project
-    paginate_by = 2
+    paginate_by = 20
     paginator_class = Paginator
     template_name = 'mnemotopy/project/edit/index.html'
     section = 'index'
+
+    def get_queryset(self, *args, **kwargs):
+        return Project.objects.all().select_related('user')
+
 
 index = login_required(ProjectIndexView.as_view())
 

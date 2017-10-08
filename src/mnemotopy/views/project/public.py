@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.views.generic import DetailView, ListView, TemplateView
 
@@ -22,16 +23,21 @@ class Home(TemplateView):
 
         return context
 
-home = Home.as_view()
+home = login_required(Home.as_view())
 
 
 class ProjectIndexView(ListView):
     template_name = 'mnemotopy/project/index.html'
 
     def get_queryset(self):
-        return Project.objects.filter(published=True).order_by('position', '-created_at')
+        qs = Project.objects.filter(published=True).order_by('position', '-created_at')
+        slugs = self.kwargs['slugs'].split('/')
+        if 'all' not in slugs:
+            categories = Category.objects.filter(slug__in=slugs)
+            qs.filter(categories__in=categories)
+        return qs
 
-project_index = ProjectIndexView.as_view()
+project_index = login_required(ProjectIndexView.as_view())
 
 
 class ProjectDetailView(DetailView):
@@ -45,4 +51,4 @@ class ProjectDetailView(DetailView):
             raise Http404
         return response
 
-project_detail = ProjectDetailView.as_view()
+project_detail = login_required(ProjectDetailView.as_view())

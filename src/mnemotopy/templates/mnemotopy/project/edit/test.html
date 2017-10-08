@@ -1,0 +1,168 @@
+{% extends "mnemotopy/project/edit/base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}
+    {% if project %}
+       {% trans 'Update ' %} - {{ project.name }}
+    {% else %}
+        {% trans 'Create Project' %}
+    {% endif %}
+{% endblock %}
+
+{% block head_js %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/ckeditor/ckeditor.js' %}"></script>
+    <script src="{% static 'js/ckeditor/adapters/jquery.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+{% endblock %}
+
+
+{% block main_inner %}
+    class="edit-project"
+{% endblock %}
+
+
+{% block main %}
+
+    <ul class="nav-tabs" id="project-language">
+        <li class="active" >
+            <a class="change-lang" data-form-div="#edit-form__en">{% trans 'English' %}</a>
+        </li>
+        <li>
+            <a class="change-lang" data-form-div="#edit-form__fr">{% trans 'French' %}</a>
+        </li>
+    </ul>
+
+    <form method="post" id="submit-form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="tab-lang" id="edit-form__en">
+            {% with field=form.name_en %}
+                <div class="project__title">
+                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                        <h1>
+                            {{ field }}
+                        </h1>
+
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endwith %}
+
+            {% with field=form.subtitle_en %}
+                <div class="project__subtitle">
+                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                        <h2>
+                            {{ field }}
+                        </h2>
+
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endwith %}
+
+            {% with field=form.description_en %}
+                <div class="project__description">
+                    <div class="edit-form__input edit-form__text {% if field.errors %}edit-form__input--errors{% endif %}">
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endwith %}
+
+        </div>
+
+        <div class="tab-lang" style="display:none;" id="edit-form__fr">
+            {% with field=form.name_fr %}
+                <div class="project__title">
+                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                        <h1>
+                            {{ field }}
+                        </h1>
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endwith %}
+
+            {% with field=form.subtitle_fr %}
+                <div class="project__subtitle">
+                    <div class="edit-form__input {% if field.errors %}edit-form__input--errors{% endif %}">
+                        <h2>
+                            {{ field }}
+                        </h2>
+
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endwith %}
+
+
+            {% with field=form.description_fr %}
+                <div class="project__description">
+                    <div class="edit-form__input edit-form__text {% if field.errors %}edit-form__input--errors{% endif %}">
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="edit-form__errors">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endwith %}
+
+
+    </form>
+
+{% endblock %}
+
+
+{% block extend_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+     $(document).ready(function() {
+         CKEDITOR.disableAutoInline = true;
+         var config = {};
+         config.extraPlugins = 'confighelper';
+
+         $( '.rte' ).each(function(i) {
+             CKEDITOR.inline(this, config );
+         });
+
+         $('.change-lang').click(function(e) {
+             e.preventDefault();
+             e.stopPropagation();
+             $(this).parents('ul:first').find('.active').toggleClass('active');
+             $(this).parent().addClass('active');
+             $('.tab-lang').hide();
+             console.log($(this).data('form-div'));
+             $($(this).data('form-div')).show();
+         })
+     });
+    </script>
+{% endblock %}

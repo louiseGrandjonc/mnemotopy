@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone as datetime
 from django.utils.six import with_metaclass
@@ -28,6 +29,7 @@ class Project(models.Model):
     archived = models.BooleanField(default=False)
     position = models.PositiveIntegerField(null=True)
     published = models.BooleanField(default=False)
+    user = models.ForeignKey(User, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

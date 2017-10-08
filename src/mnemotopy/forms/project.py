@@ -10,25 +10,34 @@ from .base import TagsModelForm
 
 class ProjectForm(TagsModelForm):
     name_en = forms.CharField(label=_('Name'),
+                              widget=forms.TextInput(attrs={
+                                  'placeholder': _('Name (english)')}),
                               max_length=50,
                               required=True)
     subtitle_en = forms.CharField(label=_('Subtitle'),
+                                  widget=forms.TextInput(attrs={'placeholder': 'Subtitle (english)'}),
                                   max_length=140,
                                   required=False)
     description_en = forms.CharField(label=_('Description'),
                                      widget=forms.Textarea(attrs={
-                                         'class': 'rte'}),
+                                         'class': 'rte',
+                                         'placeholder': 'Description (english)'}),
                                      required=False)
 
     name_fr = forms.CharField(label=_('Name'),
+                              widget=forms.TextInput(attrs={
+                                  'placeholder': 'Name (french)'}),
                               max_length=50,
                               required=False)
-    subtitle_fr = forms.CharField(label=_('Subtitle'),
+    subtitle_fr = forms.CharField(label=('Subtitle'),
+                                  widget=forms.TextInput(attrs={
+                                      'placeholder': 'Subtitle (french)'}),
                                   max_length=140,
                                   required=False)
     description_fr = forms.CharField(label=_('Description'),
                                      widget=forms.Textarea(attrs={
-                                         'class': 'rte'}),
+                                         'class': 'rte',
+                                         'placeholder': 'Description (french)'}),
                                      required=False)
 
     started_at = forms.DateField(widget=forms.widgets.DateInput(

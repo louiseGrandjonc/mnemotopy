@@ -5,6 +5,8 @@ from .base import *
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+ALLOWED_HOSTS = ['mnemotopy.local.com']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
