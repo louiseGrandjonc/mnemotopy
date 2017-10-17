@@ -1,15 +1,14 @@
 .tags-container {
 
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    white-space: nowrap;
     list-style: none;
+    display:flex;
+    flex-wrap: wrap;
 
     .tag {
-        display: inline-block;
         position: relative;
         text-align: center;
+        margin: 5px;
+        margin-bottom: 30px;
 
         input {
             visibility: hidden;
