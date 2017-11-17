@@ -18,3 +18,11 @@ def edit_vimeo_information(media_id, change_thumbnail=False):
 
     media = Media.objects.get(pk=media_id)
     media.edit_vimeo_information(change_thumbnail=change_thumbnail)
+
+
+@task(name='mnemotopy_media.tasks.upload_compressed_image')
+def upload_compressed_image(media_id):
+    from mnemotopy.models import Media
+
+    media = Media.objects.get(pk=media_id)
+    media.upload_compressed_image_file()

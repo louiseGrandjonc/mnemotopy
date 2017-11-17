@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from mnemotopy.models import Media
-from mnemotopy.tasks import upload_to_vimeo, edit_vimeo_information
+from mnemotopy.tasks import upload_to_vimeo, edit_vimeo_information, upload_compressed_image
 
 from .base import TagsModelForm
 
@@ -55,10 +55,13 @@ class MediaForm(TagsModelForm):
             else:
                 edit_vimeo_information.delay(self.instance.pk, change_thumbnail='thumbnail_file' in self.changed_data)
 
+        if self.instance.type == self.instance.IMAGE and 'image' in self.changed_data:
+            upload_compressed_image.delay(self.instance.pk)
+
         return self.instance
 
     class Meta:
         model = Media
         fields = ('type', 'position', 'image', 'video',
                   'audio', 'thumbnail_file', 'languages',
-                  'title_en', 'title_fr', 'url',)
+                  'title_en', 'title_fr', 'url', 'tags', )

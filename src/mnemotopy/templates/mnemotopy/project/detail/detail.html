@@ -4,7 +4,95 @@
 
 {% block main %}
 
-    {{ project.name }}
-    {{ project.subtitle }}
-    {{ project.description }}
+    <aside id="information">
+        {{ project.name }}
+        {{ project.subtitle }}
+        {{ project.description|safe }}
+        {% for tag in project.tags.all %}
+            {{ tag.name }}
+        {% endfor %}
+    </aside>
+
+    <div id="slideshow-container">
+        <div id="slideshow">
+            <a class="slideshow--next" href="{% if next_media_url %}{{ next_media_url }}{% endif %}">Next</a>
+            <a class="slideshow--previous" href="">Previous</a>
+
+        </div>
+
+    </div>
+{% endblock %}
+
+
+{% block extend_js %}
+    {{ block.super }}
+
+    <script type="text/javascript">
+
+     var slideIndex = 1;
+     var loadedIndex = 0;
+     var loadSlides = true;
+
+     $('.slideshow--next').click(function(e) {
+         e.preventDefault();
+         slideIndex += 1;
+         showSlide(slideIndex);
+         loadSlide();
+     });
+
+     $('.slideshow--previous').click(function(e) {
+         e.preventDefault();
+         slideIndex -= 1;
+         showSlide(slideIndex);
+     });
+
+     function loadSlide(n) {
+         if (loadedIndex >= slideIndex+1) {
+             return
+         }
+
+         if (loadSlides == true) {
+             nextDiv = $('.slideshow--next:first');
+             if (!nextDiv.length) {
+                 loadSlides = false;
+             } else {
+                 nextDiv = nextDiv[0];
+                 next = nextDiv.getAttribute('href');
+
+                 if (next != '') {
+                     $.get(next)
+                      .done(function(data) {
+                          $(nextDiv).before(data);
+                          $(nextDiv).attr('href', $('.slideshow--next-url:last')[0].getAttribute('href'));
+                      });
+                     loadedIndex += 1;
+
+                 } else {
+                     loadSlides = false
+                 }
+
+             }
+         }
+     }
+
+     function showSlide(n) {
+         var i;
+         var slides = $('.slide');
+         if (n > slides.length) {slideIndex = 1}
+         if (n < 1) {slideIndex = slides.length} ;
+         for (i = 0; i < slides.length; i++) {
+             slides[i].style.display = "none";
+         }
+
+         slides[slideIndex-1].style.display = "block";
+     }
+
+     loadSlide();
+     setTimeout(function(){
+         showSlide(slideIndex);
+         loadSlide()
+     }, 500);
+
+    </script>
+
 {% endblock %}

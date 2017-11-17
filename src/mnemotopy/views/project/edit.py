@@ -25,7 +25,7 @@ class ProjectViewMixin(object):
 class ProjectFormViewMixin(ProjectViewMixin):
     model = Project
     form_class = ProjectForm
-    template_name = 'mnemotopy/project/edit/test.html'
+    template_name = 'mnemotopy/project/edit/detail.html'
 
     def get_success_url(self):
         return reverse('project_edit', kwargs={

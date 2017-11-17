@@ -22,6 +22,9 @@ urlpatterns = [
     url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
         public.project_detail,
         name='project_detail'),
+    url(r'^projects/(?P<slug>[\w.:@+-]+)/medias/(?P<pk>[\d]+)/$',
+        public.media_detail,
+        name='media_detail'),
 
     # url(r'^archive/$',
     #     public.archive,

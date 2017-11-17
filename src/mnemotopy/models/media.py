@@ -1,13 +1,14 @@
+import io
 import tempfile
 import os
+from PIL import Image
 
 from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify, truncatechars
 from django.utils import timezone as datetime
-from django.utils.crypto import get_random_string
 from django.utils.html import escape
-from django.utils.six import with_metaclass
+from django.core.files.uploadedfile import InMemoryUploadedFile
 
 from django_countries.fields import CountryField
 
@@ -18,6 +19,13 @@ import vimeo
 from .project import Project
 from .tag import Tag
 from .geo import City
+
+try:
+    from moviepy.editor import *
+except:
+    import imageio
+    imageio.plugins.ffmpeg.download()
+    from moviepy.editor import *
 
 
 def get_filename(filename):
@@ -62,6 +70,10 @@ def get_image_path(instance, filename):
         return os.path.join(instance.project.get_media_path(), 'images', get_filename(filename))
     return os.path.join('other', 'images', get_filename(filename))
 
+def get_compressed_image_path(instance, filename):
+    if instance.project_id:
+        return os.path.join(instance.project.get_media_path(), 'compressed_images', get_filename(filename))
+    return os.path.join('other', 'compressed_images', get_filename(filename))
 
 def get_video_path(instance, filename):
     if instance.project_id:
@@ -97,6 +109,10 @@ class Media( models.Model):
                               blank=True,
                               null=True)
 
+    compressed_image = models.ImageField(upload_to=get_compressed_image_path,
+                                         blank=True,
+                                         null=True)
+
     video = models.FileField(upload_to=get_video_path, null=True, blank=True)
 
     audio = models.FileField(upload_to=get_audio_path, null=True, blank=True)
@@ -112,12 +128,15 @@ class Media( models.Model):
 
     tags = models.ManyToManyField(Tag)
 
+    def next_media(self):
+        default = Media.objects.filter(project=self.project, id__gt=self.id).first()
+        return Media.objects.filter(project=self.project, position=self.position+1).first() if self.position else default or default
+
     def is_video_file(self):
         return self.video.name.endswith(VIDEO_FILE_EXTENSION)
 
     def upload_to_vimeo(self):
-        if (self.type != self.VIDEO
-            or not self.is_video_file()
+        if (not self.is_video_file()
             or not hasattr(settings, 'VIMEO_CLIENT_ID')):
             return
 
@@ -160,6 +179,39 @@ class Media( models.Model):
             with tempfile.NamedTemporaryFile() as temp:
                 temp.write(self.thumbnail_file.file.read())
                 v.upload_picture(video_uri, temp.name, activate=True)
+
+    def upload_compressed_image_file(self):
+        # Necessary in order to let Zim upload his images to server but smaller versions to display
+        # Avoiding big latencies
+        if self.type != self.IMAGE or self.compressed_image:
+            return
+
+        img_io = io.BytesIO()
+        img = Image.open(self.image.file)
+        img.save(img_io, quality=75, optimize=True, format=img.format)
+
+        name_split = self.image.name.split('/')
+        name = name_split[len(name_split) - 1]
+
+        compressed_size = img_io.getbuffer().nbytes
+
+        if compressed_size < self.image.size:
+            self.compressed_image = InMemoryUploadedFile(img_io, None, name, 'image/jpeg',
+                                                         img_io.getbuffer().nbytes, None)
+            self.save()
+
+
+    def transform_audio_to_video(self):
+        if self.type != self.AUDIO or not self.audio or not self.thumbnail_file:
+            return None
+
+        image_clip = ImageClip(self.thumbnail_file.url)
+        audio_clip = AudioFileClip(self.audio.url)
+
+        clip = image_clip.set_audio(audio_clip)
+        clip = image_clip.set_duration(audio_clip.duration)
+
+        
 
     class Meta:
         abstract = False
