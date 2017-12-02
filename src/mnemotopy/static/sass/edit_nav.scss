@@ -11,6 +11,7 @@ $nav: '.edit-nav';
     &__menu {
         background-color: #f5f6f9;
         position: relative;
+        padding-top: 2px;
 
         #{$nav} {
             min-height: 50px;

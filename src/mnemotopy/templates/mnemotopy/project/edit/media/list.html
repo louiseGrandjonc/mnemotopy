@@ -98,6 +98,7 @@
          }
 
          function submitMedia(form) {
+             console.log(form);
              form.ajaxSubmit({
                  url: form.attr('action'),
                  type: 'post',
@@ -159,11 +160,10 @@
                 })
                 .on('change', 'input:file', function(e) {
                     var form = $(this).parents('.media-form:first');
-                    toSubmit = 1;
 
-                    $('#saving').show();
-
-                    if (form.find('.radio-type:checked').val() != 2 || (form.find('input[name=audio]').val() != '' && form.find('input[name=thumbnail_file]').val() != '')) {
+                    if (form.find('.radio-type:checked').val() != "2" || (form.find('input[name=audio]').val() != '' && form.find('input[name=thumbnail_file]').val() != '')) {
+                        toSubmit = 1;
+                        $('#saving').show();
                         submitMedia(form);
                     }
                 })

@@ -1,0 +1,15 @@
+/*------------------------------------*\
+    #COMMON-SCSS
+\*------------------------------------*/
+
+@import 'header';
+@import 'footer';
+
+body {
+    font-family: "Roboto","Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin: 0px;
+}
+
+#wrapper {
+    padding-top: 65px;
+}

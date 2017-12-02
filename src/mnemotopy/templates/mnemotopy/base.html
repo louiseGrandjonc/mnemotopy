@@ -17,7 +17,11 @@
             {% block title %}{% endblock %}
         </title>
 
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}" />
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
+
         <link rel="stylesheet" href="{% static 'compressed/css/font-awesome.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
 
         {% block extend_css %}
         {% endblock %}
@@ -34,53 +38,78 @@
         {% endblock %}
 
         {% block header %}
-            <header>
+            <header class="header-site">
                 <nav class="header-nav">
-                    <ul class="nav-list">
-                        {% if return_url %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ return_url }}" data-tooltip="{% trans 'Return to project list' %}">
-                                    <svg class="nav-icon icon icon-arrow-left-o">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-left-o"></use>
-                                    </svg>
-                                </a>
-                            </li>
-                        {% endif %}
 
-                        <li>
+                    <div class="nav-home header-nav__item">
+                        <a class="header-nav__link" href="{% url 'home' %}" data-tooltip="{% trans 'Return to website home' %}">
+                            <span class="header-nav__title">S.E.</span>
+                            <img class="header-nav__logo" src="{% static 'img/logo.png' %}">
+                            <span class="header-nav__title">ZIMMERLI</span>
+                        </a>
+                    </div>
 
-                            <div class="change-lang-menu">
-                                <form class="language-switcher-form" action="{% url 'user_change_language' %}" method="post">
-                                    {% with path_info=request.get_full_path %}
-                                        <input type="hidden" value="{{ path_info }}" name="redirect_url" />
-                                    {% endwith %}
-                                    <select id="id_mp_lang" name="mp_lang" required>
-                                        {% for code, label in LANGUAGES %}
-                                            <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ label }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </form>
-                            </div>
-                        </li>
+                    <div class="nav-lang change-lang-menu header-nav__item">
+                        <form class="language-switcher-form" action="{% url 'set_language' %}" method="post">
+                            {% csrf_token %}
+                            {% with path_info=request.get_full_path %}
+                                <input type="hidden" value="{{ path_info }}" name="next" id="id_next" />
+                            {% endwith %}
 
-                    </ul>
+                            <select id="id_language" name="language" required>
+                                {% for code, label in LANGUAGES %}
+                                    <option value="{{ code }}" {% if code == LANGUAGE_CODE %}selected{% endif %}>{{ label }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
                 </nav>
             </header>
 
         {% endblock %}
 
-        {% block extend_header %}
+        <div id="wrapper">
+            <main {% block main_inner %}{% endblock %}>
+                {% block extend_header %}
+                {% endblock %}
+
+                {% block messages %}
+                {% endblock %}
+
+                {% block main %}
+                {% endblock %}
+            </main>
+        </div>
+
+        {% block extend_footer %}
         {% endblock %}
 
-        <main {% block main_inner %}{% endblock %}>
-            {% block messages %}
-            {% endblock %}
-
-            {% block main %}
-            {% endblock %}
-        </main>
-
         {% block main_footer %}
+            <footer class="footer-nav">
+                <div class="footer-nav__logo">
+                    <img {% block footer_logo_img %}class="img-border" src="{% static 'img/logo_footer.png' %}"{% endblock %}>
+                </div>
+
+                <div class="footer-nav__links">
+                    <div class="footer-nav__link">
+                        <a href="#">{% trans "About me" %}</a>
+                    </div>
+                    -
+                    <div class="footer-nav__link">
+                        <a href="#">{% trans "Contact" %}</a>
+                    </div>
+                    -
+                    <div class="footer-nav__link">
+                        <a href="https://www.instagram.com/zimmoriarty/">{% trans "Instagram" %}</a>
+                    </div>
+                    -
+                    <div class="footer-nav__link">
+                        <a href="https://twitter.com/MoriartyTheBand">{% trans "Twitter" %}</a>
+                    </div>
+
+
+                </div>
+            </footer>
         {% endblock %}
 
         {% block extend_js %}

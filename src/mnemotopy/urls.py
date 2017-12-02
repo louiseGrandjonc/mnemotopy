@@ -1,30 +1,21 @@
-from django.conf.urls import url
+from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from mnemotopy.views.project import edit, public
 from mnemotopy.views.login import login, logout
 from mnemotopy.views.user import change_language
 
+# languages = '|'.join(dict(settings.LANGUAGES).keys())
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', login),
     url(r'^logout/$', logout,
         name='logout'),
-    url(r'^language/$', change_language,
-        name='user_change_language'),
-
-    url(r'^$',
-        public.home,
-        name='home'),
-    url(r'^categories/(?P<slugs>[\/\-a-zA-Z]+)/$',
-        public.project_index,
-        name='project_index'),
-    url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
-        public.project_detail,
-        name='project_detail'),
-    url(r'^projects/(?P<slug>[\w.:@+-]+)/medias/(?P<pk>[\d]+)/$',
-        public.media_detail,
-        name='media_detail'),
+    url(r'^i18n/', include('django.conf.urls.i18n')),
+    # url(r'^language/$', change_language,
+    #     name='user_change_language'),
 
     # url(r'^archive/$',
     #     public.archive,
@@ -53,3 +44,19 @@ urlpatterns = [
         edit.delete_media,
         name='project_edit_delete_media'),
 ]
+
+urlpatterns += i18n_patterns(
+    url(r'^$',
+        public.home,
+        name='home'),
+    url(r'^categories/(?P<slugs>[\/\-a-zA-Z]+)/$',
+        public.project_index,
+        name='project_index'),
+    url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
+        public.project_detail,
+        name='project_detail'),
+    url(r'^projects/(?P<slug>[\w.:@+-]+)/medias/(?P<pk>[\d]+)/$',
+        public.media_detail,
+        name='media_detail'),
+    prefix_default_language=False
+)

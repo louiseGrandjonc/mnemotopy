@@ -1,0 +1,29 @@
+$home: '.under-construction';
+
+#{$home} {
+    font-family: "Courier New",Courier,Helvetica,Arial,sans-serif;
+    position: relative;
+    background: no-repeat url(../img/under_construction.jpg) 50% / 100%;
+
+    &__description {
+        position: absolute;
+        text-align: center;
+        bottom: 0;
+        width: 100%;
+        height: 15%;
+        color: #fff;
+    }
+
+    .invisible {
+        vertical-align: top;
+        width: 100%; /* max width */
+        opacity: 0;  /* make it transparent */
+    }
+
+    @media (max-width: 650px) {
+        &__description {
+            font-size: 13px;
+            height: 20%;
+        }
+    }
+}

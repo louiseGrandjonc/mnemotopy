@@ -55,7 +55,7 @@ class MediaForm(TagsModelForm):
             else:
                 edit_vimeo_information.delay(self.instance.pk, change_thumbnail='thumbnail_file' in self.changed_data)
 
-        if self.instance.type == self.instance.IMAGE and 'image' in self.changed_data:
+        if self.instance.type == self.instance.IMAGE and not self.instance.compressed_image:
             upload_compressed_image.delay(self.instance.pk)
 
         return self.instance

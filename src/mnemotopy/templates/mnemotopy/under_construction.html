@@ -1,0 +1,25 @@
+{% extends "mnemotopy/base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block extend_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+
+{% load mnemotopy_tags %}
+
+{% block main %}
+
+    <div class="under-construction">
+        <img class="invisible" src="{% static 'img/under_construction.jpg' %}">
+        <div class="under-construction__description">
+            {% trans "This website is under construction." %}
+            <br/>
+            {% trans "Soon you will be able to explore Stephan Zimmerli's work." %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_logo_img %}src="{% static 'img/logo_b_n_w.png' %}"{% endblock %}

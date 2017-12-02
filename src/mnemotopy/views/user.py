@@ -7,18 +7,17 @@ from django.conf import settings
 @require_POST
 @csrf_exempt
 def change_language(request, status=None):
-    if 'redirect_url' in request.POST:
-        parameters = request.POST
 
-        response = HttpResponseRedirect(parameters.get('redirect_url'))
+    parameters = request.POST
 
-        lang = parameters.get(settings.LANGUAGE_COOKIE_NAME,
-                              settings.LANGUAGE_CODE)
+    response = HttpResponseRedirect(parameters.get('redirect_url'))
 
-        if lang in dict(settings.LANGUAGES):
-            response.set_cookie(settings.LANGUAGE_COOKIE_NAME,
-                                lang)
+    lang = parameters.get('language',
+                          settings.LANGUAGE_CODE)
 
-        return response
+    import ipdb; ipdb.set_trace()
+    if lang in dict(settings.LANGUAGES):
+        response.set_cookie(settings.LANGUAGE_COOKIE_NAME,
+                            lang)
 
-    return HttpResponseBadRequest()
+    return response

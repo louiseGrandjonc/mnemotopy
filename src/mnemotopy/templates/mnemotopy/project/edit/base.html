@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="{% static 'css/backoffice.css' %}">
 {% endblock %}
 
-
-{% block main_footer %}
+{% block extend_footer %}
     {% if is_editing and is_editing != 'index' %}
         <footer class="edit-footer">
             <ul class="edit-footer__actions">

@@ -1,0 +1,9 @@
+{% extends "mnemotopy/project/base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block main %}
+    {% for project in object_list %}
+        <a href="{% url 'project_detail' project.slug %}">{{ project.name }}</a>
+    {% endfor %}
+{% endblock %}

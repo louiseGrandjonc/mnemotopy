@@ -1,0 +1,66 @@
+/*------------------------------------*\
+    #FOOTER
+\*------------------------------------*/
+
+
+$nav: '.footer-nav';
+
+#{$nav} {
+    height: 82px;
+    border-top: 1px solid #e0e0e0;
+
+    &__logo {
+        margin-top: -21px;
+        position: relative;
+        height: 40px;
+        text-align: center;
+
+        img {
+            height: 40px
+        }
+
+        .img-border {
+            border-right: 10px solid white;
+            border-left: 10px solid white;
+        }
+    }
+
+    &__links {
+        text-align: center;
+        margin: 10px;
+        font-size: 16px;
+    }
+
+    &__link {
+        display: inline-block;
+        color: #000;
+        margin-right: 10px;
+        margin-left: 10px;
+
+        a:link {
+            color: #000;
+            text-decoration: none;
+            display:inline-block;
+        }
+        a:visited {
+            text-decoration: none;
+            color: #000;
+        }
+        a:hover {
+            text-decoration: none;
+        }
+        a:active {
+            text-decoration: none;
+            color: #000;
+        }
+
+    }
+
+    @media (max-width: 650px) {
+        &__logo {
+            img {
+                display: none;
+            }
+        }
+    }
+}

@@ -9,7 +9,7 @@ from mnemotopy.models import Project, Category, Media
 
 
 class Home(TemplateView):
-    template_name = 'mnemotopy/home.html'
+    template_name = 'mnemotopy/under_construction.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,19 +24,22 @@ class Home(TemplateView):
 
         return context
 
-home = login_required(Home.as_view())
+
+home = Home.as_view()
 
 
 class ProjectIndexView(ListView):
     template_name = 'mnemotopy/project/index.html'
 
     def get_queryset(self):
-        qs = Project.objects.filter(published=True).order_by('position', '-created_at')
+        qs = Project.objects.filter(published=True,
+                                    archived=False).order_by('position', '-created_at')
         slugs = self.kwargs['slugs'].split('/')
         if 'all' not in slugs:
             categories = Category.objects.filter(slug__in=slugs)
             qs.filter(categories__in=categories)
         return qs
+
 
 project_index = login_required(ProjectIndexView.as_view())
 
@@ -63,6 +66,7 @@ class ProjectDetailView(DetailView):
             raise Http404
         return response
 
+
 project_detail = login_required(ProjectDetailView.as_view())
 
 
@@ -82,8 +86,9 @@ class MediaDetailView(DetailView):
         next_media = self.object.next_media()
         if next_media:
             context['next_media_url'] = reverse('media_detail', kwargs={'slug': self.slug,
-                                                                         'pk': next_media.pk})
+                                                                        'pk': next_media.pk})
 
         return context
+
 
 media_detail = login_required(MediaDetailView.as_view())

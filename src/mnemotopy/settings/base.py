@@ -54,12 +54,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'mnemotopy.middleware.locale.CustomLocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'mnemotopy.urls'
@@ -108,11 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
 USE_TZ = True
 
 
@@ -184,7 +180,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json', 'application/json', 'pickle']
 CELERY_TASK_SERIALIZER = 'pickle'
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.Databasecheduler'
 
 CELERY_QUEUES = (
     Queue('media', Exchange('media'), routing_key='media'),
@@ -193,4 +189,10 @@ CELERY_ROUTES = {
     'mnemotopy_media.tasks.upload_to_vimeo': {
         'queue': 'media'
     },
+    'mnemotopy_media.tasks.edit_vimeo_information': {
+        'queue': 'media'
+    },
+    'mnemotopy_media.tasks.upload_compressed_image': {
+        'queue': 'media'
+    }
 }
