@@ -3,4 +3,7 @@ dependencies:
 
 
 run-worker:
-	DJANGO_SETTINGS_MODULE=mnemotopy.settings.local bin/worker -Q medias -l info worker
+	cd src && DJANGO_SETTINGS_MODULE=mnemotopy.settings.local celery -A mnemotopy -Q media -l info worker
+
+run-worker-prod:
+	cd src && DJANGO_SETTINGS_MODULE=mnemotopy.settings.prod celery -A mnemotopy -Q medias -l info worker

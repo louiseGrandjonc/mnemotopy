@@ -2,9 +2,14 @@
 
 (function() {
     $(document).ready(function() {
-        $(document).on('change', '#id_language', function() {
-            console.log($(this).parents('form:first'));
-            $(this).parents('form:first').submit();
+        $(document).on('click', '.header-nav__lang', function(e){
+            e.preventDefault();
+            var lang = $(this).data('lang'),
+                form = $(this).parent().find('form:first');
+
+            $('#id_language').val(lang);
+            form.submit();
         });
+
     });
 })()

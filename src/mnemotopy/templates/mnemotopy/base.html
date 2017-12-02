@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static from staticfiles %}
+{% get_current_language as CURRENT_LANGUAGE %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
@@ -49,8 +50,13 @@
                         </a>
                     </div>
 
-                    <div class="nav-lang change-lang-menu header-nav__item">
-                        <form class="language-switcher-form" action="{% url 'set_language' %}" method="post">
+                    <div class="nav-lang change-lang-menu header-nav__langs header-nav__item">
+                        {% for code, label in LANGUAGES %}
+                            <a href="#" data-lang="{{ code }}" class="header-nav__lang {% if code == CURRENT_LANGUAGE %}current-lang{% endif %}">{{ code|upper }}</a>
+                            {% if not forloop.last %} / {% endif %}
+                        {% endfor %}
+
+                        <form class="language-switcher-form" action="{% url 'set_language' %}" style="display:none;" method="post">
                             {% csrf_token %}
                             {% with path_info=request.get_full_path %}
                                 <input type="hidden" value="{{ path_info }}" name="next" id="id_next" />
