@@ -37,5 +37,6 @@ src/mnemotopy/media/*
 django-*
 python-*
 src/mnemotopy/settings/prod.py
+src/mnemotopy/settings/local_prod.py
 static/*
 src/static/*

@@ -1,0 +1,26 @@
+$about: '.about-content';
+
+#{$about} {
+    font-family: "Courier New",Courier,Helvetica,Arial,sans-serif;
+
+    margin-top: 40px;
+    margin-bottom: 50px;
+
+    &__photo {
+        text-align: center;
+        margin-bottom: 30px;
+        img {
+            width: 200px;
+        }
+    }
+    &__description {
+        p {
+            text-align: justify;
+            width: 40%;
+            position: relative;
+            display: block;
+            margin-right: 30%;
+            margin-left: 30%;
+        }
+    }
+}

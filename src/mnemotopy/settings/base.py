@@ -196,3 +196,5 @@ CELERY_ROUTES = {
         'queue': 'media'
     }
 }
+
+LOCALE_PATHS = [os.path.join(BASE_PATH, 'locale')]

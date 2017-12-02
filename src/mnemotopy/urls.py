@@ -5,6 +5,7 @@ from django.contrib import admin
 from mnemotopy.views.project import edit, public
 from mnemotopy.views.login import login, logout
 from mnemotopy.views.user import change_language
+from mnemotopy.views.about import about, contact
 
 # languages = '|'.join(dict(settings.LANGUAGES).keys())
 
@@ -49,6 +50,12 @@ urlpatterns += i18n_patterns(
     url(r'^$',
         public.home,
         name='home'),
+    url(r'^about/$',
+        about,
+        name='about'),
+    url(r'^contact/$',
+        contact,
+        name='contact'),
     url(r'^categories/(?P<slugs>[\/\-a-zA-Z]+)/$',
         public.project_index,
         name='project_index'),

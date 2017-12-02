@@ -1,0 +1,22 @@
+{% extends "mnemotopy/base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block extend_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% load mnemotopy_tags %}
+
+{% block language_link %}{% url 'contact' %}{% endblock %}
+
+{% block main %}
+    <div class="about-content">
+        <div class="about-content__photo">
+        </div>
+        <div class="about-content__description">
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "mnemotopy/base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+
+{% block extend_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% load mnemotopy_tags %}
+
+{% block language_link %}{% url 'about' %}{% endblock %}
+
+{% block main %}
+    <div class="about-content">
+        <div class="about-content__photo">
+            <img src="{% static 'img/zim.jpg' %}">
+        </div>
+        <div class="about-content__description">
+            <p>
+                {% blocktrans %}
+                    Stephan Zimmerli is a drawer, architect and musician. He shares his time between the tours within his band Moriarty, scenography projets in collaboration with March Lainé (La boutique obscure) and teaching in architecture schools (in London, Lausanne, Rennes and Paris). This experiences lead to a form of art in between visual arts, theater, architecture and music.
+                {% endblocktrans %}
+            </p>
+            <p>
+                {% blocktrans %}
+                    This inter-disciplinary approach, however, revolves around precise and recurring themes: reminiscence, atmosphere, acoustics, time and matter. It is based concretely on a daily practice of drawing and music, whose traces are systematically archived and ordered in notebooks accumulated for nearly twenty years, thus forming the basis of an art of personal memory: a mnemotopy.
+                {% endblocktrans %}
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

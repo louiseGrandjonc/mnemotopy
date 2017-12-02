@@ -52,7 +52,9 @@
 
                     <div class="nav-lang change-lang-menu header-nav__langs header-nav__item">
                         {% for code, label in LANGUAGES %}
-                            <a href="#" data-lang="{{ code }}" class="header-nav__lang {% if code == CURRENT_LANGUAGE %}current-lang{% endif %}">{{ code|upper }}</a>
+                            {% language code %}
+                            <a href="{% block language_link %}{% url 'home' %}{% endblock %}" data-lang="{{ code }}" class="header-nav__lang {% if code == CURRENT_LANGUAGE %}current-lang{% endif %}">{{ code|upper }}</a>
+                            {% endlanguage %}
                             {% if not forloop.last %} / {% endif %}
                         {% endfor %}
 
@@ -98,12 +100,12 @@
 
                 <div class="footer-nav__links">
                     <div class="footer-nav__link">
-                        <a href="#">{% trans "About me" %}</a>
+                        <a href="{% url 'about' %}">{% trans "About me" %}</a>
                     </div>
-                    -
-                    <div class="footer-nav__link">
-                        <a href="#">{% trans "Contact" %}</a>
-                    </div>
+                    <!-- - -->
+                    <!-- <div class="footer-nav__link"> -->
+                    <!--     <a href="{% url 'contact' %}">{% trans "Contact" %}</a> -->
+                    <!-- </div> -->
                     -
                     <div class="footer-nav__link">
                         <a href="https://www.instagram.com/zimmoriarty/">{% trans "Instagram" %}</a>

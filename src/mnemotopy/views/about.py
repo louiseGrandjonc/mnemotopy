@@ -24,8 +24,11 @@ class ContactView(FormView):
         return response
 
 
-contact = ContactView().as_view()
+contact = ContactView.as_view()
 
 
 class AboutView(TemplateView):
     template_name = 'mnemotopy/about.html'
+
+
+about = AboutView.as_view()
