@@ -12,6 +12,12 @@
 {% block meta %}
     <meta name="description" content="{% trans 'About Stephan Zimmerli' %}">
 
+    {% for code, label in LANGUAGES %}
+        {% language code %}
+        <link rel="alternate" href="{% url 'about' %}" hreflang="{{ code }}"/>
+        {% endlanguage %}
+    {% endfor %}
+
     <!-- Open graph -->
     <meta property="og:title" content="{% trans 'About Stephan Zimmerli' %}" />
     <meta property="og:site_name" content="Stephan Zimmerli" />
