@@ -9,6 +9,28 @@
 
 {% load mnemotopy_tags %}
 
+{% block meta %}
+    <meta name="description" content="{% trans 'About Stephan Zimmerli' %}">
+
+    <!-- Open graph -->
+    <meta property="og:title" content="{% trans 'About Stephan Zimmerli' %}" />
+    <meta property="og:site_name" content="Stephan Zimmerli" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{% url 'about' %}" />
+    <meta property="og:image" content="{% static 'img/logo.png' %}" />
+    <meta content="{% trans 'Zim is a drawer, architect and theater stage designer.' %}" property='og:description' />
+
+    <!-- Twitter -->
+    <meta property="twitter:title" content="{% trans 'About Stephan Zimmerli' %}" />
+    <meta content="summary" property='twitter:card' />
+    <meta content="{% trans 'Zim is a drawer, architect and theater stage designer.' %}" property='twitter:description' />
+
+{% endblock %}
+
+{% block title %}
+    {% trans 'Stephan Zimmerli - Visual arts, Architecture, Scenography' %}
+{% endblock %}
+
 {% block language_link %}{% url 'about' %}{% endblock %}
 
 {% block main %}

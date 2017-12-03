@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
+{% block meta %}
+    <meta name="description" content='{% trans "Discover Stephan Zimmerli's work" %}'>
+
+    <!-- Open graph -->
+    <meta property="og:title" content='{% trans "Discover Stephan Zimmerli's work" %}' />
+    <meta property="og:site_name" content="Stephan Zimmerli" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{% url 'home' %}" />
+    <meta property="og:image" content="{% static 'img/logo.png' %}" />
+    <meta content='{% trans "Drawer, architect and theater stage designer's art work" %}' property='og:description' />
+
+    <!-- Twitter -->
+    <meta property="twitter:title" content='{% trans "Discover Stephan Zimmerli's work" %}' />
+    <meta content="summary" property='twitter:card' />
+    <meta content='{% trans "Drawer, architect and theater stage designer's art work" %}' property='twitter:description' />
+
+{% endblock %}
+
+{% block title %}
+    {% trans 'Stephan Zimmerli - Visual arts, Architecture, Scenography' %}
+{% endblock %}
 
 {% load mnemotopy_tags %}
 

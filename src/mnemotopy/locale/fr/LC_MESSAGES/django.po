@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-02 17:31+0000\n"
+"POT-Creation-Date: 2017-12-03 00:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,23 @@ msgstr ""
 msgid "French"
 msgstr ""
 
+#: src/mnemotopy/templates/mnemotopy/about.html:13
+#: src/mnemotopy/templates/mnemotopy/about.html:16
+#: src/mnemotopy/templates/mnemotopy/about.html:24
+msgid "About Stephan Zimmerli"
+msgstr "À propos de Stephan Zimmerli"
+
 #: src/mnemotopy/templates/mnemotopy/about.html:21
+#: src/mnemotopy/templates/mnemotopy/about.html:26
+msgid "Zim is a drawer, architect and theater stage designer."
+msgstr "Zim est dessinateur, architecte et scénographe."
+
+#: src/mnemotopy/templates/mnemotopy/about.html:31
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:29
+msgid "Stephan Zimmerli - Visual arts, Architecture, Scenography"
+msgstr "Stephan Zimmerli - Arts visuels, Architecture, Scénographie"
+
+#: src/mnemotopy/templates/mnemotopy/about.html:43
 msgid ""
 "\n"
 "                    Stephan Zimmerli is a drawer, architect and musician. He "
@@ -98,9 +114,15 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"Stephan Zimmerli est dessinateur, architecte et musicien. Il partage son temps entre les tournées au sein du groupe Moriarty, les projets de scénographie en collaboration avec Marc Lainé (la Boutique Obscure) et l'enseignement au sein de diverses écoles d'architecture (à Londres, Lausanne, Rennes et Paris). Ces différentes expériences l’amènent à formuler une pratique artistique au croisement des arts visuels, du théâtre, de l’architecture et de la musique."
+"Stephan Zimmerli est dessinateur, architecte et musicien. Il partage son "
+"temps entre les tournées au sein du groupe Moriarty, les projets de "
+"scénographie en collaboration avec Marc Lainé (la Boutique Obscure) et "
+"l'enseignement au sein de diverses écoles d'architecture (à Londres, "
+"Lausanne, Rennes et Paris). Ces différentes expériences l’amènent à formuler "
+"une pratique artistique au croisement des arts visuels, du théâtre, de "
+"l’architecture et de la musique."
 
-#: src/mnemotopy/templates/mnemotopy/about.html:26
+#: src/mnemotopy/templates/mnemotopy/about.html:48
 msgid ""
 "\n"
 "                    This inter-disciplinary approach, however, revolves "
@@ -112,7 +134,12 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"Cette approche inter-disciplinaire gravite cependant autour de thèmes précis et récurrents: la réminiscence, l’atmosphère, l’acoustique, le temps et la matière. Elle s’appuie concrètement sur une pratique quotidienne du dessin et de la musique, dont les traces sont systématiquement archivées et ordonnées dans des carnets accumulés depuis près d’une vingtaine d’années, formant ainsi les bases d’un art de la mémoire personnel : une mnémotopie."
+"Cette approche inter-disciplinaire gravite cependant autour de thèmes précis "
+"et récurrents: la réminiscence, l’atmosphère, l’acoustique, le temps et la "
+"matière. Elle s’appuie concrètement sur une pratique quotidienne du dessin "
+"et de la musique, dont les traces sont systématiquement archivées et "
+"ordonnées dans des carnets accumulés depuis près d’une vingtaine d’années, "
+"formant ainsi les bases d’un art de la mémoire personnel : une mnémotopie."
 
 #: src/mnemotopy/templates/mnemotopy/base.html:46
 msgid "Return to website home"
@@ -246,11 +273,22 @@ msgstr ""
 msgid "Add a media"
 msgstr ""
 
-#: src/mnemotopy/templates/mnemotopy/under_construction.html:18
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:11
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:14
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:22
+msgid "Discover Stephan Zimmerli's work"
+msgstr "Parcourez les travaux de Stephan Zimmerli"
+
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:19
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:24
+msgid "Drawer, architect and theater stage designer's art work"
+msgstr "Dessinateur, architecte et scénographe."
+
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:39
 msgid "This website is under construction."
 msgstr "Ce site est en construction."
 
-#: src/mnemotopy/templates/mnemotopy/under_construction.html:20
+#: src/mnemotopy/templates/mnemotopy/under_construction.html:41
 msgid "Soon you will be able to explore Stephan Zimmerli's work."
 msgstr "Vous pourrez bientôt y explorer le travail de Stephan Zimmerli."
 
