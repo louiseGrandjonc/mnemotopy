@@ -7,8 +7,15 @@
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock %}
 
+{% block title %}
+    {% trans 'Stephan Zimmerli - Visual arts, Architecture, Scenography' %}
+{% endblock %}
+
+{% block meta_description %}
+    <meta name="description" content="{% blocktrans %}Discover Stephan Zimmerli's work{% endblocktrans %}">
+{% endblock %}
+
 {% block meta %}
-    <meta name="description" content='{% trans "Discover Stephan Zimmerli's work" %}'>
 
     {% for code, label in LANGUAGES %}
         {% language code %}
@@ -17,22 +24,18 @@
     {% endfor %}
 
     <!-- Open graph -->
-    <meta property="og:title" content='{% trans "Discover Stephan Zimmerli's work" %}' />
+    <meta property="og:title" content="{% blocktrans %}Discover Stephan Zimmerli's work{% endblocktrans %}" />
     <meta property="og:site_name" content="Stephan Zimmerli" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{% url 'home' %}" />
     <meta property="og:image" content="{% static 'img/logo.png' %}" />
-    <meta content='{% trans "Drawer, architect and theater stage designer's art work" %}' property='og:description' />
+    <meta content="{% blocktrans %}Drawer, architect and theater stage designer's art work{% endblocktrans %}" property='og:description' />
 
     <!-- Twitter -->
-    <meta property="twitter:title" content='{% trans "Discover Stephan Zimmerli's work" %}' />
+    <meta property="twitter:title" content="{% blocktrans %}Discover Stephan Zimmerli's work{% endblocktrans %}" />
     <meta content="summary" property='twitter:card' />
-    <meta content='{% trans "Drawer, architect and theater stage designer's art work" %}' property='twitter:description' />
+    <meta content="{% blocktrans %}Drawer, architect and theater stage designer's art work{% endblocktrans %}" property='twitter:description' />
 
-{% endblock %}
-
-{% block title %}
-    {% trans 'Stephan Zimmerli - Visual arts, Architecture, Scenography' %}
 {% endblock %}
 
 {% load mnemotopy_tags %}
