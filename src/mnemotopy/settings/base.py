@@ -29,7 +29,7 @@ BASE_PATH = os.path.normpath(os.path.join(PROJECT_PATH, os.pardir))
 SECRET_KEY = '!fa1dui8$1j$q90m!dst351oc)$4vz-w-x8kt5=+i49tp&umg+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -49,6 +49,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'pure_pagination',
     'djcelery',
+    'sorl.thumbnail',
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
     'mnemotopy.middleware.locale.CustomLocaleMiddleware',
 ]
 
@@ -132,8 +135,8 @@ USE_L10N = True
 
 MEDIA_URL = '/media/'
 LOCAL_MEDIA_URL = MEDIA_URL
-
-MEDIA_ROOT = os.path.join(BASE_PATH, '..', '..', MEDIA_URL.strip('/'))
+MEDIA_ROOT = os.path.join(BASE_PATH, '..', '..', 'media')
+MEDIA_SECURE_URL = MEDIA_URL
 
 STATIC_ROOT = os.path.join(BASE_PATH, '..', '..', 'static')
 STATIC_URL = '/static/'

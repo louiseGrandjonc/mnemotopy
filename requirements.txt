@@ -16,4 +16,9 @@ celery==3.1.25
 django-celery==3.2.1
 moviepy==0.2.3.2
 numpy==1.13.3
+sorl-thumbnail==12.4.1
+PyYAML==3.12
+ua-parser==0.7.3
+user-agents==1.1.0
+django-user-agents==0.3.2
 -e git://github.com/louiseGrandjonc/imageio.git@1ffeb2d8e7fcc609ce35be4db98d7ac4e452900c#egg=imageio-2.2.0

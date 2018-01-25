@@ -4,7 +4,11 @@
 
 {% block extend_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    {% if request.user_agent.is_mobile %}
+        <link rel="stylesheet" href="{% static 'css/project_mobile.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    {% endif %}
 {% endblock %}
 
 {% block extend_header %}

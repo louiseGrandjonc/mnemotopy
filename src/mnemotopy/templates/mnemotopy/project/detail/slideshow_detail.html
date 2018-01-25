@@ -1,5 +1,11 @@
-<div class="slide" style="display: none;">
-    {{ object.title }}
-    <a class="slideshow--next-url" style="display:none;" href="{% if next_media_url %}{{ next_media_url }}{% endif %}">Next</a>
-
-</div>
+<li class="slide">
+    {% if object.type == object.IMAGE %}
+        {% if object.compressed_image and object.compressed_image.url %}
+            <img src="{{ object.compressed_image.url }}" alt="">
+        {% elif object.image and object.image.url %}
+            <img src="{{ object.image.url }}" alt="">
+        {% endif %}
+    {% endif %}
+    <p class="caption">{{ object.title }}</p>
+</li>
+<a class="slideshow--next-url" style="display:none;" href="{% if next_media_url %}{{ next_media_url }}{% endif %}">Next</a>

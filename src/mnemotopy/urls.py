@@ -1,11 +1,13 @@
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 from mnemotopy.views.project import edit, public
 from mnemotopy.views.login import login, logout
-from mnemotopy.views.user import change_language
 from mnemotopy.views.about import about, contact
+
 
 # languages = '|'.join(dict(settings.LANGUAGES).keys())
 
@@ -15,9 +17,6 @@ urlpatterns = [
     url(r'^logout/$', logout,
         name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    # url(r'^language/$', change_language,
-    #     name='user_change_language'),
-
     # url(r'^archive/$',
     #     public.archive,
     #     name='archive_index'),
@@ -67,3 +66,6 @@ urlpatterns += i18n_patterns(
         name='media_detail'),
     prefix_default_language=False
 )
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

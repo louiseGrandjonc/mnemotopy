@@ -14,6 +14,8 @@ from django.core.files.uploadedfile import InMemoryUploadedFile, SimpleUploadedF
 
 from django_countries.fields import CountryField
 
+from sorl.thumbnail import get_thumbnail
+
 from separatedvaluesfield.models import SeparatedValuesField
 
 import vimeo
@@ -227,6 +229,22 @@ class Media(models.Model):
             self.video = SimpleUploadedFile('%s.mp4' % audio_name, temp.file.read(), content_type='video/mp4')
             self.save()
             self.upload_to_vimeo()
+
+    def thumbnail_url(self):
+        if self.thumbnail_file:
+            return get_thumbnail(self.thumbnail_file, '100x50', crop='center', quality=99).url
+        if self.compressed_image and self.compressed_image.url:
+            return get_thumbnail(self.compressed_image, '100x50', crop='center', quality=99).url
+
+        if self.image and self.image.url:
+            return get_thumbnail(self.compressed_image, '100x50', crop='center', quality=99).url
+
+    def image_url(self):
+        if self.compressed_image and self.compressed_image.url:
+            return self.compressed_image.url
+
+        if self.image and self.image.url:
+            return self.image.url
 
     class Meta:
         abstract = False

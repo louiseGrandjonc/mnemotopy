@@ -1,4 +1,4 @@
-{% extends "mnemotopy/project/base.html" %}
+{% extends "mnemotopy/base.html" %}
 
 {% load i18n %}
 {% load static from staticfiles %}
@@ -7,18 +7,13 @@
 
 {% block extend_css %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/galleria/twelve/galleria.twelve.css' %}">
+    <link rel="stylesheet" href="{% static 'css/project_mobile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/galleria/folio/galleria.folio.css' %}">
     <style>
-
      /* This rule is read by Galleria to define the gallery height: */
-     #galleria{
-         height:420px;
-         min-width: 578px !important;
-         width: 60%;
-         display: inline-block;
-         vertical-align: middle;
-     }
+
+     #galleria{ height: 432px; }
+
     </style>
 {% endblock %}
 
@@ -59,7 +54,7 @@
                         {% endthumbnail %}
 
                     {% elif media.image and media.image.url %}
-                        {% thumbnail media.image "100" as im %}
+                        {% thumbnail media.image "400" as im %}
                         <img class="galleria-img" title="{{ media.title }}"
             	             alt="{% if media.subtitle %}{{ media.subtitle }}{% endif %}"
                              src="{{ im.url }}">
@@ -81,11 +76,9 @@
 {% block extend_js %}
     {{ block.super }}
 
-    <script src="{% static 'js/responsiveslides.min.js' %}"></script>
-
     <script type="text/javascript">
      // Load the classic theme
-     Galleria.loadTheme('{% static "js/galleria/galleria.twelve.min.js" %}');
+     Galleria.loadTheme('{% static "js/galleria/galleria.folio.js" %}');
 
      // Initialize Galleria
      $('#galleria').galleria();

@@ -10,3 +10,8 @@ def categories_url(**kwargs):
     slugs = '/'.join([category.slug for category in categories])
 
     return reverse('project_index', kwargs={'slugs': slugs})
+
+
+@register.filter(name='times')
+def times(number):
+    return range(number)

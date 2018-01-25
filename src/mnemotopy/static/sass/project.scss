@@ -1,5 +1,7 @@
 @import 'edit_nav';
+@import 'slide';
 
+$project: '.project';
 
 html {
     height: 100%;
@@ -11,4 +13,38 @@ html {
 body {
     padding-top: 0 !important;
     margin: 0px;
+}
+
+#{$project} {
+    &__title {
+         text-align: center;
+     }
+
+     &__subtitle {
+         text-align: center;
+     }
+
+     &__content {
+         width: 80%;
+         margin: 40px auto 60px auto;
+         max-width: 1024px;
+     }
+
+     &__information {
+         display: inline-block;
+         width: 29%;
+         margin-right: 5%;
+         text-align: justify;
+         vertical-align: middle;
+     }
+
+     @media (max-width: 1110px) {
+         &__information {
+             margin-left: 10%;
+             width: 80%;
+             margin-right: 0;
+             margin-bottom: 30px;
+         }
+
+     }
 }
