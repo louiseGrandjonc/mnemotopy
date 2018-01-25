@@ -54,7 +54,7 @@
                     {% if media.compressed_image and media.compressed_image.url %}
                         {% thumbnail media.compressed_image "100" as im %}
                         <img class="galleria-img" title="{{ media.title }}"
-            	             alt="{% if media.subtitle %}{{ media.subtitle }}{% endif %}"
+            	             alt=""
                              src="{{ im.url }}">
                         {% endthumbnail %}
 
