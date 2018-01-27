@@ -94,7 +94,7 @@
             _center: true
         });
 
-        $( window ).resize(function() {
+        $( window ).on( 'orientationchange', function() {
             gallery = Galleria.get(0);
             gallery.destroy();
 
