@@ -15,8 +15,11 @@
 
      /* This rule is read by Galleria to define the gallery height: */
      .galleria{
-         height: 432px;
+         height: 600px;
      }
+
+     body .galleria-thumbnails .galleria-image { width:400px }
+
     </style>
 {% endblock %}
 
@@ -49,7 +52,7 @@
             {% for media in medias %}
                 <a href="{% if media.compressed_image and media.compressed_image.url %}{{ media.compressed_image.url }} {% elif media.image and media.image.url %} {{ media.image.url }}{% endif %}">
                     {% if media.compressed_image and media.compressed_image.url %}
-                        {% thumbnail media.compressed_image "400" as im %}
+                        {% thumbnail media.compressed_image "800" as im %}
                         <img src="{{ im.url }}",
                            data-big="{{ media.compressed_image.url }}"
                            data-title="{{ media.title }}"
@@ -58,7 +61,7 @@
                         {% endthumbnail %}
 
                     {% elif media.image and media.image.url %}
-                        {% thumbnail media.image "400" as im %}
+                        {% thumbnail media.image "800" as im %}
                         <img src="{{ im.url }}",
                              data-big="{{ media.image.url }}"
                              data-title="{{ media.title }}"
@@ -87,7 +90,9 @@
         Galleria.loadTheme('{% static "js/galleria/themes/folio/galleria.folio.min.js" %}');
 
         // Initialize Galleria
-        Galleria.run('.galleria');
+        Galleria.run('.galleria', {
+            _center: true
+        });
     });
     </script>
 {% endblock %}
