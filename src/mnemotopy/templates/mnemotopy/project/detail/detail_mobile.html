@@ -93,6 +93,19 @@
         Galleria.run('.galleria', {
             _center: true
         });
+
+        $( window ).resize(function() {
+            gallery = Galleria.get(0);
+            gallery.destroy();
+
+            console.log('destroyed');
+
+            Galleria.run('.galleria', {
+                _center: true
+            });
+
+        });
+
     });
     </script>
 {% endblock %}
