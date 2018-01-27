@@ -27,6 +27,7 @@ class MediaForm(TagsModelForm):
         super().__init__(*args, **kwargs)
         self.fields['type'].initial = self.instance.type or Media.IMAGE
         self.fields['position'].required = False
+        self.fields['tags'].required = False
 
     def clean(self, *args, **kwargs):
         cleaned_data = self.cleaned_data

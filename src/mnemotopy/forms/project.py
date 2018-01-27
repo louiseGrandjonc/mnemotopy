@@ -58,6 +58,7 @@ class ProjectForm(TagsModelForm):
         for field in ['position', 'started_at', 'ended_at']:
             self.fields[field].required = False
 
+        self.fields['tags'].required = False
         self.fields['categories'].widget = MultiSelectWidget(choices=[(category.pk, category.name) for category in Category.objects.all()])
 
     class Meta:
