@@ -1,4 +1,4 @@
-{% extends "mnemotopy/base.html" %}
+{% extends "mnemotopy/project/base.html" %}
 
 {% load i18n %}
 {% load static from staticfiles %}
@@ -9,7 +9,7 @@
 
 {% block extend_css %}
     {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/project_mobile.css' %}">
 
     <style>
 
