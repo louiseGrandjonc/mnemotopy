@@ -27,6 +27,56 @@
 {% endblock %}
 
 {% block main %}
+        {% if project.title %}
+        <h1 class="project__title">{{ project.title }}</h1>
+    {% endif %}
+
+    {% if project.subtitle %}
+        <h2 class="project__subtitle">
+            {{ project.subtitle }}
+        </h2>
+    {% endif %}
+
+    <div class="project__content">
+        <div class="project__information">
+            {{ project.description|safe }}
+            {% for tag in project.tags.all %}
+                {{ tag.name }}
+            {% endfor %}
+        </div>
+
+        <div class="galleria">
+            {% for media in medias %}
+                <a href="{% if media.compressed_image and media.compressed_image.url %}{{ media.compressed_image.url }} {% elif media.image and media.image.url %} {{ media.image.url }}{% endif %}">
+                    {% if media.compressed_image and media.compressed_image.url %}
+                        {% thumbnail media.compressed_image "400" as im %}
+                        <img src="{{ im.url }}",
+                           data-big="{{ media.compressed_image.url }}"
+                           data-title="{{ media.title }}"
+                           data-description="{{ media.subtitle }}"
+                        >
+                        {% endthumbnail %}
+
+                    {% elif media.image and media.image.url %}
+                        {% thumbnail media.image "400" as im %}
+                        <img src="{{ im.url }}",
+                             data-big="{{ media.image.url }}"
+                             data-title="{{ media.title }}"
+                             data-description="{{ media.subtitle }}"
+                        >
+                        {% endthumbnail %}
+
+                    {% elif media.type == 1 and media.url or media.type == 2 and media.url %}
+                        <a href="{{ media.url }}">
+                            <span class="video">{{ media.title }}</span>
+                        </a>
+
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    
     <div class="galleria">
         <a href="http://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Biandintz_eta_zaldiak_-_modified2.jpg/800px-Biandintz_eta_zaldiak_-_modified2.jpg">
             <img 
