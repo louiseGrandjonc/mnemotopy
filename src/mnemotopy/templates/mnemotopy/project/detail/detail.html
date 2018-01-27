@@ -8,7 +8,7 @@
 {% block extend_css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/galleria/twelve/galleria.twelve.css' %}">
+
     <style>
 
      /* This rule is read by Galleria to define the gallery height: */
@@ -24,8 +24,7 @@
 
 {% block head_js %}
     {{ block.super }}
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-    <script src="{% static 'js/galleria/jquery.galleria.js' %}"></script>
+    <script src="{% static 'js/galleria/galleria-1.5.7.min.js' %}"></script>
 {% endblock %}
 
 {% block main %}
@@ -81,14 +80,12 @@
 {% block extend_js %}
     {{ block.super }}
 
-    <script src="{% static 'js/responsiveslides.min.js' %}"></script>
-
     <script type="text/javascript">
      // Load the classic theme
-     Galleria.loadTheme('{% static "js/galleria/galleria.twelve.min.js" %}');
+     Galleria.loadTheme('{% static "js/galleria/themes/twelve/galleria.twelve.min.js" %}');
 
      // Initialize Galleria
-     $('#galleria').galleria();
+     Galleria.run('#galleria');
 
 
     </script>
