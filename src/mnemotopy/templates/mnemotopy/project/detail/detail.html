@@ -12,7 +12,7 @@
     <style>
 
      /* This rule is read by Galleria to define the gallery height: */
-     #galleria{
+     .galleria{
          height:420px;
          min-width: 578px !important;
          width: 60%;
@@ -46,7 +46,7 @@
             {% endfor %}
         </div>
 
-        <div id="galleria">
+        <div class="galleria">
             {% for media in medias %}
                 <a href="{% if media.compressed_image and media.compressed_image.url %}{{ media.compressed_image.url }} {% elif media.image and media.image.url %} {{ media.image.url }}{% endif %}">
 
@@ -85,7 +85,7 @@
      Galleria.loadTheme('{% static "js/galleria/themes/twelve/galleria.twelve.min.js" %}');
 
      // Initialize Galleria
-     Galleria.run('#galleria');
+     Galleria.run('.galleria');
 
 
     </script>
