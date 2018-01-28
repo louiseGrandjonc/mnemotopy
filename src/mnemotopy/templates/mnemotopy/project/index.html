@@ -4,11 +4,22 @@
 
 {% block extend_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/project.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/category.css' %}">
 {% endblock %}
 
 {% block main %}
-    {% for project in object_list %}
-        <a href="{% url 'project_detail' project.slug %}">{{ project.name }}</a>
-    {% endfor %}
+    <div class="category__content">
+        <div class="category__title">
+            <h1>{% for category in categories %}{{ category.name }} {% if not forloop.last %}, {% endif %}{% endfor %}</h1>
+        </div>
+
+        <ul class="category__projects">
+            {% for project in object_list %}
+                <li class="category__project">
+                    <a class="category__project__link" href="{% url 'project_detail' project.slug %}">{{ project.name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

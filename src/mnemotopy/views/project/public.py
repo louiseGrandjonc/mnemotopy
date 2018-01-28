@@ -38,10 +38,16 @@ class ProjectIndexView(ListView):
                                     archived=False).order_by('position', '-created_at')
         slugs = self.kwargs['slugs'].split('/')
         if 'all' not in slugs:
-            categories = Category.objects.filter(slug__in=slugs)
-            qs.filter(categories__in=categories)
+            self.categories = Category.objects.filter(slug__in=slugs)
+            for category in self.categories:
+                qs = qs.filter(categories__in=[category])
+
         return qs
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = self.categories
+        return context
 
 project_index = login_required(ProjectIndexView.as_view())
 

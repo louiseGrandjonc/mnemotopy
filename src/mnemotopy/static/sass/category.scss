@@ -1,0 +1,29 @@
+@import 'edit_nav';
+
+$category: '.category';
+
+
+#{$category} {
+    &__title {
+        text-align: center;
+    }
+
+    &__content {
+        width: 80%;
+        margin: 40px auto 60px auto;
+        max-width: 1024px;
+    }
+
+    &__projects {
+        padding: 0;
+        text-align: center;
+        margin-top: 40px;
+        margin-bottom: 50px;
+    }
+
+    &__project {
+        width: 31%;
+        margin: 1%;
+        display: inline-block;
+    }
+}

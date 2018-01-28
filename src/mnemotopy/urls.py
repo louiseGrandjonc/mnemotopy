@@ -61,9 +61,6 @@ urlpatterns += i18n_patterns(
     url(r'^projects/(?P<slug>[\w.:@+-]+)/$',
         public.project_detail,
         name='project_detail'),
-    url(r'^projects/(?P<slug>[\w.:@+-]+)/medias/(?P<pk>[\d]+)/$',
-        public.media_detail,
-        name='media_detail'),
     prefix_default_language=False
 )
 

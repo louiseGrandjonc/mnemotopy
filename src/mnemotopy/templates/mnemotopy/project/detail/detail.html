@@ -5,6 +5,10 @@
 {% load mnemotopy_tags %}
 {% load thumbnail %}
 
+{% block title %}
+    {{ project.title }}
+{% endblock %}
+
 {% block extend_css %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'css/project.css' %}">
