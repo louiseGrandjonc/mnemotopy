@@ -1,2 +1,1 @@
-src/mnemotopy/static/js/ckeditor/**/*.css linguist-vendored
-src/mnemotopy/static/js/ckeditor/**/*.html linguist-vendored
+src/mnemotopy/static/js/ckeditor/** linguist-vendored
