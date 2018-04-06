@@ -8,6 +8,7 @@ from django_user_agents.utils import get_user_agent
 import itertools
 
 from mnemotopy.models import Project, Category, Media
+from mnemotopy.utils.preload import preload_projects_main_image
 
 
 class Home(TemplateView):
@@ -32,6 +33,7 @@ home = Home.as_view()
 
 class ProjectIndexView(ListView):
     template_name = 'mnemotopy/project/index.html'
+    paginate_by = 6
 
     def get_queryset(self):
         qs = Project.objects.filter(published=True,
@@ -47,9 +49,12 @@ class ProjectIndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = self.categories
+
+        projects = preload_projects_main_image(context['project_list'])
+        context['project_list'] = context['object_list'] = list(projects.values())
         return context
 
-project_index = login_required(ProjectIndexView.as_view())
+project_index = ProjectIndexView.as_view()
 
 
 class ProjectDetailView(DetailView):

@@ -1,6 +1,7 @@
 {% extends "mnemotopy/project/base.html" %}
 {% load i18n %}
 {% load static from staticfiles %}
+{% load thumbnail %}
 
 {% block extend_css %}
     {{ block.super }}
@@ -13,13 +14,57 @@
             <h1>{% for category in categories %}{{ category.name }} {% if not forloop.last %}, {% endif %}{% endfor %}</h1>
         </div>
 
-        <ul class="category__projects">
+        <ul class="category__projects infinite-container">
             {% for project in object_list %}
-                <li class="category__project">
-                    <a class="category__project__link" href="{% url 'project_detail' project.slug %}">{{ project.name }}
+                <li class="category__project infinite-item">
+                    <a class="category__project__link" href="{% url 'project_detail' project.slug %}">
+                        <div class="category__project__media">
+                            {% if project.main_media and project.main_media.image %}
+                                {% thumbnail project.main_media.image "800" as im %}
+                                <img class="category__project__image" src="{{ im.url }}">
+                            {% endthumbnail %}
+                            {% elif project.main_media and project.main_media.thumbnail_file %}
+                            {% thumbnail project.main_media.thumbnail_file "800" as im %}
+                            <img class="category__project__image" src="{{ im.url }}">
+                            {% endthumbnail %}
+                            {% endif %}
+                        </div>
+
+                        <span class="category__project__description">
+                            {{ project.name }}
+                        </span>
                     </a>
                 </li>
             {% endfor %}
         </ul>
+
+        {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">More</a>
+        {% endif %}
+
+        <div class="loading" style="display: none;">
+            <i class="icon fa fa-spinner fa-pulse"></i>
+        </div>
+
     </div>
+{% endblock %}
+
+{% block extend_js %}
+    {{ block.super }}
+
+    <script src="{% static 'js/waypoints/lib/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'js/waypoints/lib/shortcuts/infinite.min.js' %}"></script>
+
+    <script type="text/javascript">
+     var infinite = new Waypoint.Infinite({
+         element: $('.infinite-container')[0],
+         onBeforePageLoad: function () {
+             $('.loading').show();
+         },
+         onAfterPageLoad: function ($items) {
+             $('.loading').hide();
+         }
+     });
+    </script>
+
 {% endblock %}

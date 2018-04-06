@@ -1,0 +1,87 @@
+{% extends "mnemotopy/project/base.html" %}
+
+{% load i18n %}
+{% load static from staticfiles %}
+{% load mnemotopy_tags %}
+{% load thumbnail %}
+
+{% block meta_description %}
+    <meta name="description" content="{{ project.description|striptags|truncatewords:40 }}">
+{% endblock %}
+
+{% block meta %}
+    {% for code, label in LANGUAGES %}
+        {% language code %}
+        <link rel="alternate" href="{% url 'project_detail' project.slug %}" hreflang="{{ code }}"/>
+        {% endlanguage %}
+    {% endfor %}
+
+    <!-- Open graph -->
+    <meta property="og:title" content="{{ project.title }}" />
+    <meta property="og:site_name" content="Stephan Zimmerli" />
+    <meta property="og:url" content="{% url 'project_detail' project.slug %}" />
+    {% thumbnail medias.0.image "800" as im800 %}
+    <meta property="og:image" content="{{ im800.url }}" />
+    {% endthumbnail %}
+    <meta content="{{ project.description|striptags|truncatewords:40 }}" property='og:description' />
+
+    <!-- Twitter -->
+    <meta property="twitter:title" content="{{ project.title }}" />
+    <meta content="summary" property='twitter:card' />
+    <meta content="{{ project.description|striptags|truncatewords:40 }}" property='twitter:description' />
+
+{% endblock %}
+
+{% block head_js %}
+    {{ block.super }}
+    <!-- load Galleria -->
+    <script src="{% static 'js/galleria/galleria-1.5.7.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    {{ project.title }}
+{% endblock %}
+
+{% block main %}
+        {% if project.title %}
+        <h1 class="project__title">{{ project.title }}</h1>
+    {% endif %}
+
+    {% if project.subtitle %}
+        <h2 class="project__subtitle">
+            {{ project.subtitle }}
+        </h2>
+    {% endif %}
+
+    <div class="project__content">
+        <div class="project__information">
+            {{ project.description|safe }}
+            {% for tag in project.tags.all %}
+                {{ tag.name }}
+            {% endfor %}
+        </div>
+
+        <div class="galleria">
+            {% for media in medias %}
+                {% if media.type == 0 and media.image and media.image.url %}
+                    {% thumbnail media.image "800" as im800 %}
+                    {% thumbnail media.image "2580" as imbig %}
+                    <a href="{{ im800.url }}">
+                        <img src="{{ im800.url }}",
+                             data-big="{{ imbig.url }}"
+                             data-title="{{ media.title }}"
+                             data-description="{{ media.subtitle }}">
+                    </a>
+                    {% endthumbnail %}
+                    {% endthumbnail %}
+
+                {% elif media.type == 1 and media.url or media.type == 2 and media.url %}
+                    <a href="{{ media.url }}">
+                        <span class="video">{{ media.title }}</span>
+                    </a>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

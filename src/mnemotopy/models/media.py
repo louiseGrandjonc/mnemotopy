@@ -73,12 +73,6 @@ def get_image_path(instance, filename):
     return os.path.join('other', 'images', get_filename(filename))
 
 
-def get_compressed_image_path(instance, filename):
-    if instance.project_id:
-        return os.path.join(instance.project.get_media_path(), 'compressed_images', get_filename(filename))
-    return os.path.join('other', 'compressed_images', get_filename(filename))
-
-
 def get_video_path(instance, filename):
     if instance.project_id:
         if instance.type == instance.AUDIO:
@@ -114,10 +108,6 @@ class Media(models.Model):
     image = models.ImageField(upload_to=get_image_path,
                               blank=True,
                               null=True)
-
-    compressed_image = models.ImageField(upload_to=get_compressed_image_path,
-                                         blank=True,
-                                         null=True)
 
     video = models.FileField(upload_to=get_video_path, null=True, blank=True)
 
@@ -184,27 +174,6 @@ class Media(models.Model):
             with tempfile.NamedTemporaryFile() as temp:
                 temp.write(self.thumbnail_file.file.read())
                 v.upload_picture(video_uri, temp.name, activate=True)
-
-    def upload_compressed_image_file(self):
-        # Necessary in order to let Zim upload his images to server but smaller versions to display
-        # Avoiding big latencies
-        if self.type != self.IMAGE or self.compressed_image:
-            return
-
-        img_io = io.BytesIO()
-        img = Image.open(self.image.file)
-        img.save(img_io, quality=75, optimize=True, format=img.format)
-
-        name_split = self.image.name.split('/')
-        name = name_split[len(name_split) - 1]
-
-        compressed_size = img_io.getbuffer().nbytes
-
-        if compressed_size < self.image.size:
-            mimetype, _ = mimetypes.guess_type(name)
-            self.compressed_image = InMemoryUploadedFile(img_io, None, name, mimetype or 'image/jpeg',
-                                                         img_io.getbuffer().nbytes, None)
-            self.save()
 
     def transform_audio_to_video(self):
         if (self.type != self.AUDIO

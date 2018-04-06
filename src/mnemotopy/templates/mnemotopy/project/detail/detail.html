@@ -1,13 +1,6 @@
-{% extends "mnemotopy/project/base.html" %}
+{% extends "mnemotopy/project/detail/base.html" %}
 
-{% load i18n %}
 {% load static from staticfiles %}
-{% load mnemotopy_tags %}
-{% load thumbnail %}
-
-{% block title %}
-    {{ project.title }}
-{% endblock %}
 
 {% block extend_css %}
     {{ block.super }}
@@ -24,60 +17,6 @@
          vertical-align: middle;
      }
     </style>
-{% endblock %}
-
-{% block head_js %}
-    {{ block.super }}
-    <script src="{% static 'js/galleria/galleria-1.5.7.min.js' %}"></script>
-{% endblock %}
-
-{% block main %}
-    {% if project.title %}
-        <h1 class="project__title">{{ project.title }}</h1>
-    {% endif %}
-
-    {% if project.subtitle %}
-        <h2 class="project__subtitle">
-            {{ project.subtitle }}
-        </h2>
-    {% endif %}
-
-    <div class="project__content">
-        <div class="project__information">
-            {{ project.description|safe }}
-            {% for tag in project.tags.all %}
-                {{ tag.name }}
-            {% endfor %}
-        </div>
-
-        <div class="galleria">
-            {% for media in medias %}
-                <a href="{% if media.compressed_image and media.compressed_image.url %}{{ media.compressed_image.url }} {% elif media.image and media.image.url %} {{ media.image.url }}{% endif %}">
-
-                    {% if media.compressed_image and media.compressed_image.url %}
-                        {% thumbnail media.compressed_image "100" as im %}
-                        <img class="galleria-img" title="{{ media.title }}"
-            	             alt=""
-                             src="{{ im.url }}">
-                        {% endthumbnail %}
-
-                    {% elif media.image and media.image.url %}
-                        {% thumbnail media.image "100" as im %}
-                        <img class="galleria-img" title="{{ media.title }}"
-            	             alt="{% if media.subtitle %}{{ media.subtitle }}{% endif %}"
-                             src="{{ im.url }}">
-                        {% endthumbnail %}
-
-                    {% elif media.type == 1 and media.url or media.type == 2 and media.url %}
-                    <a href="{{ media.url }}">
-                        <span class="video">{{ media.title }}</span>
-                    </a>
-
-                    {% endif %}
-                </a>
-            {% endfor %}
-        </div>
-    </div>
 {% endblock %}
 
 

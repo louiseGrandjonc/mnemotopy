@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block meta %}
-
     {% for code, label in LANGUAGES %}
         {% language code %}
         <link rel="alternate" href="{% url 'home' %}" hreflang="{{ code }}"/>

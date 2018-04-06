@@ -3,7 +3,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from mnemotopy.models import Media
-from mnemotopy.tasks import upload_to_vimeo, edit_vimeo_information, upload_compressed_image
+from mnemotopy.tasks import upload_to_vimeo, edit_vimeo_information
 
 from .base import TagsModelForm
 
@@ -55,9 +55,6 @@ class MediaForm(TagsModelForm):
                 upload_to_vimeo.delay(self.instance.pk)
             else:
                 edit_vimeo_information.delay(self.instance.pk, change_thumbnail='thumbnail_file' in self.changed_data)
-
-        if self.instance.type == self.instance.IMAGE and not self.instance.compressed_image:
-            upload_compressed_image.delay(self.instance.pk)
 
         return self.instance
 

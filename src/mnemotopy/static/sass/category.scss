@@ -22,8 +22,37 @@ $category: '.category';
     }
 
     &__project {
-        width: 31%;
-        margin: 1%;
+        width: 28%;
+        margin: 2%;
         display: inline-block;
+        text-align: left;
+
+        a {
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+        }
     }
+
+    &__project__image {
+        width: 100%;
+    }
+
+    @media (max-width: 800px) {
+        &__project {
+            width: 45%;
+        }
+    }
+
+    @media (max-width: 650px) {
+        &__project {
+            width: 100%;
+        }
+    }
+}
+
+.loading {
+    font-size: 30px;
+    text-align: center;
+    color: #bdbdbd;
 }

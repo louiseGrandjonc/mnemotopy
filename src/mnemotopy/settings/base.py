@@ -194,9 +194,6 @@ CELERY_ROUTES = {
     },
     'mnemotopy_media.tasks.edit_vimeo_information': {
         'queue': 'media'
-    },
-    'mnemotopy_media.tasks.upload_compressed_image': {
-        'queue': 'media'
     }
 }
 
