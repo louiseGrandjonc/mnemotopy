@@ -37,7 +37,7 @@ class ProjectIndexView(ListView):
 
     def get_queryset(self):
         qs = Project.objects.filter(published=True,
-                                    archived=False).order_by('position', '-created_at')
+                                    archived=False).order_by('-created_at')
         slugs = self.kwargs['slugs'].split('/')
         if 'all' not in slugs:
             self.categories = Category.objects.filter(slug__in=slugs)
