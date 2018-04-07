@@ -30,6 +30,15 @@
         <script src="{% static 'js/jquery.js' %}"></script>
         <script src="{% static 'js/base.js' %}"></script>
         {% block head_js %}
+             <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116410295-2"></script>
+            <script>
+             window.dataLayer = window.dataLayer || [];
+             function gtag(){dataLayer.push(arguments);}
+             gtag('js', new Date());
+             gtag('config', 'UA-116410295-2');
+            </script>
+
+            </script>
         {% endblock %}
     </head>
 
