@@ -7,6 +7,16 @@ $project: '.project';
     &__content {
         margin-bottom: 50px;
     }
+
+    &__title, &__subtitle {
+        text-align: center;
+    }
+
+    &__information {
+        width: 80%;
+        margin-left: 10%;
+        text-align:justify;
+    }
 }
 
 @media (max-width: 1240px) {
@@ -24,11 +34,5 @@ $project: '.project';
 @media (max-width: 700px) {
     body .galleria-thumbnails .galleria-image {
         width:80vw !important;
-    }
-}
-
-@media (max-width: 600px) {
-    body .galleria-thumbnails .galleria-image {
-        width:90vw !important;
     }
 }
