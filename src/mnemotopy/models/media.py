@@ -145,11 +145,13 @@ class Media(models.Model):
             # TODO send email to zim and I
             return
 
-        with tempfile.NamedTemporaryFile() as temp:
-            temp.write(self.video.file.read())
-            video_uri = v.upload(temp.name)
-            self.url = 'https://vimeo.com/%s' % video_uri.split('/')[2]
+        data = {
+                'type' : 'pull',
+                'link' : self.video.url
+        }
 
+        response = v.post('/me/videos', data=data).json()
+        self.url = response.get('link')
         self.save()
         self.edit_vimeo_information()
 

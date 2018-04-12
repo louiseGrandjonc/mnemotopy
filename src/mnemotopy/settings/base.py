@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django_countries',
     'django_extensions',
     'pure_pagination',
-    'djcelery',
+    'celery',
     'sorl.thumbnail',
     'django_user_agents',
 ]
@@ -177,13 +177,13 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 LOGIN_REDIRECT_URL = '/'
 
 
-BROKER_URL = "amqp://mnemotopy:mnemotopy@localhost:5672/mnemotopy"
+BROKER_URL = "amqp://mnemotopy:secret@localhost:5672/mnemotopy"
 
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json', 'application/json', 'pickle']
 CELERY_TASK_SERIALIZER = 'pickle'
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
-CELERYBEAT_SCHEDULER = 'djcelery.schedulers.Databasecheduler'
+CELERY_RESULT_BACKEND = 'amqp'
+# CELERYBEAT_SCHEDULER = 'djcelery.schedulers.Databasecheduler'
 
 CELERY_QUEUES = (
     Queue('media', Exchange('media'), routing_key='media'),

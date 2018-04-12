@@ -29,5 +29,3 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-BROKER_URL = "amqp://mnemotopy:mnemotopy@localhost:5672/mnemotopy"

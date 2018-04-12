@@ -1,0 +1,21 @@
+version: '2'
+services:
+    rabbit:
+        hostname: rabbit
+        image: rabbitmq:latest
+        environment:
+          RABBITMQ_DEFAULT_USER: mnemotopy
+          RABBITMQ_DEFAULT_PASS: secret
+          RABBITMQ_DEFAULT_VHOST: mnemotopy
+        ports:
+          - "5673:5672"
+    worker:
+        build:
+            context: .
+            dockerfile: dockerfile
+        volumes:
+            - .:/var/www/mnemotopy
+        links:
+            - rabbit
+        depends_on:
+            - rabbit

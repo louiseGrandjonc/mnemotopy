@@ -15,7 +15,6 @@ def change_language(request, status=None):
     lang = parameters.get('language',
                           settings.LANGUAGE_CODE)
 
-    import ipdb; ipdb.set_trace()
     if lang in dict(settings.LANGUAGES):
         response.set_cookie(settings.LANGUAGE_COOKIE_NAME,
                             lang)
