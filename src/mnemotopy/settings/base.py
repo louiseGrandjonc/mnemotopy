@@ -177,7 +177,7 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 LOGIN_REDIRECT_URL = '/'
 
 
-BROKER_URL = "amqp://mnemotopy:secret@localhost:5672/mnemotopy"
+BROKER_URL = "amqp://mnemotopy:secret@rabbit:5672/mnemotopy"
 
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json', 'application/json', 'pickle']
