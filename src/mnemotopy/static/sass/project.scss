@@ -6,7 +6,6 @@ $project: '.project';
 html {
     height: 100%;
     margin: 0;
-    font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
     font-size: 13px;
 }
 
@@ -17,11 +16,24 @@ body {
 
 #{$project} {
     &__title {
-         text-align: center;
+        text-align: center;
+        font-size: 16px;
+        margin: 0;
      }
 
      &__subtitle {
          text-align: center;
+         font-size: 16px;
+         font-weight: normal;
+         margin: 0;
+         color: #545454;
+     }
+
+     &__date {
+         text-align: center;
+         margin-bottom: 30px;
+         font-size: 16px;
+         color: #727272;
      }
 
      &__content {

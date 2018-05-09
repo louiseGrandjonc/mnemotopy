@@ -13,8 +13,7 @@ run-server:
 
 docker-up:
 	docker-compose build
-	docker-compose scale worker=2
-	docker-compose up
+	docker-compose up --scale worker=2
 
 docker-stop:
 	docker-compose -f docker-compose.yml stop

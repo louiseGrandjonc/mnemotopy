@@ -6,7 +6,7 @@
 $nav: '.header-nav';
 
 .header-site {
-    border-bottom: 5px solid black;
+    border-bottom: 5px solid #313131;
     position: fixed;
     width: 100%;
     z-index: 300;
@@ -24,10 +24,10 @@ $nav: '.header-nav';
     &__langs {
         display: inline-block;
         line-height: 40px;
-        color: #000;
+        color: #313131;
 
         .current-lang {
-            color: #000 !important;
+            color: #313131 !important;
         }
 
         a:link {
@@ -55,7 +55,7 @@ $nav: '.header-nav';
         font-style: normal;
         font-size: 18px;
         letter-spacing: 0.2px;
-        color: #000;
+        color: #313131;
 
         a:link {
             text-decoration: none;
@@ -63,14 +63,14 @@ $nav: '.header-nav';
         }
         a:visited {
             text-decoration: none;
-            color: #000;
+            color: #313131;
         }
         a:hover {
             text-decoration: none;
         }
         a:active {
             text-decoration: none;
-            color: #000;
+            color: #313131;
         }
 
     }
@@ -83,7 +83,7 @@ $nav: '.header-nav';
     &__title {
         display: inline-block;
         position: relative;
-        color: #000;
+        color: #313131;
     }
 
     &__link {

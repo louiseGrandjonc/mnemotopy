@@ -22,12 +22,12 @@ from .project import Project
 from .tag import Tag
 from .geo import City
 
-try:
-    from moviepy.editor import ImageClip, AudioFileClip
-except:
-    import imageio
-    imageio.plugins.ffmpeg.download()
-    from moviepy.editor import ImageClip, AudioFileClip
+# try:
+#     from moviepy.editor import ImageClip, AudioFileClip
+# except:
+#     import imageio
+#     imageio.plugins.ffmpeg.download()
+#     from moviepy.editor import ImageClip, AudioFileClip
 
 
 def get_filename(filename):
@@ -178,26 +178,27 @@ class Media(models.Model):
                 v.upload_picture(video_uri, temp.name, activate=True)
 
     def transform_audio_to_video(self):
-        if (self.type != self.AUDIO
-            or not self.audio
-            or not self.thumbnail_file):
-            return None
+        # if (self.type != self.AUDIO
+        #     or not self.audio
+        #     or not self.thumbnail_file):
+        #     return None
 
-        audio_split = self.audio.url.split('/')
-        audio_file_name = audio_split[len(audio_split) - 1]
-        audio_name = audio_file_name.split('.')[0]
+        # audio_split = self.audio.url.split('/')
+        # audio_file_name = audio_split[len(audio_split) - 1]
+        # audio_name = audio_file_name.split('.')[0]
 
-        image_clip = ImageClip(self.thumbnail_file.url)
-        audio_clip = AudioFileClip(self.audio.url)
+        # image_clip = ImageClip(self.thumbnail_file.url)
+        # audio_clip = AudioFileClip(self.audio.url)
 
-        clip = image_clip.set_audio(audio_clip)
-        clip = clip.set_duration(audio_clip.duration)
+        # clip = image_clip.set_audio(audio_clip)
+        # clip = clip.set_duration(audio_clip.duration)
 
-        with tempfile.NamedTemporaryFile(suffix='%s.mp4' % audio_name) as temp:
-            clip.write_videofile(temp.name, fps=1)
-            self.video = SimpleUploadedFile('%s.mp4' % audio_name, temp.file.read(), content_type='video/mp4')
-            self.save()
-            self.upload_to_vimeo()
+        # with tempfile.NamedTemporaryFile(suffix='%s.mp4' % audio_name) as temp:
+        #     clip.write_videofile(temp.name, fps=1)
+        #     self.video = SimpleUploadedFile('%s.mp4' % audio_name, temp.file.read(), content_type='video/mp4')
+        #     self.save()
+        #     self.upload_to_vimeo()
+        pass
 
     class Meta:
         abstract = False

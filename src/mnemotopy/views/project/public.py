@@ -11,6 +11,35 @@ from mnemotopy.models import Project, Category, Media
 from mnemotopy.utils.preload import preload_projects_main_image
 
 
+class ProjectIndexView(ListView):
+    template_name = 'mnemotopy/project/index.html'
+    paginate_by = 6
+
+    def get_queryset(self):
+        qs = Project.objects.filter(published=True,
+                                    archived=False).order_by('-ended_at',
+                                                             '-created_at')
+        slugs = self.kwargs.get('slugs', 'all').split('/')
+
+        self.categories = None
+        if 'all' not in slugs:
+            self.categories = Category.objects.filter(slug__in=slugs)
+            for category in self.categories:
+                qs = qs.filter(categories__in=[category])
+
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = self.categories
+
+        projects = preload_projects_main_image(context['project_list'])
+        context['project_list'] = context['object_list'] = list(projects.values())
+        return context
+
+project_index = ProjectIndexView.as_view()
+
+
 class Home(TemplateView):
     template_name = 'mnemotopy/under_construction.html'
 
@@ -28,33 +57,7 @@ class Home(TemplateView):
         return context
 
 
-home = Home.as_view()
-
-
-class ProjectIndexView(ListView):
-    template_name = 'mnemotopy/project/index.html'
-    paginate_by = 6
-
-    def get_queryset(self):
-        qs = Project.objects.filter(published=True,
-                                    archived=False).order_by('-created_at')
-        slugs = self.kwargs['slugs'].split('/')
-        if 'all' not in slugs:
-            self.categories = Category.objects.filter(slug__in=slugs)
-            for category in self.categories:
-                qs = qs.filter(categories__in=[category])
-
-        return qs
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = self.categories
-
-        projects = preload_projects_main_image(context['project_list'])
-        context['project_list'] = context['object_list'] = list(projects.values())
-        return context
-
-project_index = ProjectIndexView.as_view()
+home = ProjectIndexView.as_view()
 
 
 class ProjectDetailView(DetailView):

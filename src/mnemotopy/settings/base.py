@@ -176,8 +176,7 @@ MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
 
 LOGIN_REDIRECT_URL = '/'
 
-
-BROKER_URL = "amqp://mnemotopy:secret@rabbit:5672/mnemotopy"
+BROKER_URL = 'amqp://mnemotopy:secret@localhost:15672/mnemotopy'
 
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_ACCEPT_CONTENT = ['json', 'application/json', 'pickle']
@@ -188,6 +187,7 @@ CELERY_RESULT_BACKEND = 'amqp'
 CELERY_QUEUES = (
     Queue('media', Exchange('media'), routing_key='media'),
 )
+
 CELERY_ROUTES = {
     'mnemotopy_media.tasks.upload_to_vimeo': {
         'queue': 'media'

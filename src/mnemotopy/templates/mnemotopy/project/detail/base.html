@@ -43,22 +43,39 @@
 {% endblock %}
 
 {% block main %}
-        {% if project.title %}
-        <h1 class="project__title">{{ project.title }}</h1>
-    {% endif %}
-
-    {% if project.subtitle %}
-        <h2 class="project__subtitle">
-            {{ project.subtitle }}
-        </h2>
-    {% endif %}
-
     <div class="project__content">
+        {% if project.name %}
+            <h1 class="project__title">{{ project.name|title }}</h1>
+        {% endif %}
+
+        {% if project.subtitle %}
+            <h2 class="project__subtitle">
+                {{ project.subtitle|title }}
+            </h2>
+        {% endif %}
+
+        {% if project.started_at or project.ended_at %}
+            <div class="project__date">
+                {% if project.started_at %}
+                    <span class="project__start">
+                        {{ project.started_at|date:'F Y' }}
+                    </span>
+                {% endif %}
+                {% if project.started_at and project.ended_at %} - {% endif %}
+                {% if project.ended_at %}
+                    <span class="project__end">
+                        {{ project.ended_at|date:'F Y' }}
+                    </span>
+                {% endif %}
+            </div>
+        {% endif %}
+
         <div class="project__information">
             {{ project.description|safe }}
-            {% for tag in project.tags.all %}
-                {{ tag.name }}
-            {% endfor %}
+            <!-- Will be added when all the filters exist -->
+            <!-- {% for tag in project.tags.all %} -->
+            <!--     {{ tag.name }} -->
+            <!-- {% endfor %} -->
         </div>
 
         <div class="galleria">

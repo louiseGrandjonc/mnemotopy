@@ -29,9 +29,13 @@ $category: '.category';
 
         a {
             text-decoration: none;
-            color: #000;
+            color: #313131;
             font-size: 14px;
         }
+    }
+
+    &__project__date {
+        color: #727272;
     }
 
     &__project__image {

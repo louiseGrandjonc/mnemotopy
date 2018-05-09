@@ -11,7 +11,7 @@
 {% block main %}
     <div class="category__content">
         <div class="category__title">
-            <h1>{% for category in categories %}{{ category.name }} {% if not forloop.last %}, {% endif %}{% endfor %}</h1>
+            <h1>{% for category in categories %}{{ category.name|title }} {% if not forloop.last %}, {% endif %}{% endfor %}</h1>
         </div>
 
         <ul class="category__projects infinite-container">
@@ -30,9 +30,18 @@
                             {% endif %}
                         </div>
 
-                        <span class="category__project__description">
-                            {{ project.name }}
-                        </span>
+                        <div class="category__project__description">
+                            {{ project.name|title }}
+                        </div>
+
+                        <div class="category__project__date">
+                            {% if project.ended_at %}
+                                {{ project.ended_at|date:'F Y' }}
+                            {% else %}
+                                {{ project.created_at|date:'F Y' }}
+                            {% endif %}
+                        </div>
+
                     </a>
                 </li>
             {% endfor %}
