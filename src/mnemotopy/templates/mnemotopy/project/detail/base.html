@@ -54,23 +54,21 @@
             </h2>
         {% endif %}
 
-        {% if project.started_at or project.ended_at %}
-            <div class="project__date">
-                {% if project.started_at %}
-                    <span class="project__start">
-                        {{ project.started_at|date:'F Y' }}
-                    </span>
-                {% endif %}
-                {% if project.started_at %} - {% endif %}
-                <span class="project__end">
-                    {% if project.ended_at %}
-                        {{ project.ended_at|date:'F Y' }}
-                    {% else %}
-                        {{ project.created_at|date:'F Y' }}
-                    {% endif %}
+        <div class="project__date">
+            {% if project.started_at %}
+                <span class="project__start">
+                    {{ project.started_at|date:'F Y' }}
                 </span>
-            </div>
-        {% endif %}
+            {% endif %}
+            {% if project.started_at %} - {% endif %}
+            <span class="project__end">
+                {% if project.ended_at %}
+                    {{ project.ended_at|date:'F Y' }}
+                {% else %}
+                    {{ project.created_at|date:'F Y' }}
+                {% endif %}
+            </span>
+        </div>
 
         <div class="project__information">
             {{ project.description|safe }}
