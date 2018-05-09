@@ -61,12 +61,14 @@
                         {{ project.started_at|date:'F Y' }}
                     </span>
                 {% endif %}
-                {% if project.started_at and project.ended_at %} - {% endif %}
-                {% if project.ended_at %}
-                    <span class="project__end">
+                {% if project.started_at %} - {% endif %}
+                <span class="project__end">
+                    {% if project.ended_at %}
                         {{ project.ended_at|date:'F Y' }}
-                    </span>
-                {% endif %}
+                    {% else %}
+                        {{ project.created_at|date:'F Y' }}
+                    {% endif %}
+                </span>
             </div>
         {% endif %}
 
