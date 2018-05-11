@@ -17,7 +17,7 @@
     {% endfor %}
 
     <!-- Open graph -->
-    <meta property="og:title" content="{{ project.title }}" />
+    <meta property="og:title" content="{{ project.name }}" />
     <meta property="og:site_name" content="Stephan Zimmerli" />
     <meta property="og:url" content="{% url 'project_detail' project.slug %}" />
     {% thumbnail medias.0.image "800" as im800 %}

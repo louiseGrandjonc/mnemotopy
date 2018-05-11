@@ -3,14 +3,38 @@
 
 $project: '.project';
 
+#main {
+    color: #313131;
+}
+
 #{$project} {
     &__content {
         margin-bottom: 50px;
+        font-size: 16px;
     }
 
-    &__title, &__subtitle {
+    &__title, &__subtitle, &__date {
         text-align: center;
+        font-size: 16px;
+        margin: 0;
     }
+
+    &__title {
+        margin-top: 30px;
+    }
+
+    &__subtitle {
+        font-weight: normal;
+        margin: 0;
+        color: #545454;
+    }
+
+    &__date {
+         text-align: center;
+         margin-bottom: 30px;
+         font-size: 16px;
+         color: #727272;
+     }
 
     &__information {
         width: 80%;
