@@ -34,6 +34,10 @@ $category: '.category';
         }
     }
 
+    &__project__description {
+        margin-top: 5px;
+    }
+
     &__project__date {
         color: #727272;
     }
@@ -44,19 +48,19 @@ $category: '.category';
         background-size: cover;
         position: relative;
         width: 100%;
-        height: 20em;
+        height: 15em;
     }
 
-    @media (max-width: 1300px) {
+    @media (min-width: 1300px) {
         &__project__media {
-            height: 16em;
+            height: 17em;
         }
 
     }
 
-    @media (max-width: 1024px) {
+    @media (min-width: 1400px) {
         &__project__media {
-            height: 17em;
+            height: 18em;
         }
 
     }
@@ -68,7 +72,7 @@ $category: '.category';
 
     }
 
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
         &__project {
             width: 45%;
         }

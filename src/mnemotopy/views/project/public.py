@@ -17,8 +17,8 @@ class ProjectIndexView(ListView):
 
     def get_queryset(self):
         qs = Project.objects.filter(published=True,
-                                    archived=False).order_by('-ended_at',
-                                                             '-created_at')
+                                    archived=False)
+
         slugs = self.kwargs.get('slugs', 'all').split('/')
 
         self.categories = None
@@ -27,6 +27,7 @@ class ProjectIndexView(ListView):
             for category in self.categories:
                 qs = qs.filter(categories__in=[category])
 
+        qs = qs.extra(select={"end_date":"COALESCE(ended_at, created_at)"}, order_by=["-end_date"])
         return qs
 
     def get_context_data(self, **kwargs):
@@ -34,7 +35,7 @@ class ProjectIndexView(ListView):
         context['categories'] = self.categories
 
         projects = preload_projects_main_image(context['project_list'])
-        context['project_list'] = context['object_list'] = list(projects.values())
+        context['project_list'] = context['object_list'] = projects
         return context
 
 project_index = ProjectIndexView.as_view()

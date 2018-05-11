@@ -36,11 +36,7 @@
                         </div>
 
                         <div class="category__project__date">
-                            {% if project.ended_at %}
-                                {{ project.ended_at|date:'F Y' }}
-                            {% else %}
-                                {{ project.created_at|date:'F Y' }}
-                            {% endif %}
+                            {{ project.end_date|date:'F Y' }}
                         </div>
 
                     </a>
