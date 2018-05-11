@@ -18,17 +18,18 @@
             {% for project in object_list %}
                 <li class="category__project infinite-item">
                     <a class="category__project__link" href="{% url 'project_detail' project.slug %}">
-                        <div class="category__project__media">
-                            {% if project.main_media and project.main_media.image %}
-                                {% thumbnail project.main_media.image "800" as im %}
-                                <img class="category__project__image" src="{{ im.url }}">
+
+                        {% if project.main_media and project.main_media.image %}
+                            {% thumbnail project.main_media.image "800" as im %}
+                            <div class="category__project__media" style="background-image:url('{{ im.url }}?upscale=1')">
+                            </div>
                             {% endthumbnail %}
-                            {% elif project.main_media and project.main_media.thumbnail_file %}
+                        {% elif project.main_media and project.main_media.thumbnail_file %}
                             {% thumbnail project.main_media.thumbnail_file "800" as im %}
-                            <img class="category__project__image" src="{{ im.url }}">
+                            <div class="category__project__media" style="background-image:url('{{ im.url }}?upscale=1')">
+                            </div>
                             {% endthumbnail %}
-                            {% endif %}
-                        </div>
+                        {% endif %}
 
                         <div class="category__project__description">
                             {{ project.name|title }}
