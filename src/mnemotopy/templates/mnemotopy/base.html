@@ -53,9 +53,7 @@
 
                     <div class="nav-home header-nav__item">
                         <a class="header-nav__link" href="{% url 'home' %}" data-tooltip="{% trans 'Return to website home' %}">
-                            <span class="header-nav__title">S.E.</span>
-                            <img class="header-nav__logo" src="{% static 'img/logo.png' %}">
-                            <span class="header-nav__title">ZIMMERLI</span>
+                            <span class="header-nav__title">Stephan ZIMMERLI</span>
                         </a>
                     </div>
 
@@ -105,10 +103,6 @@
 
     {% block main_footer %}
         <footer class="footer-nav">
-            <div class="footer-nav__logo">
-                <img {% block footer_logo_img %}class="img-border" src="{% static 'img/logo_footer.png' %}"{% endblock %}>
-            </div>
-
             <div class="footer-nav__links">
                 <div class="footer-nav__link">
                     <a href="{% url 'about' %}">{% trans "About me" %}</a>
@@ -117,14 +111,14 @@
                 <!-- <div class="footer-nav__link"> -->
                 <!--     <a href="{% url 'contact' %}">{% trans "Contact" %}</a> -->
                 <!-- </div> -->
-                -
-                <div class="footer-nav__link">
-                    <a href="https://www.instagram.com/zimmoriarty/">{% trans "Instagram" %}</a>
-                </div>
-                -
-                <div class="footer-nav__link">
-                    <a href="https://twitter.com/MoriartyTheBand">{% trans "Twitter" %}</a>
-                </div>
+                
+                <!-- <div class="footer-nav__link"> -->
+                <!--     <a href="https://www.instagram.com/zimmoriarty/">{% trans "Instagram" %}</a> -->
+                <!-- </div> -->
+                <!-- - -->
+                <!-- <div class="footer-nav__link"> -->
+                <!--     <a href="https://twitter.com/MoriartyTheBand">{% trans "Twitter" %}</a> -->
+                <!-- </div> -->
 
 
             </div>
