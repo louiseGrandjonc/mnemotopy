@@ -49,9 +49,10 @@ $nav: '.header-nav';
     }
 
     .nav-home {
+        width: 80%;
+        max-width: 1300px;
+        margin-left: auto;
         display: inline-block;
-        text-align: center;
-        font-weight: 700;
         font-style: normal;
         font-size: 18px;
         letter-spacing: 0.2px;
@@ -59,7 +60,6 @@ $nav: '.header-nav';
 
         a:link {
             text-decoration: none;
-            display:inline-block;
         }
         a:visited {
             text-decoration: none;
@@ -87,13 +87,13 @@ $nav: '.header-nav';
     }
 
     &__link {
-        text-align: center;
+        text-align: left;
+        margin-left: 0px;
         height: 100%;
         width: auto;
         display: block;
         position: relative;
         padding: 0 2em;
-        margin-left: -1px;
         line-height: 40px;
     }
 
