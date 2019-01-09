@@ -1,1 +1,1 @@
-web: gunicorn mnemotopy:app --log-file -
+web: gunicorn www:application --log-file -
