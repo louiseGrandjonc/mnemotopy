@@ -37,8 +37,8 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
- os.path.join(BASE_DIR, ‘static’),)
-STATIC_ROOT = os.path.join(BASE_DIR, ‘staticfiles’)
+ os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
