@@ -15,6 +15,20 @@ INSTALLED_APPS += (
 
 ALLOWED_HOSTS = ['*']
 
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
+    'mnemotopy.middleware.locale.CustomLocaleMiddleware',
+]
+
 AWS_STORAGE_BUCKET_NAME = 'mnemotopy-files'
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
@@ -26,7 +40,7 @@ STATICFILES_DIRS = (
  os.path.join(BASE_DIR, ‘static’),)
 STATIC_ROOT = os.path.join(BASE_DIR, ‘staticfiles’)
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIAFILES_LOCATION = 'media'
