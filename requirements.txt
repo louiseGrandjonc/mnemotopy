@@ -1,6 +1,6 @@
-Django==1.11
+Django==1.11.7
 Pillow==4.0.0
-psycopg2==2.7
+psycopg2==2.7.4
 django-countries==4.1
 six==1.10.0
 django-separatedvaluesfield==0.4.0
