@@ -7,7 +7,20 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 import dj_database_url
 
-DATABASES = {'default': dj_database_url.config()}
+# Developpment database.
+DATABASES = {
+    'default':{
+        'ENGINE':'django.db.backends.postgresql_psycopg2',
+        'NAME':'mnemotopy',
+        'USER':'mnemotopy',
+        'PASSWORD':'postgres',
+        'HOST':'localhost',
+        'PORT':'',
+    },
+}
+
+# Heroku database
+DATABASES['default'] = dj_database_url.config()
 
 INSTALLED_APPS += (
     'gunicorn',
