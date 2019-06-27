@@ -18,6 +18,7 @@ html, body {
     padding-top: 65px;
     min-height: 100%;
     margin: 0 auto -190px; /* the bottom margin is the negative value of the footer's height */
+    position: relative;
 }
 
 main {

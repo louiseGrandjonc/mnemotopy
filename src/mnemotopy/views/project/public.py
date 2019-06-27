@@ -34,8 +34,9 @@ class ProjectIndexView(ListView):
         context = super().get_context_data(**kwargs)
         context['categories'] = self.categories
 
-        projects = preload_projects_main_image(context['project_list'])
-        context['project_list'] = context['object_list'] = projects
+        if context['project_list']:
+            projects = preload_projects_main_image(context['project_list'])
+            context['project_list'] = context['object_list'] = projects
         return context
 
 project_index = ProjectIndexView.as_view()
