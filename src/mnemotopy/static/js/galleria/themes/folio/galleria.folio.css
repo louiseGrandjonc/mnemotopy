@@ -1,40 +1,68 @@
-/* Galleria Folio Theme 2012-08-07 | http://galleria.io/license/ | (c) Aino */
+/**
+ * Galleria Folio Theme - v1.5.0 2017-06-03
+ * https://galleria.io
+ *
+ * Copyright (c) 2010 - 2017 worse is better UG
+ * LICENSE: 71a514e1966385db30b85bf5ab4a0031
+ * https://galleria.io/license/
+ *
+ */
 
 #galleria-loader{height:1px!important}
 
-.galleria-container {
+.galleria-theme-folio {
     position:relative;
     font-family:arial,sans-serif;
-    background:#fff;
+    min-height: 18px;
 }
-.galleria-container img {
+.galleria-theme-folio img {
     -moz-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
 }
-.galleria-stage {
-    width:100%;
-    height:100%;
+.galleria-theme-folio .galleria-stage {
     background:#000;
-    top:0;
-    left:-10000px;
+    top:0; bottom:0; left:0; right:0;
+    visibility: hidden;
     position: absolute;
+    overflow: hidden;
 }
 
-.galleria-thumbnails .galleria-image {
+.galleria-theme-folio .galleria-thumbnails {
+  -webkit-transition: left 200ms ease-out;
+  transition: left 200ms ease-out;
+}
+
+.galleria-theme-folio .galleria-thumbnails-container {
+  position:absolute;
+  left:0;
+  right:0;
+  top:0;
+}
+
+.galleria-theme-folio .galleria-thumbnails-list {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.galleria-theme-folio .galleria-thumbnails .galleria-image {
     width: 190px;
     height: 120px;
     margin: 0 10px 10px 0;
     position:absolute!important;
     top:0;
     left:0;
-    cursor: pointer; /* opera */
-    cursor: url(cursor-zoom.png), -moz-zoom-in; /* chrome, FF */
-    cursor: pointer\9; /* IE */
+    cursor: pointer; /* IE */
+    cursor: url(cursor-zoom.png) 9 9, pointer; /* Opera, Chrome, FF plus fallback */
     background:#eee url(miniloader.gif) no-repeat 50% 50%;
 }
 
-.galleria-loader {
+.galleria-theme-folio.dark .galleria-thumbnails .galleria-image {
+    background:#222 url(miniloader-neg.gif) no-repeat 50% 50%;
+}
+
+.galleria-theme-folio .galleria-loader {
     width:64px;
     height:64px;
     display:none;
@@ -52,7 +80,7 @@
     -webkit-border-radius: 5px;
 }
 
-.galleria-info {
+.galleria-theme-folio .galleria-info {
     display:none;
     background:#000;
     color:#fff;
@@ -64,21 +92,22 @@
     font-size:12px;
     line-height:16px;
     max-width:50%;
+    -webkit-transition: all 100ms;
 }
 
-.galleria-info-text {
+.galleria-theme-folio .galleria-info-text {
     padding: 0 12px;
 }
 
-.galleria-info-description {
+.galleria-theme-folio .galleria-info-description {
     color:#bbb;
 }
 
-:root *> .galleria-info-description {
+:root *> .galleria-theme-folio .galleria-info-description {
     color:rgba(255,255,255,0.6);
 }
 
-.galleria-plus {
+.galleria-theme-folio .galleria-plus {
     position:absolute;
     top:0;
     left:0;
@@ -90,7 +119,7 @@
     font-size:11px;
     display:none;
 }
-.galleria-plus span {
+.galleria-theme-folio .galleria-plus span {
     position:absolute;
     bottom:5px;
     left:5px;
@@ -100,7 +129,7 @@
     max-width:160px;
 }
 
-.galleria-close{
+.galleria-theme-folio .galleria-close {
     width:50px;
     height:50px;
     position:absolute;
@@ -111,20 +140,24 @@
     cursor:pointer;
 }
 
-.galleria-close:hover{
+.galleria-theme-folio .galleria-close:hover{
     background-position:0 -50px;
 }
 
-.galleria-image-nav {
-    height:100%;
+.galleria-theme-folio .galleria-image-nav {
     width:100%;
+    height:auto;
     position:absolute;
-    top:0;
+    top:80px;
+    bottom:80px;
     left:0;
 }
-.galleria-image-nav-left,
-.galleria-image-nav-right {
-    width:50%;
+.galleria-theme-folio.touch .galleria-image-nav {
+    display: none;
+}
+.galleria-theme-folio .galleria-image-nav-left,
+.galleria-theme-folio .galleria-image-nav-right {
+    width:100px;
     height:100%;
     background:url(left.png) no-repeat 0 50%;
     position:absolute;
@@ -132,32 +165,30 @@
     z-index:3;
     cursor:pointer;
 }
-.galleria-image-nav-right {
+.galleria-theme-folio .galleria-image-nav-right {
     left:auto;
     right:0;
     background:url(right.png) no-repeat 100% 50%;
 }
 
-.galleria-image-nav-left:hover{background-image:url(left-hover.png);}
-.galleria-image-nav-right:hover{background-image:url(right-hover.png);}
+.galleria-theme-folio .galleria-image-nav-left:hover{background-image:url(left-hover.png);}
+.galleria-theme-folio .galleria-image-nav-right:hover{background-image:url(right-hover.png);}
 
-.galleria-image-nav-left.cur{cursor:url(left-cursor.png),pointer;background:none!important}
-.galleria-image-nav-right.cur{cursor:url(right-cursor.png),pointer;background:none!important}
+.galleria-theme-folio .galleria-image-nav-left.cur{cursor:url(left-cursor.png),pointer;background:none!important}
+.galleria-theme-folio .galleria-image-nav-right.cur{cursor:url(right-cursor.png),pointer;background:none!important}
 
-.galleria-container.iframe .galleria-image-nav{height:100px;top:50%;margin-top:-50px}
+.galleria-theme-folio.videoplay .galleria-info { display:none!important; }
 
-.galleria-container.iframe.touch .galleria-images iframe{margin-top:40px}
-.galleria-container.iframe.touch .galleria-info{bottom:40px}
+.galleria-theme-folio.iframe .galleria-image-nav-left,
+.galleria-theme-folio.iframe .galleria-image-nav-left.cur{cursor:pointer;background:url(left.png) no-repeat 0 50%!important;width:100px;}
+.galleria-theme-folio.iframe .galleria-image-nav-right,
+.galleria-theme-folio.iframe .galleria-image-nav-right.cur{cursor:pointer;background:url(right.png) no-repeat 100% 50%!important;width:100px}
 
-.galleria-container.iframe .galleria-image-nav-left,
-.galleria-container.iframe .galleria-image-nav-left.cur{cursor:pointer;background:url(left.png) no-repeat 0 50%!important;width:100px;}
-.galleria-container.iframe .galleria-image-nav-right,
-.galleria-container.iframe .galleria-image-nav-right.cur{cursor:pointer;background:url(right.png) no-repeat 100% 50%!important;width:100px}
+.galleria-theme-folio.iframe .galleria-image-nav-left:hover,
+.galleria-theme-folio.iframe .galleria-image-nav-left.cur:hover{background-image:url(left-hover.png)!important;}
+.galleria-theme-folio.iframe .galleria-image-nav-right:hover,
+.galleria-theme-folio.iframe .galleria-image-nav-right.cur:hover{background-image:url(right-hover.png)!important;}
 
-.galleria-container.iframe .galleria-image-nav-left:hover,
-.galleria-container.iframe .galleria-image-nav-left.cur:hover{background-image:url(left-hover.png)!important;}
-.galleria-container.iframe .galleria-image-nav-right:hover,
-.galleria-container.iframe .galleria-image-nav-right.cur:hover{background-image:url(right-hover.png)!important;}
-
-.galleria-preloader{height:4px;width:180px;background:#eee;position:absolute;top:0;}
-.galleria-loaded{height:4px;width:0%;background:#444;}
+.galleria-theme-folio .galleria-preloader{height:4px;width:180px;background:#eee;background:rgba(255,255,255,.1);position:absolute;top:0;}
+.galleria-theme-folio.center .galleria-preloader{left:50%;margin-left:-90px;}
+.galleria-theme-folio .galleria-loaded{height:4px;width:0%;background:#444;background:rgba(0,0,0,.8);}

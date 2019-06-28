@@ -125,7 +125,7 @@ var doc    = window.document,
                 return PROT + '//www.youtube.com/embed/' + this.id;
             },
             get_thumb: function( data ) {
-                return PROT + '//img.youtube.com/vi/'+this.id+'/default.jpg';
+                return PROT + '//img.youtube.com/vi/'+this.id+'/hqdefault.jpg';
             },
             get_image: function( data ) {
                 return PROT + '//img.youtube.com/vi/'+this.id+'/hqdefault.jpg';            }
@@ -139,7 +139,7 @@ var doc    = window.document,
                 return PROT + '//vimeo.com/api/v2/video/' + this.id + '.json?callback=?';
             },
             get_thumb: function( data ) {
-                return data[0].thumbnail_medium;
+                return data[0].thumbnail_large;
             },
             get_image: function( data ) {
                 return data[0].thumbnail_large;
@@ -154,7 +154,7 @@ var doc    = window.document,
                 return 'https://api.dailymotion.com/video/' + this.id + '?fields=thumbnail_240_url,thumbnail_720_url&callback=?';
             },
             get_thumb: function( data ) {
-                return data.thumbnail_240_url;
+                return data.thumbnail_720_url;
             },
             get_image: function( data ) {
                 return data.thumbnail_720_url;
@@ -2001,6 +2001,7 @@ Galleria = function() {
 
                 }, 50);
                 self.trigger( Galleria.FULLSCREEN_EXIT );
+                $('.galleria').trigger('closed');
             });
 
             $win.off('resize', fullscreen.scale);
