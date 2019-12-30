@@ -71,7 +71,7 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'mnemotopy.storages.MediaStorage'
 
 
-DEBUG = False
+DEBUG = True
 
 
 EMAIL_TO = [os.environ.get('stephan.zimmerli@gmail.com')]
