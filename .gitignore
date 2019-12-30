@@ -40,5 +40,4 @@ src/mnemotopy/settings/prod.py
 src/mnemotopy/settings/local_prod.py
 static/*
 src/static/*
-src/mnemotopy/static/css/galleria/*
-src/mnemotopy/static/js/galleria/*
+src/mnemotopy/static/*

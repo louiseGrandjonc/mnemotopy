@@ -16,7 +16,7 @@ celery==3.1.25
 moviepy==0.2.3.2
 numpy==1.13.3
 sorl-thumbnail==12.4.1
-PyYAML==3.12
+PyYAML>=4.2b1
 ua-parser==0.7.3
 user-agents==1.1.0
 django-user-agents==0.3.2
