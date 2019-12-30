@@ -15,7 +15,7 @@ django-pure-pagination==0.3.0
 django-sluggable==0.7.0
 django-storages==1.8
 django-user-agents==0.4.0
--e git+git@github.com:ulule/django-separatedvaluesfield.git@750d212817b8320f8030d95a225deec88a9b4f84#egg=django-separatedvaluesfield
+-e git://github.com/ulule/django-separatedvaluesfield.git@750d212817b8320f8030d95a225deec88a9b4f84#egg=django-separatedvaluesfield
 gunicorn==20.0.4
 idna==2.8
 -e git://github.com/louiseGrandjonc/imageio.git#egg=imageio
