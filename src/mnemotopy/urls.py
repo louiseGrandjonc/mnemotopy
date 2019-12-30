@@ -3,17 +3,23 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+
 
 from mnemotopy.views.project import edit, public
-from mnemotopy.views.login import login, logout
+from mnemotopy.views.login import logout
 from mnemotopy.views.about import about, contact
+from mnemotopy.forms import AuthenticationForm
+
+
 
 
 # languages = '|'.join(dict(settings.LANGUAGES).keys())
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', login),
+    url(r'^login/$', auth_views.LoginView.as_view(template_name='mnemotopy/login.html',
+                                                  authentication_form=AuthenticationForm)),
     url(r'^logout/$', logout,
         name='logout'),
     url(r'^i18n/', include('django.conf.urls.i18n')),

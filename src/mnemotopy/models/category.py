@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone as datetime
-from django.utils.six import with_metaclass
 
 
 class Category(models.Model):

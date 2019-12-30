@@ -29,3 +29,5 @@ DATABASES = {
         'PORT': '5432',
     }
 }
+
+SECRET_KEY = 'abc'

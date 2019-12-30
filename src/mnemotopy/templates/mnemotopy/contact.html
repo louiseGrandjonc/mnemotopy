@@ -1,22 +1,61 @@
 {% extends "mnemotopy/base.html" %}
 {% load i18n %}
-{% load static from staticfiles %}
+{% load static %}
 
 {% block extend_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
 {% endblock %}
 
 {% load mnemotopy_tags %}
 
+{% block meta %}
+    <meta name="description" content="{% trans 'About Stephan Zimmerli' %}">
+
+    {% for code, label in LANGUAGES %}
+        {% language code %}
+        <link rel="alternate" href="{% url 'contact' %}" hreflang="{{ code }}"/>
+        {% endlanguage %}
+    {% endfor %}
+
+    <!-- Open graph -->
+    <meta property="og:title" content="{% trans 'Contact Stephan Zimmerli' %}" />
+    <meta property="og:site_name" content="Stephan Zimmerli" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{% url 'contact' %}" />
+    <meta property="og:image" content="{% static 'img/logo.png' %}" />
+    <meta content="{% trans 'Contact form to send email to Stephan Zimmerli.' %}" property='og:description' />
+
+    <!-- Twitter -->
+    <meta property="twitter:title" content="{% trans 'Contact Stephan Zimmerli' %}" />
+    <meta content="summary" property='twitter:card' />
+    <meta content="{% trans 'Contact Zim, architect and theater stage designer.' %}" property='twitter:description' />
+
+{% endblock %}
+
+{% block title %}
+    {% trans 'Contact Stephan Zimmerli' %}
+{% endblock %}
+
 {% block language_link %}{% url 'contact' %}{% endblock %}
 
 {% block main %}
-    <div class="about-content">
-        <div class="about-content__photo">
-        </div>
-        <div class="about-content__description">
-        </div>
+  {% if messages %}
+    <div class="messages">
+      {% for message in messages %}
+      <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+      {% endfor %}
     </div>
+  {% endif %}
+
+  <div class='contact'>
+    <form class="contact__form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions">
+        <button type="submit">Send</button>
+      </div>
+    </form>
+  </div>
 
 {% endblock %}

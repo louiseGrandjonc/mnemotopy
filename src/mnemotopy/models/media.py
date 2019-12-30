@@ -98,11 +98,12 @@ class Media(models.Model):
     )
     type = models.IntegerField(choices=TYPE_CHOICES)
     title = models.CharField(max_length=255, null=True, blank=True)
-    project = models.ForeignKey(Project, null=True, related_name='medias')
+    project = models.ForeignKey(Project, null=True, related_name='medias',
+                                on_delete=models.SET_NULL)
     created_at = models.DateTimeField(default=datetime.now)
     realized_at = models.DateTimeField(null=True)
     country = CountryField(null=True)
-    city = models.ForeignKey(City, null=True)
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     position = models.PositiveIntegerField(null=True)
 
     image = models.ImageField(upload_to=get_image_path,

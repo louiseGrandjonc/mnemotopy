@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone as datetime
-from django.utils.six import with_metaclass
 from django.utils.translation import ugettext_lazy as _
 
 from django_countries.fields import CountryField
@@ -23,13 +22,13 @@ class Project(models.Model):
     started_at = models.DateTimeField(null=True, verbose_name=_('Beginning of this project'))
     ended_at = models.DateTimeField(null=True, verbose_name=_('Ending of this project'))
     country = CountryField(null=True)
-    city = models.ForeignKey(City, null=True)
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     categories = models.ManyToManyField(Category)
     tags = models.ManyToManyField(Tag)
     archived = models.BooleanField(default=False)
     position = models.PositiveIntegerField(null=True)
     published = models.BooleanField(default=False)
-    user = models.ForeignKey(User, null=True)
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def save(self, *args, **kwargs):
         if not self.slug:
