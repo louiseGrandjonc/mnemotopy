@@ -10,6 +10,6 @@
             $('#id_language').val(lang);
             form.submit();
         });
-
     });
+
 })()

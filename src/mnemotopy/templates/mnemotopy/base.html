@@ -53,7 +53,13 @@
             <header class="header-site">
                 <nav class="header-nav">
 
-                    <div class="nav-home header-nav__item ">
+                  <div class="header-nav__item header-nav__mobile">
+                    <a href="javascript:void(0);" class="icon header-nav__link" onclick="toggleMobileMenu()">
+                      <i class="fa fa-bars"></i>
+                    </a>
+                  </div>
+
+                  <div class="nav-home header-nav__item" id="header-links">
                         <a class="header-nav__link header-nav__link-first" href="{% url 'home' %}" data-tooltip="{% trans 'Return to website home' %}">
                             <span class="header-nav__link">Stephan Zimmerli</span>
                         </a>
@@ -111,6 +117,17 @@
             </main>
 
         </div>
+
+        <script>
+          function toggleMobileMenu() {
+            var x = document.getElementById("header-links");
+            if (x.style.display === "block") {
+              x.style.display = "none";
+            } else {
+              x.style.display = "block";
+            }
+          }
+        </script>
         {% block extend_js %}
         {% endblock %}
 
