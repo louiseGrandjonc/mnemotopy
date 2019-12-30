@@ -83,7 +83,6 @@ $nav: '.header-nav';
     &__title {
         display: inline-block;
         position: relative;
-        color: #313131;
     }
 
     &__link {
@@ -91,10 +90,20 @@ $nav: '.header-nav';
         margin-left: 0px;
         height: 100%;
         width: auto;
-        display: block;
         position: relative;
-        padding: 0 2em;
         line-height: 40px;
+        float: left;
+        color: #313131;
+    }
+
+    &__link-first {
+        padding: 0 2em;
+    }
+
+    &__link-next {
+        margin-right: 2em;
+        color: #313131;
+        font-size: 15px;
     }
 
     &__logo {

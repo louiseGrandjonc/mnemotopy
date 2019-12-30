@@ -71,4 +71,13 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'mnemotopy.storages.MediaStorage'
 
 
-DEBUG = True
+DEBUG = False
+
+
+EMAIL_TO = [os.environ.get('stephan.zimmerli@gmail.com')]
+SENDGRID_API_KEY = os.environ.get('SENGRID_API_KEY')
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
