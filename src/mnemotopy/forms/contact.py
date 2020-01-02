@@ -4,7 +4,7 @@ from django import forms
 
 
 class ContactForm(forms.Form):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, label='Your email address')
     subject = forms.CharField(required=False)
     message = forms.CharField(widget=forms.Textarea, required=True)
 

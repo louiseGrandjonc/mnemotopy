@@ -49,6 +49,12 @@
   {% endif %}
 
   <div class='contact'>
+
+    <div class='contact__form'>
+      {% blocktrans %}
+      For all inquiries, demands, questions, proposals or other serendipities, contact me here:
+      {% endblocktrans %}
+    </div>
     <form class="contact__form" method="post">
       {% csrf_token %}
       {{ form.as_p }}
