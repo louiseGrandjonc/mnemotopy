@@ -74,7 +74,7 @@ DEFAULT_FILE_STORAGE = 'mnemotopy.storages.MediaStorage'
 DEBUG = True
 
 
-EMAIL_TO = [os.environ.get('stephan.zimmerli@gmail.com')]
+EMAIL_TO = [os.environ.get('EMAIL_TO'),]
 SENDGRID_API_KEY = os.environ.get('SENGRID_API_KEY')
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = 'apikey'
