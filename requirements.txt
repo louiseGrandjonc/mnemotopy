@@ -31,7 +31,7 @@ psycopg2==2.8.4
 pycurl==7.43.0
 pytz==2019.3
 PyVimeo==1.0.11
-PyYAML==5.3b1
+PyYAML==5.4
 raven==6.10.0
 requests==2.22.0
 six==1.13.0
